@@ -4,6 +4,6 @@
 - [📜 Charter](./CHARTER.md)
 - [🔬 Evaluation](./evaluation.md)
 - [📚 Explainer](./explainer.md)
-- [✨ RFC](./RFC.md)
+- [✨ RFCs](./RFC.md)
 - [💬 Design discussions](./design-discussions/README.md)
 - [😕 FAQ](./FAQ.md)

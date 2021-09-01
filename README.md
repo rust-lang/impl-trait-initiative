@@ -1,54 +1,36 @@
-# {{INITIATIVE_NAME}} initiative
-<!--
-
- This is the template for creating an initiative in rust-lang. Be sure to go
- through all sections marked with `**FIX ME**`, and make sure that the text is
- correct, and feel free to replace/remove any part that's not relevant to
- your group.
-
- Steps to customize:
-
- * Edit CHARTER.md
- * Replace placeholder text (see below)
- * Remove references to "expermental" and "evaluation" unless you need them
- 
-  All of the text across all of the initial files uses the same group of
- variables to allow for easy search and replace. They are listed below.
-
- Example sed command: `sed -i '' 's/{{INITIATIVE_NAME}}/Inline ASM/g' ./**/*.md`
- *Note* the `-i ''` is important as it is required on some platforms e.g. macOS
-
- * {{INITIATIVE_NAME}} -> The display name of your group e.g. "Inline ASM".
- * {{INITIATIVE_SLUG}} -> The url slug name of your group used for
-   `rust-lang/team` and repo name. e.g. "pg-inline-asm".
- * {{CHAT_PLATFORM}} -> The name of your chat app e.g. "Zulip".
- * {{CHAT_LINK}} -> The hyperlink to your discussions on the chat app
-   e.g. "https://rust-lang.zulipchat.com/#narrow/stream/216763-project-inline-asm".
--->
+# Impl trait initiative
 
 ![initiative status: active](https://img.shields.io/badge/status-active-brightgreen.svg)
 
 ## What is this?
 
-This page tracks the work of the {{INITIATIVE_NAME}} [initiative]! To learn more about what we are trying to do, and to find out the people who are doing it, take a look at the [charter]. 
+This page tracks the work of the Impl trait [initiative]! To learn more about what we are trying to do, and to find out the people who are doing it, take a look at the [charter]. 
 
 [charter]: ./CHARTER.md
 [initiative]: https://lang-team.rust-lang.org/initiatives.html
 
 ## Current status
 
-The following table lists of the stages of an initiative, along with links to the artifacts that will be produced during that stage.
+This is an **umbrella initiative** and, as such, it covers a number of subprojects.
 
-| Stage                                 | State | Artifact(s) |
-| ------------------------------------- | ----- | ----------- |
-| [Proposal]                            | ✅    | [Proposal issue](https://github.com/rust-lang/lang-team/) |
-|                                       |       | [Charter](./CHARTER.md) |
-|                                       |       | [Tracking issue](https://github.com/rust-lang/rust/) |
-| [Experimental]                        | 🦀    | [Evaluation](./evaluation.md) |
-|                                       |       | [RFC](./RFC.md) |
-| [Development]                         | 💤    | [Explainer](./explainer.md) | 
-| [Feature complete]                    | 💤    | Stabilization report |
-| [Stabilized]                          | 💤    | |
+| Subproject                               | Issue    | Progress | State | [Stage]        |
+|------------------------------------------|----------|----------|-------|----------------|
+| `impl Trait` in fns and inherent methods | #123     | ▰▰▰▰▰▰   | ✅     | [Stabilized]   |
+| type alias impl trait                    | [#63063] | ▰▰▰▰▱▱   | 🦀    | [Development]  |
+| impl trait in traits, impls              | #123     | ▰▰▱▱▱▱   | 🦀    | [Experimental] |
+| impl trait in bindings                   | [#63065] | ▰▰▰▱▱▱   | 💤    | [Development]  |
+| impl trait with multiple types           |          | ▰▱▱▱▱▱   | 💤    | [Experimental] |
+| existential lifetimes                    |          | ▰▱▱▱▱▱   | 💤    | [Experimental] |
+
+[#63063]: https://github.com/rust-lang/rust/issues/63063
+[#63065]: https://github.com/rust-lang/rust/issues/63065
+[stage]: https://lang-team.rust-lang.org/initiatives/process/stages.html
+
+Key:
+
+* ✅ -- project complete
+* 🦀 -- project in progress
+* 💤 -- project not under active development
 
 [Proposal]: https://lang-team.rust-lang.org/initiatives/process/stages/proposal.html
 [Experimental]: https://lang-team.rust-lang.org/initiatives/process/stages/proposal.html
@@ -56,11 +38,7 @@ The following table lists of the stages of an initiative, along with links to th
 [Feature complete]: https://lang-team.rust-lang.org/initiatives/process/stages/feature-complete.html
 [Stabilized]: https://lang-team.rust-lang.org/initiatives/process/stages/stabilized.html
 
-Key:
 
-* ✅ -- phase complete
-* 🦀 -- phase in progress
-* 💤 -- phase not started yet
 
 ## How Can I Get Involved?
 
@@ -71,11 +49,11 @@ Key:
 * If you are using the feature and would like to provide feedback about your experiences, please [open a "experience report" issue].
 * If you are using the feature and would like to report a bug, please open a regular issue.
 
-We also participate on [{{CHAT_PLATFORM}}][chat-link], feel free to introduce yourself over there and ask us any questions you have.
+We also participate on [Zulip][chat-link], feel free to introduce yourself over there and ask us any questions you have.
 
 [open issues]: /issues
-[chat-link]: {{CHAT_LINK}}
-[team-toml]: https://github.com/rust-lang/team/blob/master/teams/initiative-{{INITIATIVE_SLUG}}.toml
+[chat-link]: https://rust-lang.zulipchat.com/#narrow/stream/144729-wg-traits
+[team-toml]: https://github.com/rust-lang/team/blob/master/teams/initiative-impl-trait.toml
 
 ## Building Documentation
 This repository is also an mdbook project. You can view and build it using the

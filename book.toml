@@ -1,13 +1,13 @@
 [book]
-authors = ["{{INITIATIVE_NAME}} Members"]
+authors = ["Impl trait Members"]
 language = "en"
 multilingual = false
 src = "."
-title = "{{INITIATIVE_NAME}} initiative"
+title = "Impl trait initiative"
 
 [output.html]
 no-section-label=true
-git-repository-url="https://github.com/rust-lang/{{INITIATIVE_SLUG}}"
+git-repository-url="https://github.com/rust-lang/impl-trait"
 
 [output.html.fold]
 enable = true
