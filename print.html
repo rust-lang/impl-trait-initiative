@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>{{INITIATIVE_NAME}} initiative</title>
+        <title>Impl trait initiative</title>
                 <meta name="robots" content="noindex" />
                 
 
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a></li><li class="chapter-item "><a href="RFC.html">✨ RFC</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -112,13 +112,13 @@
                         </button>
                                             </div>
 
-                    <h1 class="menu-title">{{INITIATIVE_NAME}} initiative</h1>
+                    <h1 class="menu-title">Impl trait initiative</h1>
 
                     <div class="right-buttons">
                                                 <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                                                                        <a href="https://github.com/rust-lang/{{INITIATIVE_SLUG}}" title="Git repository" aria-label="Git repository">
+                                                                        <a href="https://github.com/rust-lang/impl-trait" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                                                 
@@ -147,53 +147,25 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="initiative_name-initiative"><a class="header" href="#initiative_name-initiative">{{INITIATIVE_NAME}} initiative</a></h1>
-<!--
-
- This is the template for creating an initiative in rust-lang. Be sure to go
- through all sections marked with `**FIX ME**`, and make sure that the text is
- correct, and feel free to replace/remove any part that's not relevant to
- your group.
-
- Steps to customize:
-
- * Edit CHARTER.md
- * Replace placeholder text (see below)
- * Remove references to "expermental" and "evaluation" unless you need them
- 
-  All of the text across all of the initial files uses the same group of
- variables to allow for easy search and replace. They are listed below.
-
- Example sed command: `sed -i '' 's/{{INITIATIVE_NAME}}/Inline ASM/g' ./**/*.md`
- *Note* the `-i ''` is important as it is required on some platforms e.g. macOS
-
- * {{INITIATIVE_NAME}} -> The display name of your group e.g. "Inline ASM".
- * {{INITIATIVE_SLUG}} -> The url slug name of your group used for
-   `rust-lang/team` and repo name. e.g. "pg-inline-asm".
- * {{CHAT_PLATFORM}} -> The name of your chat app e.g. "Zulip".
- * {{CHAT_LINK}} -> The hyperlink to your discussions on the chat app
-   e.g. "https://rust-lang.zulipchat.com/#narrow/stream/216763-project-inline-asm".
--->
+                        <h1 id="impl-trait-initiative"><a class="header" href="#impl-trait-initiative">Impl trait initiative</a></h1>
 <p><img src="https://img.shields.io/badge/status-active-brightgreen.svg" alt="initiative status: active" /></p>
 <h2 id="what-is-this"><a class="header" href="#what-is-this">What is this?</a></h2>
-<p>This page tracks the work of the {{INITIATIVE_NAME}} <a href="https://lang-team.rust-lang.org/initiatives.html">initiative</a>! To learn more about what we are trying to do, and to find out the people who are doing it, take a look at the <a href="./CHARTER.html">charter</a>. </p>
+<p>This page tracks the work of the Impl trait <a href="https://lang-team.rust-lang.org/initiatives.html">initiative</a>! To learn more about what we are trying to do, and to find out the people who are doing it, take a look at the <a href="./CHARTER.html">charter</a>. </p>
 <h2 id="current-status"><a class="header" href="#current-status">Current status</a></h2>
-<p>The following table lists of the stages of an initiative, along with links to the artifacts that will be produced during that stage.</p>
-<table><thead><tr><th>Stage</th><th>State</th><th>Artifact(s)</th></tr></thead><tbody>
-<tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/proposal.html">Proposal</a></td><td>✅</td><td><a href="https://github.com/rust-lang/lang-team/">Proposal issue</a></td></tr>
-<tr><td></td><td></td><td><a href="./CHARTER.html">Charter</a></td></tr>
-<tr><td></td><td></td><td><a href="https://github.com/rust-lang/rust/">Tracking issue</a></td></tr>
-<tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/proposal.html">Experimental</a></td><td>🦀</td><td><a href="./evaluation.html">Evaluation</a></td></tr>
-<tr><td></td><td></td><td><a href="./RFC.html">RFC</a></td></tr>
-<tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/development.html">Development</a></td><td>💤</td><td><a href="./explainer.html">Explainer</a></td></tr>
-<tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/feature-complete.html">Feature complete</a></td><td>💤</td><td>Stabilization report</td></tr>
-<tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/stabilized.html">Stabilized</a></td><td>💤</td><td></td></tr>
+<p>This is an <strong>umbrella initiative</strong> and, as such, it covers a number of subprojects.</p>
+<table><thead><tr><th>Subproject</th><th>Issue</th><th>Progress</th><th>State</th><th><a href="https://lang-team.rust-lang.org/initiatives/process/stages.html">Stage</a></th></tr></thead><tbody>
+<tr><td><code>impl Trait</code> in fns and inherent methods</td><td>#123</td><td>▰▰▰▰▰▰</td><td>✅</td><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/stabilized.html">Stabilized</a></td></tr>
+<tr><td>type alias impl trait</td><td><a href="https://github.com/rust-lang/rust/issues/63063">#63063</a></td><td>▰▰▰▰▱▱</td><td>🦀</td><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/development.html">Development</a></td></tr>
+<tr><td>impl trait in traits, impls</td><td>#123</td><td>▰▰▱▱▱▱</td><td>🦀</td><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/proposal.html">Experimental</a></td></tr>
+<tr><td>impl trait in bindings</td><td><a href="https://github.com/rust-lang/rust/issues/63065">#63065</a></td><td>▰▰▰▱▱▱</td><td>💤</td><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/development.html">Development</a></td></tr>
+<tr><td>impl trait with multiple types</td><td></td><td>▰▱▱▱▱▱</td><td>💤</td><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/proposal.html">Experimental</a></td></tr>
+<tr><td>existential lifetimes</td><td></td><td>▰▱▱▱▱▱</td><td>💤</td><td><a href="https://lang-team.rust-lang.org/initiatives/process/stages/proposal.html">Experimental</a></td></tr>
 </tbody></table>
 <p>Key:</p>
 <ul>
-<li>✅ -- phase complete</li>
-<li>🦀 -- phase in progress</li>
-<li>💤 -- phase not started yet</li>
+<li>✅ -- project complete</li>
+<li>🦀 -- project in progress</li>
+<li>💤 -- project not under active development</li>
 </ul>
 <h2 id="how-can-i-get-involved"><a class="header" href="#how-can-i-get-involved">How Can I Get Involved?</a></h2>
 <ul>
@@ -204,27 +176,18 @@
 <li>If you are using the feature and would like to provide feedback about your experiences, please [open a &quot;experience report&quot; issue].</li>
 <li>If you are using the feature and would like to report a bug, please open a regular issue.</li>
 </ul>
-<p>We also participate on <a href="%7B%7BCHAT_LINK%7D%7D">{{CHAT_PLATFORM}}</a>, feel free to introduce yourself over there and ask us any questions you have.</p>
+<p>We also participate on <a href="https://rust-lang.zulipchat.com/#narrow/stream/144729-wg-traits">Zulip</a>, feel free to introduce yourself over there and ask us any questions you have.</p>
 <h2 id="building-documentation"><a class="header" href="#building-documentation">Building Documentation</a></h2>
 <p>This repository is also an mdbook project. You can view and build it using the
 following command.</p>
 <pre><code>mdbook serve
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-initiative_name-charter"><a class="header" href="#-initiative_name-charter">📜 {{INITIATIVE_NAME}} Charter</a></h1>
-<!--
- Provide an introduction summarising the goals and motivation behind your
- initiative.
--->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-impl-trait-charter"><a class="header" href="#-impl-trait-charter">📜 Impl trait Charter</a></h1>
 <h2 id="proposal"><a class="header" href="#proposal">Proposal</a></h2>
-<!--
-Copy and paste the proposal into here. 
-
-Feel free to move some elements, like design questions that came up,
-into the approriate section.
--->
+<p>impl-trait is an <strong>umbrella initiative</strong> that is generally developing the <code>impl Trait</code> syntax in Rust. The overall goal is to enable users to write <code>impl Trait</code> to mean &quot;some type implemementing <code>Trait</code>&quot;. We wish to enable this syntax in as many places as it makes sense to do so, and to develop a coherent philosophy around its meaning.</p>
 <h2 id="membership"><a class="header" href="#membership">Membership</a></h2>
 <table><thead><tr><th>Role</th><th>Github</th></tr></thead><tbody>
-<tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/roles/owner.html">Owner</a></td><td><a href="https://github.com/ghost">ghost</a></td></tr>
+<tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/roles/owner.html">Owner</a></td><td><a href="https://github.com/nikomatsakis">nikomatsakis</a></td></tr>
 <tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/roles/liaison.html">Liaison</a></td><td><a href="https://github.com/ghost">ghost</a></td></tr>
 </tbody></table>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-evaluation"><a class="header" href="#-evaluation">🔬 Evaluation</a></h1>
@@ -240,6 +203,49 @@ in the <a href="./design-discussions.html">design-discussions</a> for more detai
 If you want to experiment with the feature, you've come to the right place.
 Until the feature enters &quot;feature complete&quot; form, the explainer should be considered a work-in-progress.</p>
 </blockquote>
+<h2 id="impl-trait-make-the-compiler-do-the-hard-work-of-figuring-out-the-exact-type"><a class="header" href="#impl-trait-make-the-compiler-do-the-hard-work-of-figuring-out-the-exact-type">Impl trait: make the compiler do the hard work of figuring out the exact type</a></h2>
+<p>Oftentimes, you have a situation where you don't care <em>exactly</em> what type something has, you simply care that it implements particular traits. For example, you might have a function that accepts any kind of iterator as long as it produces integers. In this case, you could write the following:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn sum_integers(integers: impl Iterator&lt;Item = u32&gt;) -&gt; u32 {
+    //                    ^^^^^^^^^^^^^
+    let mut sum = 0;
+    for integer in integers {
+        sum += x;
+    }
+    sum
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Here, the <code>impl Iterator</code> type is a special sort of type. It doesn't actually name any particular type. Instead, it is a <em>shorthand</em> for a <em>generic type</em>. In other words, the function above is roughly equivalent to the following desugared version:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn sum_integers&lt;I&gt;(integers: I) -&gt; u32
+where
+    I: Integers&lt;Item = u32&gt;
+{
+    let mut sum = 0;
+    for integer in integers {
+        sum += x;
+    }
+    sum
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Intuitively, a function that has an argument of type <code>impl Iterator</code> is saying &quot;you can give me any sort of iterator that you like&quot;.</p>
+<h2 id="impl-trait-in-return-types"><a class="header" href="#impl-trait-in-return-types">Impl trait in return types</a></h2>
+<p>You can also use impl trait in the return type of a function:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn odd_integers(start: u32, stop: u32) -&gt; impl Iterator&lt;Item = u32&gt; {
+    (start..stop).filter(|i| i % 2 == 0)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>When you use <code>impl Trait</code> in an output position like this, the meaning is slightly different. Here, the function is saying &quot;I will give you back some kind of integer&quot;. The difference is that the <em>function</em></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-rfc"><a class="header" href="#-rfc">✨ RFC</a></h1>
 <blockquote>
 <p>The RFC exists here in draft form. It will be edited and amended over the course of this initiative.

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>📚 Explainer - {{INITIATIVE_NAME}} initiative</title>
+        <title>📚 Explainer - Impl trait initiative</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item expanded "><a href="explainer.html" class="active">📚 Explainer</a></li><li class="chapter-item "><a href="RFC.html">✨ RFC</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item expanded "><a href="explainer.html" class="active">📚 Explainer</a></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -111,13 +111,13 @@
                         </button>
                                             </div>
 
-                    <h1 class="menu-title">{{INITIATIVE_NAME}} initiative</h1>
+                    <h1 class="menu-title">Impl trait initiative</h1>
 
                     <div class="right-buttons">
                                                 <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                                                                        <a href="https://github.com/rust-lang/{{INITIATIVE_SLUG}}" title="Git repository" aria-label="Git repository">
+                                                                        <a href="https://github.com/rust-lang/impl-trait" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                                                 
@@ -152,6 +152,49 @@
 If you want to experiment with the feature, you've come to the right place.
 Until the feature enters &quot;feature complete&quot; form, the explainer should be considered a work-in-progress.</p>
 </blockquote>
+<h2 id="impl-trait-make-the-compiler-do-the-hard-work-of-figuring-out-the-exact-type"><a class="header" href="#impl-trait-make-the-compiler-do-the-hard-work-of-figuring-out-the-exact-type">Impl trait: make the compiler do the hard work of figuring out the exact type</a></h2>
+<p>Oftentimes, you have a situation where you don't care <em>exactly</em> what type something has, you simply care that it implements particular traits. For example, you might have a function that accepts any kind of iterator as long as it produces integers. In this case, you could write the following:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn sum_integers(integers: impl Iterator&lt;Item = u32&gt;) -&gt; u32 {
+    //                    ^^^^^^^^^^^^^
+    let mut sum = 0;
+    for integer in integers {
+        sum += x;
+    }
+    sum
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Here, the <code>impl Iterator</code> type is a special sort of type. It doesn't actually name any particular type. Instead, it is a <em>shorthand</em> for a <em>generic type</em>. In other words, the function above is roughly equivalent to the following desugared version:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn sum_integers&lt;I&gt;(integers: I) -&gt; u32
+where
+    I: Integers&lt;Item = u32&gt;
+{
+    let mut sum = 0;
+    for integer in integers {
+        sum += x;
+    }
+    sum
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Intuitively, a function that has an argument of type <code>impl Iterator</code> is saying &quot;you can give me any sort of iterator that you like&quot;.</p>
+<h2 id="impl-trait-in-return-types"><a class="header" href="#impl-trait-in-return-types">Impl trait in return types</a></h2>
+<p>You can also use impl trait in the return type of a function:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn odd_integers(start: u32, stop: u32) -&gt; impl Iterator&lt;Item = u32&gt; {
+    (start..stop).filter(|i| i % 2 == 0)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>When you use <code>impl Trait</code> in an output position like this, the meaning is slightly different. Here, the function is saying &quot;I will give you back some kind of integer&quot;. The difference is that the <em>function</em></p>
 
                     </main>
 
