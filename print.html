@@ -203,6 +203,43 @@ in the <a href="./design-discussions.html">design-discussions</a> for more detai
 If you want to experiment with the feature, you've come to the right place.
 Until the feature enters &quot;feature complete&quot; form, the explainer should be considered a work-in-progress.</p>
 </blockquote>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The <code>impl Trait</code> syntax </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type OddIntegers = impl Iterator&lt;Item = u32&gt;; /* Type alias impl Trait */
+
+fn some_function(
+    x: impl Trait,
+    y: impl FnOnce(impl Debug) -&gt; impl Debug,
+    y: impl FnOnce(impl FnOnce(impl Debug)) -&gt; impl Debug,
+) -&gt; impl Trait 
+where
+    T: PartialEq&lt;impl Trait&gt;,
+    T: Iterator&lt;Item = impl Debug&gt;,
+    F: Fn(impl Debug) -&gt; impl Debug
+{
+    let x: impl Trait = ...;
+}
+
+const C: impl Trait = ...;
+
+struct S {
+    f: impl Trait
+}
+
+trait Trait {
+    type Bar;
+    fn method(x: &amp;impl Trait) -&gt; impl Trait;
+}
+
+impl Trait for () {
+    type Bar = impl Trait;
+    fn method(x: &amp;impl Trait) -&gt; impl Trait;
+}
+<span class="boring">}
+</span></code></pre></pre>
 <h2 id="impl-trait-make-the-compiler-do-the-hard-work-of-figuring-out-the-exact-type"><a class="header" href="#impl-trait-make-the-compiler-do-the-hard-work-of-figuring-out-the-exact-type">Impl trait: make the compiler do the hard work of figuring out the exact type</a></h2>
 <p>Oftentimes, you have a situation where you don't care <em>exactly</em> what type something has, you simply care that it implements particular traits. For example, you might have a function that accepts any kind of iterator as long as it produces integers. In this case, you could write the following:</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -245,7 +282,105 @@ where
 }
 <span class="boring">}
 </span></code></pre></pre>
-<p>When you use <code>impl Trait</code> in an output position like this, the meaning is slightly different. Here, the function is saying &quot;I will give you back some kind of integer&quot;. The difference is that the <em>function</em></p>
+<p>When you use <code>impl Trait</code> in an output position like this, the meaning is slightly different. Here, the function is saying &quot;I will give you back some kind of iteratoer over integers&quot;. The difference is that the function body is the one that selects the kind of iterator in question, rather than the caller. (In this case, that type is going to be <code>Filter&lt;Range&lt;u32&gt;, _&gt;</code>, where <code>_</code> represents the anonymous type of the closure) The caller, meanwhile, doesn't know the precise type of <code>Iterator</code> they were given, only that they got &quot;some iterator&quot;:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let i = odd_integers();
+
+// OK -- we know that `i` is an `Iterator`
+let v: u32 = i.next();
+
+// ERROR -- This method comes from `DoubleEndedIterator`, and we
+// only know that `i` implements `Iterator` (in fact, the hidden
+// type *does* implement `DoubleEndedIterator`, but we can't
+// rely on that).
+let w: u32 = i.next_back(); 
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="output-impl-traits-hidden-types-and-defining-scopes"><a class="header" href="#output-impl-traits-hidden-types-and-defining-scopes">Output impl Traits: hidden types and defining scopes</a></h3>
+<p>In cases like this, where the <code>impl Trait</code> is mapped to a single type that is determined by the body of a function or some other thing, we say that it is an <strong>output impl Trait</strong>. It occurs when the <code>impl Trait</code> appears in <strong>output position</strong>, such as the return type of a function (we'll see some other output positions later on).</p>
+<p>Every output impl Trait has a <strong>hidden type</strong> and a <strong>defining scope</strong>. The <strong>hidden type</strong> is the actual type that this <code>impl Trait</code> is inferred to represent; in the example of <code>odd_integers</code>, this hidden type was <code>Filter&lt;Range&lt;u32&gt;, _&gt;</code> (you can see that the hidden type often includes anonymous types, like the types of closures, that don't have a user-writable syntax). We call this the &quot;hidden&quot; type because callers don't know what it's value is, they only know that it is <em>some type that impements <code>Iterator</code></em>. </p>
+<p>The <strong>defining scope</strong> of an <code>impl Trait</code> is the region of code that is used to determine the hidden type for the <code>impl Trait</code>. Code within this defining scope doesn't treats the <code>impl Trait</code> as an opaque, hidden type, but rather as a type to be inferred. The compiler will figure out &quot;what value would make this code type check&quot; and treat that as the hidden value for the impl Trait.</p>
+<p>In the case of <code>odd_integers</code>, the defining scope for the <code>-&gt; impl Iterator</code> is the function <code>odd_integers</code> itself. We'll see examples later on where the defining scope of an output <code>impl Trait</code> can be larger, such as an impl or even a module.</p>
+<h2 id="auto-trait-leakage"><a class="header" href="#auto-trait-leakage">Auto trait leakage</a></h2>
+<p>When talking about output impl Traits in the previous section, we said that callers cannot rely on the precise hidden type, but must instead rely only on the declared bounds from the impl Trait. This was actually a simplification: in reality, callers are able to rely on <em>some</em> aspects of the hidden type. Specifically, they are able to deduce whether the hidden type implements the various <a href="https://doc.rust-lang.org/nightly/reference/special-types-and-traits.html#auto-traits">auto traits</a>, like <code>Send</code> and <code>Sync</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn odd_integers(start: u32, stop: u32) -&gt; impl Iterator&lt;Item = u32&gt; {
+    (start..stop).filter(|i| i % 2 == 0)
+}
+
+fn other_function() {
+    let integers = odd_integers();
+
+    // This requires that `integers` is `Send`.
+    // The compiler &quot;peeks&quot; at the hidden type
+    // to check that this is true.
+    std::thread::spawn(move || {
+        for integer in integers {
+            println!(&quot;{}&quot;, integer);
+        }
+    }).join();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The motivation behind auto trait leakage is that it makes working with <code>impl Trait</code> as convenient as other kinds of &quot;newtype wrappers&quot; when it comes to threading. For example, if you were to replace the <code>odd_integers</code> return type with a newtype <code>OddIntegers</code> that hides the iterator type (as is common practice)...</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct OddIntegers {
+    iterator: Filter&lt;Range&lt;...&gt;, ...&gt;
+}
+
+fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers { ... }
+<span class="boring">}
+</span></code></pre></pre>
+<p>...you would find that <code>OddIntegers</code> implements <code>Send</code> if that hidden type (that appears in its private field) implements <code>Send</code>. (In this particular case, it would be challenging to create a struct because it would have to refer to the returned closure type, which is anonymous.)</p>
+<h2 id="type-alias-impl-trait-tait"><a class="header" href="#type-alias-impl-trait-tait">Type alias impl Trait (TAIT)</a></h2>
+<p>One downside of &quot;output impl Trait&quot; is that the returned type is anonymous. If you have a function <code>odd_integers</code>...</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn odd_integers(start: u32, stop: u32) -&gt; impl Iterator&lt;Item = u32&gt; {
+    (start..stop).filter(|i| i % 2 == 0)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>...there is no convenient way for users to name the returned iterator type explicitly (for example, to define a struct that embeds the returned iterator as a field). Using type alias impl impl Trait allows you to give a name that others can reference:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+
+fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers {
+    (start..stop).filter(|i| i % 2 == 0)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Here, the type alias <code>OddIntegers</code> is defined to alias an output impl Trait. This output impl Trait works exactly like the output impl Traits that we have seen before, except that its <strong>defining scope</strong> is the <strong>enclosing module where it is defined</strong>. Consider the following example:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod odd {
+    pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+
+    pub fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers {
+        (start..stop).filter(|i| i % 2 == 0)
+    }
+}
+
+struct TempStruct {
+    next_odd: odd::OddIntegers,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Here, the <code>OddIntegers</code> type alias is defined inside the module <code>odd</code>. Within <code>odd</code>, functions are able to define and influence the type of <code>OddIntegers</code>. Outside of <code>odd</code>, references to <code>OddIntegers</code> are opaque -- it simply refers to &quot;some type that implements <code>Iterator</code>&quot;.</p>
+<h3 id="impl-that-that-are-constrained-by-multiple-functions"><a class="header" href="#impl-that-that-are-constrained-by-multiple-functions">Impl that that are constrained by multiple functions</a></h3>
+<h3 id=""><a class="header" href="#"></a></h3>
+<h2 id="details"><a class="header" href="#details">Details</a></h2>
+<h3 id="output-impl-traits-and-specialization"><a class="header" href="#output-impl-traits-and-specialization">Output impl Traits and specialization</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-rfc"><a class="header" href="#-rfc">✨ RFC</a></h1>
 <blockquote>
 <p>The RFC exists here in draft form. It will be edited and amended over the course of this initiative.
