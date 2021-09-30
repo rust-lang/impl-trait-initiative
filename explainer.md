@@ -6,7 +6,15 @@
 
 ## Overview
 
-The `impl Trait` syntax 
+The `impl Trait` syntax, a quick guide
+
+| Example                                | Name                              | Description                                                           |
+| -------------------------------------- | --------------------------------- | --------------------------------------------------------------------- |
+| `fn foo(x: impl Trait) {...}`          | argument position                 | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
+| `fn foo() -> impl Trait {...}`         | return position (free function)   | "output" impl trait with the fn body as its defining scope            |
+| `impl Type { fn foo() -> impl Trait }` | return position (inherent method) | "output" impl trait with the fn body as its defining scope            |
+| `trait Type { fn foo(x: impl Trait) }` | argument position, trait method   | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
+|                                        |                                   |                                                                       |
 
 ```rust
 type OddIntegers = impl Iterator<Item = u32>; /* Type alias impl Trait */
