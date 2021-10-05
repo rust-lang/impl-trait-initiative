@@ -4,36 +4,29 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Impl trait initiative</title>
-                <meta name="robots" content="noindex" />
-                
-
+        <meta name="robots" content="noindex" />
         <!-- Custom HTML head -->
-        
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-                <link rel="icon" href="favicon.svg">
-                        <link rel="shortcut icon" href="favicon.png">
-                <link rel="stylesheet" href="css/variables.css">
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
-                <link rel="stylesheet" href="css/print.css" media="print">
-        
+        <link rel="stylesheet" href="css/print.css" media="print">
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-                <link rel="stylesheet" href="fonts/fonts.css">
-        
+        <link rel="stylesheet" href="fonts/fonts.css">
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
-            </head>
+    </head>
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
@@ -83,14 +76,14 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
+            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
@@ -107,25 +100,24 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                                            </div>
+                    </div>
 
                     <h1 class="menu-title">Impl trait initiative</h1>
 
                     <div class="right-buttons">
-                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                                                                        <a href="https://github.com/rust-lang/impl-trait" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/rust-lang/impl-trait" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                                                
                     </div>
                 </div>
 
-                                <div id="search-wrapper" class="hidden">
+                <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
                         <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
@@ -135,7 +127,6 @@
                         </ul>
                     </div>
                 </div>
-                
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -190,6 +181,167 @@ following command.</p>
 <tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/roles/owner.html">Owner</a></td><td><a href="https://github.com/nikomatsakis">nikomatsakis</a></td></tr>
 <tr><td><a href="https://lang-team.rust-lang.org/initiatives/process/roles/liaison.html">Liaison</a></td><td><a href="https://github.com/ghost">ghost</a></td></tr>
 </tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-updates"><a class="header" href="#-updates">✏️ Updates</a></h1>
+<p>Lang-team initiatives give monthly updates. This section collects the updates from this initiative for posterity.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="2021-oct-lang-team-update"><a class="header" href="#2021-oct-lang-team-update">2021-Oct: Lang team update</a></h1>
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<ul>
+<li>oli-obk completed a rewrite of the inference engine and is in the process of landing it.</li>
+<li>oli-obk is also pursuing a rewrite of the region checker to use intersection regions to address some of the shortcomings in the current system.</li>
+<li>spastorino wrote a number of test cases covering the &quot;feature surface area&quot;.</li>
+<li>spasotrino removed the (incorrectly implemented) support for <code>let x: impl Trait</code>; it will be re-evaluated later.</li>
+<li>nikomatsakis is working on an explainer covering the &quot;big picture&quot; of TAITs.</li>
+<li>tmandry + nikomatsakis are planning a proposal to permit users to name the types of associated functions from traits or inherent impls.
+<ul>
+<li>This opens the way for <code>-&gt; impl Trait</code> notation in traits.</li>
+</ul>
+</li>
+</ul>
+<h2 id="goals-for-this-month"><a class="header" href="#goals-for-this-month">Goals for this month</a></h2>
+<ul>
+<li>Prepare stabilization report</li>
+<li>Land oli's rewrite</li>
+<li>Extend explainer</li>
+<li>Extend evaluation doc to cover naming of impl traits</li>
+</ul>
+<h2 id="questions-for-discussion"><a class="header" href="#questions-for-discussion">Questions for discussion</a></h2>
+<ul>
+<li>How long should we allow new inference engine to &quot;bake&quot; before stabilizing?
+<ul>
+<li>We have a large suite of test cases.</li>
+<li>The inference engine is used for all impl Trait, including <code>-&gt; impl Trait</code> and <code>async fn</code>, so it gets a lot of testing once it hits stable.</li>
+</ul>
+</li>
+</ul>
+<h2 id="type-alias-impl-trait-stabilization"><a class="header" href="#type-alias-impl-trait-stabilization">Type alias impl trait stabilization</a></h2>
+<p>The major focus remains &quot;type alias impl trait&quot; (TAIT) stabilization:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Trait;
+
+impl SomeTrait for SomeType {
+    type AssocType = impl Debug;
+
+    ...
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="inference-engine-rewrite"><a class="header" href="#inference-engine-rewrite">Inference engine rewrite</a></h3>
+<p>oli-obk has completed a rewrite of the TAIT inference engine so that it matches the inference behavior of the RFC.  This rewrite has been largely completed on a branch and is in the process of landing. It requires a number of supporting changes, such as improvements to NLL diagnostics.</p>
+<p>The semantics that were implemented are briefly defined as follows. First, each TAIT has a &quot;defining scope&quot; based on where it appears:</p>
+<ul>
+<li>In a module-level type alias: the defining scope is the enclosing module.</li>
+<li>In the value of an associated type: the defining scope is the impl.</li>
+</ul>
+<p>Within that defining scope, each item (function, etc) that references the TAIT <em>defines</em> a value for the TAIT based on the results of type-checking. Essentially, the TAIT's value is assumed at first to be an unbound inference variable, and we solve for whatever value of that variable will make the function type check. Each item must completely define the hidden type without relying on other items; further, each item must provide the same value for the hidden type. Example:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod tait {
+    pub type TAIT = impl Debug;
+
+    // `foo` infers TAIT to be `u32`,
+    // because that is the value needed
+    // to make it type check:
+    pub fn foo() {
+        let x: TAIT = 22_u32;
+    }
+
+    // `get` also infers TAIT to be `u32`,
+    // because that is the value needed
+    // to make it type check:
+    pub fn get() -&gt; TAIT {
+        22_u32;
+    }
+
+    // `take` also infers TAIT to be `u32`,
+    // because that is the value needed
+    // to make it type check. Calling `take`
+    // from *outside* the module would not
+    // be possible except by providing a return
+    // value from `get`.
+    pub fn take(x: TAIT) {
+        let y: u32 = x;
+    }
+
+    // Other also constraints TAIT to be `u32`,
+    // albeit indirectly.
+    pub fn other() {
+        take(22_u32);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Outside of the defining scope, references to the type TAIT are opaque. The code is not permitted to rely on the hidden type, though it may peek at the auto traits implemented by the hidden type:</p>
+<pre><pre class="playground"><code class="language-rust">mod tait { ... /* as above */ ... }
+
+fn main() {
+    // Allowed
+    tait::take(tait::get());
+
+    // ERROR-- The hidden type is not visible outside of 
+    // the module `tait`, so we can't rely on it being
+    // `u32`.
+    tait::take(44_u32);
+
+    // ok -- TAIT is an `impl Debug`
+    is_debug::&lt;tait::TAIT&gt;(); 
+
+    // ok -- auto traits can rely on the hidden type,
+    // and `u32: Send`
+    is_send::&lt;tait::TAIT&gt;();
+
+    // error -- even though `u32` implements `Display`,
+    // we don't know the hidden type
+    is_display::&lt;tait::TAIT&gt;();
+}
+
+fn is_send&lt;T: Send&gt;() { }
+fn is_debug&lt;T: Debug&gt;() { }
+fn is_display&lt;T: Display&gt;() { }
+</code></pre></pre>
+<h2 id="naming-impl-trait-in-traits"><a class="header" href="#naming-impl-trait-in-traits">Naming impl Trait in traits</a></h2>
+<p>We would like to support <code>-&gt; impl Trait</code> in traits and impls. One of the questions that has been blocking progress is the question of how to <em>name</em> the resulting associated type. In other words, the syntax </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    fn bar(&amp;self) -&gt; impl Debug + '_;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>is equivalent to something like this but where <code>Bar</code> is an implicit associated type</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    type Bar&lt;'me&gt; = impl Debug + 'me;
+    fn bar(&amp;self) -&gt; Self::Bar&lt;'_&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The problem is that users have no way to name <code>Bar</code>, and hence no way to name the return type of <code>bar</code>. </p>
+<p>There have been numerous proposals to address this, but the most straightforward -- and also the most enabling -- seems to be allowing users to get access to the &quot;zero-sized fn type&quot; that represents <code>bar</code>.</p>
+<p>The idea would be to define an associated type for every fn item, so that <code>Foo::bar</code> identifies the associated type for this fn in general, and <code>&lt;T as Foo&gt;::bar</code> identifies the associated type for the function as implemented for the type <code>T</code>.</p>
+<p>This permits you to access the return type by writing <code>T::bar::Output</code>, for example, although we will have to extend the type checker to accommodate relative associated types like that (the full syntax would be <code>&lt;&lt;T as Foo&gt;::bar as FnOnce&gt;::Output</code>).</p>
+<p>These are the known questions to address in the evaluation doc:</p>
+<ul>
+<li>Can you name top-level functions or other sorts of functions?
+<ul>
+<li>What about the constructor functions for tuple structs or enum variants?</li>
+</ul>
+</li>
+<li>How to manage associated types and fns with the same name?
+<ul>
+<li>Do we have an unambiguous syntax such as <code>T::fn(bar)</code> to resolve that?
+<ul>
+<li>(This might apply to constructor functions as well.)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-evaluation"><a class="header" href="#-evaluation">🔬 Evaluation</a></h1>
 <blockquote>
 <p>The <em>evaluation</em> surveys the various design approaches that are under consideration.
@@ -204,7 +356,14 @@ If you want to experiment with the feature, you've come to the right place.
 Until the feature enters &quot;feature complete&quot; form, the explainer should be considered a work-in-progress.</p>
 </blockquote>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>The <code>impl Trait</code> syntax </p>
+<p>The <code>impl Trait</code> syntax, a quick guide</p>
+<table><thead><tr><th>Example</th><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>fn foo(x: impl Trait) {...}</code></td><td>argument position</td><td>&quot;input&quot; impl trait: equivalent to a type parameter <code>fn foo&lt;T: Trait&gt;</code></td></tr>
+<tr><td><code>fn foo() -&gt; impl Trait {...}</code></td><td>return position (free function)</td><td>&quot;output&quot; impl trait with the fn body as its defining scope</td></tr>
+<tr><td><code>impl Type { fn foo() -&gt; impl Trait }</code></td><td>return position (inherent method)</td><td>&quot;output&quot; impl trait with the fn body as its defining scope</td></tr>
+<tr><td><code>trait Type { fn foo(x: impl Trait) }</code></td><td>argument position, trait method</td><td>&quot;input&quot; impl trait: equivalent to a type parameter <code>fn foo&lt;T: Trait&gt;</code></td></tr>
+<tr><td></td><td></td><td></td></tr>
+</tbody></table>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -409,42 +568,31 @@ In the table of contents, you will find the overall status:</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
-                        
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                            </nav>
+            </nav>
 
         </div>
 
-        
-        
-        
-                <script type="text/javascript">
+        <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
-        
-                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
-                        <script type="text/javascript">
+        <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-                
     </body>
 </html>
