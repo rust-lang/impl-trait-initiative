@@ -3,33 +3,33 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>✨ RFCs - Impl trait initiative</title>
+        <title>Defining scopes - Impl trait initiative</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
     </head>
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/rpit_scopes.html">Defining scopes</a></li><li class="chapter-item "><a href="explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/tait_generics.html">Generic parameters</a></li><li class="chapter-item "><a href="explainer/tait_scopes.html">Defining scopes</a></li></ol></li><li class="chapter-item "><a href="explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="explainer/where_not_ok.html">Appendix B: Where can impl trait NOT be used</a></li></ol></li><li class="chapter-item expanded "><a href="RFC.html" class="active">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="../index.html">👋 Welcome</a></li><li class="chapter-item "><a href="../CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="../updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="../evaluation.html">🔬 Evaluation</a></li><li class="chapter-item expanded "><a href="../explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="../explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item expanded "><a href="../explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../explainer/rpit_scopes.html" class="active">Defining scopes</a></li><li class="chapter-item "><a href="../explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="../explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="../explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="../explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/tait_generics.html">Generic parameters</a></li><li class="chapter-item "><a href="../explainer/tait_scopes.html">Defining scopes</a></li></ol></li><li class="chapter-item "><a href="../explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="../explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="../explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="../explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="../explainer/where_not_ok.html">Appendix B: Where can impl trait NOT be used</a></li></ol></li><li class="chapter-item "><a href="../RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="../design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="../FAQ.html">😕 FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -107,7 +107,7 @@
                     <h1 class="menu-title">Impl trait initiative</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/rust-lang/impl-trait" title="Git repository" aria-label="Git repository">
@@ -137,22 +137,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="-rfc"><a class="header" href="#-rfc">✨ RFC</a></h1>
-<blockquote>
-<p>The RFC exists here in draft form. It will be edited and amended over the course of this initiative.
-Note that some initiatives produce multiple RFCs.</p>
-<p>Until there is an accepted RFC, any feature gates must be labeled as experimental.</p>
-<p>When you're ready to start drafting, copy in the <a href="https://raw.githubusercontent.com/rust-lang/rfcs/master/0000-template.md">template text</a> from the <a href="https://github.com/rust-lang/rfcs">rfcs</a> repository.</p>
-</blockquote>
+                        <h1 id="defining-scopes"><a class="header" href="#defining-scopes">Defining scopes</a></h1>
+<p><strong>Status:</strong> Stable.</p>
+<p>In cases like this, where the <code>impl Trait</code> is mapped to a single type that is determined by the body of a function or some other thing, we say that it is an <strong>output impl Trait</strong>. It occurs when the <code>impl Trait</code> appears in <strong>output position</strong>, such as the return type of a function (we'll see some other output positions later on).</p>
+<p>Every output impl Trait has a <strong>hidden type</strong> and a <strong>defining scope</strong>. The <strong>hidden type</strong> is the actual type that this <code>impl Trait</code> is inferred to represent; in the example of <code>odd_integers</code>, this hidden type was <code>Filter&lt;Range&lt;u32&gt;, _&gt;</code> (you can see that the hidden type often includes anonymous types, like the types of closures, that don't have a user-writable syntax). We call this the &quot;hidden&quot; type because callers don't know what it's value is, they only know that it is <em>some type that impements <code>Iterator</code></em>. </p>
+<p>The <strong>defining scope</strong> of an <code>impl Trait</code> is the region of code that is used to determine the hidden type for the <code>impl Trait</code>. The hidden type is inferred as part of type-checking the functions and other code blocks within that defining scope. The compiler tries to find some hidden type H such that replacing the <code>impl Trait</code> with that hidden type would still make the code type check.</p>
+<p>In the case of <code>odd_integers</code>, the defining scope for the <code>-&gt; impl Iterator</code> is the function <code>odd_integers</code> itself. We'll see examples later on where the defining scope of an output <code>impl Trait</code> can be larger, such as an impl or even a module, and we can dig into the inference of hidden types more then.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="explainer/where_not_ok.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../explainer/rpit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="design-discussions/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../explainer/rpit_capture.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -161,10 +160,10 @@ Note that some initiatives produce multiple RFCs.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="explainer/where_not_ok.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../explainer/rpit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="design-discussions/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../explainer/rpit_capture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -174,12 +173,12 @@ Note that some initiatives produce multiple RFCs.</p>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
     </body>

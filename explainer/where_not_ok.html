@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>💬 Design discussions - Impl trait initiative</title>
+        <title>Appendix B: Where can impl trait NOT be used - Impl trait initiative</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="../index.html">👋 Welcome</a></li><li class="chapter-item "><a href="../CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="../updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="../evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="../explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="../explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="../explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/rpit_scopes.html">Defining scopes</a></li><li class="chapter-item "><a href="../explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="../explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="../explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="../explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/tait_generics.html">Generic parameters</a></li><li class="chapter-item "><a href="../explainer/tait_scopes.html">Defining scopes</a></li></ol></li><li class="chapter-item "><a href="../explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="../explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="../explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="../explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="../explainer/where_not_ok.html">Appendix B: Where can impl trait NOT be used</a></li></ol></li><li class="chapter-item "><a href="../RFC.html">✨ RFCs</a></li><li class="chapter-item expanded "><a href="../design-discussions/index.html" class="active">💬 Design discussions</a></li><li class="chapter-item "><a href="../FAQ.html">😕 FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="../index.html">👋 Welcome</a></li><li class="chapter-item "><a href="../CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="../updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="../evaluation.html">🔬 Evaluation</a></li><li class="chapter-item expanded "><a href="../explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="../explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="../explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/rpit_scopes.html">Defining scopes</a></li><li class="chapter-item "><a href="../explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="../explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="../explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="../explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/tait_generics.html">Generic parameters</a></li><li class="chapter-item "><a href="../explainer/tait_scopes.html">Defining scopes</a></li></ol></li><li class="chapter-item "><a href="../explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="../explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="../explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="../explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item expanded "><a href="../explainer/where_not_ok.html" class="active">Appendix B: Where can impl trait NOT be used</a></li></ol></li><li class="chapter-item "><a href="../RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="../design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="../FAQ.html">😕 FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,23 +137,82 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="design-discussions"><a class="header" href="#design-discussions">Design discussions</a></h1>
-<p>This directory hosts notes on important design discussions along with their resolutions.
-In the table of contents, you will find the overall status:</p>
-<ul>
-<li>✅ -- <strong>Settled!</strong> Input only needed if you have identified a fresh consideration that is not covered by the write-up.</li>
-<li>💬 -- <strong>Under active discussion.</strong> Check the write-up, which may contain a list of questions or places where feedback is desired.</li>
-<li>💤 -- <strong>Paused.</strong> Not under active discussion, but we may be updating the write-up from time to time with details.</li>
-</ul>
+                        <h1 id="appendix-b-where-can-impl-trait-not-be-used"><a class="header" href="#appendix-b-where-can-impl-trait-not-be-used">Appendix B: Where can impl trait NOT be used</a></h1>
+<p>Where is impl Trait not (yet?) accepted and why.</p>
+<h3 id="dyn-types-angle-brackets"><a class="header" href="#dyn-types-angle-brackets">dyn Types, angle brackets</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo(x: &amp;mut dyn Iterator&lt;Item = impl Debug&gt;)
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="dyn-types-parentheses"><a class="header" href="#dyn-types-parentheses">dyn Types, parentheses</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo(x: &amp;mut dyn FnMut(impl Debug))
+<span class="boring">}
+</span></code></pre></pre>
+<p>Unclear whether this should (eventually) be short for <code>dyn for&lt;T: Debug&gt; FnMut(T)</code> (which would not be legal) to stay analogous to <code>impl FnOnce(impl Debug)</code>.</p>
+<h3 id="dyn-types-return-types"><a class="header" href="#dyn-types-return-types">dyn Types, return types</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo(x: &amp;mut dyn FnMut() -&gt; impl Debug)
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="nested-impl-trait-parentheses"><a class="header" href="#nested-impl-trait-parentheses">Nested impl trait, parentheses</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo(x: impl FnMut(impl Debug))
+<span class="boring">}
+</span></code></pre></pre>
+<p>Unclear whether this should (eventually) be short for <code>impl for&lt;T: Debug&gt; FnMut(T)</code> or some other notation.</p>
+<h3 id="where-clauses-angle-brackets"><a class="header" href="#where-clauses-angle-brackets">Where clauses, angle brackets</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo()
+where T: PartialEq&lt;impl Clone&gt;
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="where-clauses-parentheses"><a class="header" href="#where-clauses-parentheses">Where clauses, parentheses</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo()
+where T: FnOnce(impl Clone)
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="where-clauses-return-position"><a class="header" href="#where-clauses-return-position">Where clauses, return position</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo()
+where T: FnOnce() -&gt; impl Clone
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="struct-fields"><a class="header" href="#struct-fields">Struct fields</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Foo {
+    x: impl Debug
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>It would be plausible to accept this as an &quot;output&quot; position, which also seems correct. The main reason that it is not accepted is that it has not been proposed, and there aren't a strong body of use cases. This is also the role that would be predicted from the &quot;general rule for input vs output&quot;.</p>
+<p>It is not possible to accept this in <em>input</em> position, because that would imply that the type <code>Foo</code> has more generic parameters than are written on the type itself. Unlike with functions, where the values of those generic parameters can be inferred from the arguments, structs can appear in many contexts where inferring the values of those generic types would not be tractable.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../RFC.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../explainer/where_ok.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../FAQ.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../RFC.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -162,10 +221,10 @@ In the table of contents, you will find the overall status:</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../RFC.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../explainer/where_ok.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../FAQ.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../RFC.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
