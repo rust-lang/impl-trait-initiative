@@ -1,4 +1,4 @@
-# Appendix B: Where can impl trait NOT be used
+# Appendix C: Where can impl trait NOT be used
 
 Where is impl Trait not (yet?) accepted and why.
 

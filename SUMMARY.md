@@ -21,7 +21,7 @@
     - [Auto traits and impl trait](./explainer/auto_trait.md)
     - [Appendix A: Inference details](./explainer/inference.md)
     - [Appendix B: Where can impl trait be used](./explainer/where_ok.md)
-    - [Appendix B: Where can impl trait NOT be used](./explainer/where_not_ok.md)
+    - [Appendix C: Where can impl trait NOT be used](./explainer/where_not_ok.md)
 - [✨ RFCs](./RFC.md)
 - [💬 Design discussions](./design-discussions/README.md)
 - [😕 FAQ](./FAQ.md)
