@@ -6,7 +6,7 @@ One downside of "output impl Trait" is that the returned type is anonymous. If y
 
 ```rust
 fn odd_integers(start: u32, stop: u32) -> impl Iterator<Item = u32> {
-    (start..stop).filter(|i| i % 2 == 0)
+    (start..stop).filter(|i| i % 2 != 0)
 }
 ```
 
@@ -16,7 +16,7 @@ fn odd_integers(start: u32, stop: u32) -> impl Iterator<Item = u32> {
 type OddIntegers = impl Iterator<Item = u32>;
 
 fn odd_integers(start: u32, stop: u32) -> OddIntegers {
-    (start..stop).filter(|i| i % 2 == 0)
+    (start..stop).filter(|i| i % 2 != 0)
 }
 ```
 
@@ -27,7 +27,7 @@ mod odd {
     pub type OddIntegers = impl Iterator<Item = u32>;
 
     pub fn odd_integers(start: u32, stop: u32) -> OddIntegers {
-        (start..stop).filter(|i| i % 2 == 0)
+        (start..stop).filter(|i| i % 2 != 0)
     }
 }
 
