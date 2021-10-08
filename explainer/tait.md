@@ -66,7 +66,7 @@ You can see that impl trait behaves a bit differently depending on where you use
 | Position                         | Who determines the hidden type   |
 | -------------------------------- | -------------------------------- |
 | [Argument position][apit]        | The caller                       |
-| [Type alias][tait]               | Code within the enclosing module |
+| Type alias                       | Code within the enclosing module |
 | ... (full table in [Appendix B]) |                                  |
 
 [apit]: ./apit.md

@@ -20,6 +20,7 @@ We can now extend the table of impl trait positions introduced in the [type alia
 [tait]: ./tait.md
 [rpit]: ./rpit.md
 [rpit_trait]: ./rpit_trait.md
+[lbit]: ./lbit.md
 
 ## General rules for "input" vs "output"
 
