@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/tait_infer.html">Inferring the hidden type</a></li><li class="chapter-item "><a href="explainer/tait_ref.html">Referencing from outside the module</a></li><li class="chapter-item "><a href="explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -543,8 +543,8 @@ impl Operation for Sum {
 <tr><td>Type alias</td><td>Code within the enclosing module</td></tr>
 <tr><td>... (full table in <a href="explainer/./where_ok.html">Appendix B</a>)</td><td></td></tr>
 </tbody></table>
-<h2 id="inferring-the-hidden-type"><a class="header" href="#inferring-the-hidden-type">Inferring the hidden type</a></h2>
-<p>As the table says, when you use <code>impl Trait</code> in an argument position, the hidden type is determined by the caller of the function (just like other generic parameters). When you use <code>impl Trait</code> in a type alias, the hidden type is inferred based on the code in the enclosing module. We call this enclosing module the <strong>defining scope</strong> for the impl trait. In our example, the defining scope is the module <code>odd</code>:</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="inferring-the-hidden-type"><a class="header" href="#inferring-the-hidden-type">Inferring the hidden type</a></h1>
+<p>When you use <code>impl Trait</code> in a type alias, the hidden type is inferred based on the code in the enclosing module. We call this enclosing module the <strong>defining scope</strong> for the impl trait. In our example, the defining scope is the module <code>odd</code>:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -555,7 +555,7 @@ impl Operation for Sum {
 <span class="boring">}
 </span></code></pre></pre>
 <p>As we type-check the functions within the module <code>odd</code> (or its submodules), we look at the ways that they use the type <code>OddIntegers</code>. From this we can derive a set of constraints on what the hidden type has to be. For example, the compiler computes that <code>odd_integers</code> returns a value <code>StepBy&lt;Range&lt;u32&gt;&gt;</code>, but the function is declared to return <code>OddIntegers</code>: therefore we conclude that <code>odd_integers</code> requires the hidden type to be <code>StepBy&lt;Range&lt;u32&gt;&gt;</code>.</p>
-<h3 id="there-can-be-multiple-functions-that-constrain-the-type"><a class="header" href="#there-can-be-multiple-functions-that-constrain-the-type">There can be multiple functions that constrain the type</a></h3>
+<h2 id="there-can-be-multiple-functions-that-constrain-the-type"><a class="header" href="#there-can-be-multiple-functions-that-constrain-the-type">There can be multiple functions that constrain the type</a></h2>
 <p>Of course, modules can have more than one function! It's fine to have multiple functions that constrain the type <code>OddIntegers</code>, so long as they all ultimately constrain it to be the same thing. It's also possible to constrain <code>OddIntegers</code> by referencing it in other places. For example, consider the function <code>another_function</code> here:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -574,7 +574,7 @@ impl Operation for Sum {
 <span class="boring">}
 </span></code></pre></pre>
 <p><code>another_function</code> references <code>OddIntegers</code> as the type of the variable <code>x</code> -- but the value assigned to <code>x</code> is also of type <code>StepBy&lt;Range&lt;u32&gt;&gt;</code>, so everything works.</p>
-<h3 id="each-function-within-the-defining-scope-must-specify-the-same-type"><a class="header" href="#each-function-within-the-defining-scope-must-specify-the-same-type">Each function within the defining scope must specify the same type</a></h3>
+<h2 id="each-function-within-the-defining-scope-must-specify-the-same-type"><a class="header" href="#each-function-within-the-defining-scope-must-specify-the-same-type">Each function within the defining scope must specify the same type</a></h2>
 <p>These two functions each independently require that <code>OddIntegers</code> has the same underlying type. What is <em>not</em> ok is to have two functions that require <em>different</em> types:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -598,7 +598,7 @@ fn another_function() {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<h3 id="each-function-within-the-defining-scope-must-specify-the-complete-type"><a class="header" href="#each-function-within-the-defining-scope-must-specify-the-complete-type">Each function within the defining scope must specify the complete type</a></h3>
+<h2 id="each-function-within-the-defining-scope-must-specify-the-complete-type"><a class="header" href="#each-function-within-the-defining-scope-must-specify-the-complete-type">Each function within the defining scope must specify the complete type</a></h2>
 <p>Similarly, it is not ok to have functions that only partially constrain and impl Trait. Consider this example:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -624,7 +624,7 @@ fn something_debug() -&gt; SomethingDebug {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<h2 id="referencing-the-type-alias-outside-of-the-module"><a class="header" href="#referencing-the-type-alias-outside-of-the-module">Referencing the type alias outside of the module</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="referencing-the-type-alias-outside-of-the-module"><a class="header" href="#referencing-the-type-alias-outside-of-the-module">Referencing the type alias outside of the module</a></h1>
 <p>Since it is declared to be public, the type alias <code>OddIntegers</code> can be referenced from outside the module <code>odd</code>. This allows callers to give a name to the return type of <code>odd_integers</code>:</p>
 <pre><pre class="playground"><code class="language-rust">mod odd {
     pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
@@ -638,8 +638,8 @@ fn main() {
     }
 }
 </code></pre></pre>
-<p>Because that code is outside of the defining scope, however, it is not allowed to influence or observe the hidden type. It can only rely on the that were declared<sup class="footnote-reference"><a href="#auto">2</a></sup> (e.g., <code>Iterator&lt;Item = u32&gt;</code>). For example, the following code would not type check:</p>
-<div class="footnote-definition" id="auto"><sup class="footnote-definition-label">2</sup>
+<p>Because that code is outside of the defining scope, however, it is not allowed to influence or observe the hidden type. It can only rely on the that were declared<sup class="footnote-reference"><a href="#auto">1</a></sup> (e.g., <code>Iterator&lt;Item = u32&gt;</code>). For example, the following code would not type check:</p>
+<div class="footnote-definition" id="auto"><sup class="footnote-definition-label">1</sup>
 <p>With the exception of <a href="explainer/./auto_trait.html">auto traits</a>.</p>
 </div>
 <pre><pre class="playground"><code class="language-rust">mod odd {
@@ -1018,7 +1018,7 @@ where T: FnOnce() -&gt; impl Clone
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-d-glossary"><a class="header" href="#appendix-d-glossary">Appendix D: Glossary</a></h1>
 <p>See the list of terms in the sidebar.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="defining-scope"><a class="header" href="#defining-scope">Defining scope</a></h1>
-<p>The <strong>defining scope</strong> of an impl Trait is the code that is used to infer its <a href="explainer/glossary/./hidden_type.html">hidden type</a>. See the <a href="explainer/glossary/../tait.html">explanation of type alias impl trait</a> for more details.</p>
+<p>The <strong>defining scope</strong> of an impl Trait is the code that is used to infer its <a href="explainer/glossary/./hidden_type.html">hidden type</a>. See the <a href="explainer/glossary/../tait_infer.html">explanation of type alias impl trait</a> for more details.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hidden-type"><a class="header" href="#hidden-type">Hidden type</a></h1>
 <p>The <strong>hidden type</strong> of an impl Trait is the underlying type that the <code>impl Trait</code> represents. The compiler always infers the hidden type for an impl trait from the rest of the code. In some cases, there is just a single hidden type, but in other cases -- notably <a href="explainer/glossary/../apit.html">argument position impl trait</a> -- there can be multiple hidden types (e.g., one per call site).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-rfc"><a class="header" href="#-rfc">✨ RFC</a></h1>
