@@ -19,7 +19,7 @@ is roughly equivalent to the following generic function:
 ```rust
 fn sum_integers<I>(integers: I) -> u32
 where
-    I: Integers<Item = u32>
+    I: Iterator<Item = u32>
 {
     let mut sum = 0;
     for integer in integers {

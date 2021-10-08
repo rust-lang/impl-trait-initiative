@@ -30,7 +30,7 @@ Here, the `impl Iterator` type is a special sort of type. It doesn't actually na
 ```rust
 fn sum_integers<I>(integers: I) -> u32
 where
-    I: Integers<Item = u32>
+    I: Iterator<Item = u32>
 {
     let mut sum = 0;
     for integer in integers {
