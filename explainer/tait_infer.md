@@ -1,5 +1,7 @@
 # Inferring the hidden type
 
+![nightly](https://img.shields.io/badge/status-nightly-red)
+
 When you use `impl Trait` in a type alias, the hidden type is inferred based on the code in the enclosing module. We call this enclosing module the **defining scope** for the impl trait. In our example, the defining scope is the module `odd`:
 
 ```rust

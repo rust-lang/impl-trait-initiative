@@ -1,6 +1,6 @@
 # Return types in trait definitions and impls
 
-**Status:** RFC not yet written.
+![evaluation](https://img.shields.io/badge/status-evaluation-red)
 
 When you use `impl Trait` as the return type for a function within a trait definition or trait impl, the semantics are somewhat different than in other cases. Consider the following trait:
 

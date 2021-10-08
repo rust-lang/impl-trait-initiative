@@ -1,6 +1,6 @@
 # Naming impl trait in return types
 
-**Status:** RFC not yet written.
+![evaluation](https://img.shields.io/badge/status-evaluation-red)
 
 Return position impl Trait introduces types that do not have proper names. If you find yourself frequently giving that type a name, your best bet is to introduce a type alias. However, in a pinch, it is possible to access those types by getting the type for the surrounding function and extracting its `FnOnce::Output` associated type. Given a function like...
 

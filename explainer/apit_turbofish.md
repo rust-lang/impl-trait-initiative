@@ -1,6 +1,6 @@
 # Turbofish
 
-**Status:** Needs decision.
+![stable](https://img.shields.io/badge/status-needs%20decision-red)
 
 Using `impl Trait` in argument position conceptually adds a generic parameter to the function. However, this generic parameter is different from explicit, named parameters. Its value cannot be specified explicitly using the turbofish operator, and must be inferred. Therefore, these two functions behave in slightly different ways:
 

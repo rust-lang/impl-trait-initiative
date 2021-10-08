@@ -1,6 +1,6 @@
 # Impl trait in type aliases
 
-**Status:** Under active development, `type_alias_impl_trait` feature gate.
+![nightly](https://img.shields.io/badge/status-nightly-red)
 
 Rust has a concept of *type aliases*, which let you declare one type name as an alias for another:
 

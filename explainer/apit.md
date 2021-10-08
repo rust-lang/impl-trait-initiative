@@ -1,5 +1,7 @@
 # Impl trait in argument types
 
+![stable](https://img.shields.io/badge/status-stable-green)
+
 When you use an `impl Trait` in the type of a function argument, that is generally equivalent to adding a generic parameter to the function.
 So this function:
 
