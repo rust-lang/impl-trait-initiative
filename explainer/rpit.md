@@ -1,6 +1,8 @@
 # Impl trait in return types
 
-![stable](https://img.shields.io/badge/status-stable-green)
+![stable][]
+
+{{#include ../badges.md}}
 
 In the section on [type aliases][tait], we gave the example of a function `odd_integers` that returned a type alias `OddIntegers`. If you prefer, you can forego defining the type alias and simply return an `impl Trait` directly:
 

@@ -1,6 +1,8 @@
 # Appendix A: Inference details
 
-**Status:** Under active development; stable features should be compatible with this description. This description varies slightly from the accepted RFCs and will have to be formalized.
+![nightly][]
+
+{{#include ../badges.md}}
 
 The process to infer the hidden type for an impl Trait is as follows.
 

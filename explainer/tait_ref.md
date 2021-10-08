@@ -1,6 +1,8 @@
 # Referencing the type alias outside of the module
 
-![nightly](https://img.shields.io/badge/status-nightly-red)
+![nightly][]
+
+{{#include ../badges.md}}
 
 Since it is declared to be public, the type alias `OddIntegers` can be referenced from outside the module `odd`. This allows callers to give a name to the return type of `odd_integers`:
 

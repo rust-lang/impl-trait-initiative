@@ -1,6 +1,8 @@
 # Traits and impls
 
-![stable](https://img.shields.io/badge/status-stable-green)
+![stable][]
+
+{{#include ../badges.md}}
 
 You can use `impl Trait` in argument position in traits and impls, but you must use it consistently in both. For example, the following is legal:
 

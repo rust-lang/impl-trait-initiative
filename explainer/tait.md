@@ -1,6 +1,8 @@
 # Impl trait in type aliases
 
-![nightly](https://img.shields.io/badge/status-nightly-red)
+![nightly][]
+
+{{#include ../badges.md}}
 
 Rust has a concept of *type aliases*, which let you declare one type name as an alias for another:
 

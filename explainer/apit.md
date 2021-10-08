@@ -1,6 +1,8 @@
 # Impl trait in argument types
 
-![stable](https://img.shields.io/badge/status-stable-green)
+![stable][]
+
+{{#include ../badges.md}}
 
 When you use an `impl Trait` in the type of a function argument, that is generally equivalent to adding a generic parameter to the function.
 So this function:
@@ -32,6 +34,3 @@ where
 ```
 
 Intuitively, a function that has an argument of type `impl Iterator` is saying "you can give me any sort of iterator that you like".
-
-## Interaction with turbofish
-Using impl trait 

@@ -1,6 +1,8 @@
 # Generic parameter capture
 
-![stable](https://img.shields.io/badge/status-stable-green)
+![stable][]
+
+{{#include ../badges.md}}
 
 When you use an impl trait in return position, there are some limitations on the "hidden type" that may be used. 
 

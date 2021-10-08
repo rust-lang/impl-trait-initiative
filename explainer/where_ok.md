@@ -1,20 +1,22 @@
 # Appendix B: Where can impl trait be used
 
+{{#include ../badges.md}}
+
 ## Overview
 
 We can now extend the table of impl trait positions introduced in the [type alias][tait] chapter with an additional entry:
 
 | Position                                | Who determines the hidden type       | Status               |
 | --------------------------------------- | ------------------------------------ | -------------------- |
-| [Argument position][apit]               | Each caller                          | stable               |
-| [Type alias][tait]                      | Code within the enclosing module     | nightly              |
-| [Return position, free fns][rpit]       | The function body                    | stable               |
-| [Return position, inherent impls][rpit] | The function body                    | stable               |
-| [Return position, trait impls][rpit]    | The function body                    | planning rfc         |
-| [Return position, traits][rpit_trait]   | The impl                             | planning rfc         |
-| [Let binding][lbit]                     | The enclosing function or code block | rfc'd, unimplemented |
-| [Const binding][lbit]                   | The const initializer                | rfc'd, unimplemented |
-| [Static binding][lbit]                  | The static initializer               | rfc'd, unimplemented |
+| [Argument position][apit]               | Each caller                          | ![stable][]          |
+| [Type alias][tait]                      | Code within the enclosing module     | ![nightly][]         |
+| [Return position, free fns][rpit]       | The function body                    | ![stable][]          |
+| [Return position, inherent impls][rpit] | The function body                    | ![stable][]          |
+| [Return position, trait impls][rpit]    | The function body                    | ![planning rfc][]         |
+| [Return position, traits][rpit_trait]   | The impl                             | ![planning rfc][]         |
+| [Let binding][lbit]                     | The enclosing function or code block | ![accepted rfc][] |
+| [Const binding][lbit]                   | The const initializer                | ![accepted rfc][] |
+| [Static binding][lbit]                  | The static initializer               | ![accepted rfc][] |
 
 [apit]: ./apit.md
 [tait]: ./tait.md

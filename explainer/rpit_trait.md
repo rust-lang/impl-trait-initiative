@@ -1,6 +1,8 @@
 # Return types in trait definitions and impls
 
-![evaluation](https://img.shields.io/badge/status-evaluation-red)
+![planning rfc][]
+
+{{#include ../badges.md}}
 
 When you use `impl Trait` as the return type for a function within a trait definition or trait impl, the semantics are somewhat different than in other cases. Consider the following trait:
 

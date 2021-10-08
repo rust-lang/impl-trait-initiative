@@ -1,6 +1,7 @@
 # Generic parameters and type alias impl trait
 
-**Status:** Implemented on nightly with `type_alias_impl_trait` feature gate.
+![nightly][]
+{{#include ../badges.md}}
 
 Type alias impl Traits can also be generic:
 
