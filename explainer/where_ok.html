@@ -141,15 +141,15 @@
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>We can now extend the table of impl trait positions introduced in the <a href="./tait.html">type alias</a> chapter with an additional entry:</p>
 <table><thead><tr><th>Position</th><th>Who determines the hidden type</th><th>Status</th></tr></thead><tbody>
-<tr><td><a href="./apit.html">Argument position</a></td><td>Each caller</td><td>stable</td></tr>
-<tr><td><a href="./tait.html">Type alias</a></td><td>Code within the enclosing module</td><td>nightly</td></tr>
-<tr><td><a href="./rpit.html">Return position, free fns</a></td><td>The function body</td><td>stable</td></tr>
-<tr><td><a href="./rpit.html">Return position, inherent impls</a></td><td>The function body</td><td>stable</td></tr>
-<tr><td><a href="./rpit.html">Return position, trait impls</a></td><td>The function body</td><td>planning rfc</td></tr>
-<tr><td><a href="./rpit_trait.html">Return position, traits</a></td><td>The impl</td><td>planning rfc</td></tr>
-<tr><td><a href="./lbit.html">Let binding</a></td><td>The enclosing function or code block</td><td>rfc'd, unimplemented</td></tr>
-<tr><td><a href="./lbit.html">Const binding</a></td><td>The const initializer</td><td>rfc'd, unimplemented</td></tr>
-<tr><td><a href="./lbit.html">Static binding</a></td><td>The static initializer</td><td>rfc'd, unimplemented</td></tr>
+<tr><td><a href="./apit.html">Argument position</a></td><td>Each caller</td><td><img src="https://img.shields.io/badge/status-stable-success" alt="stable" /></td></tr>
+<tr><td><a href="./tait.html">Type alias</a></td><td>Code within the enclosing module</td><td><img src="https://img.shields.io/badge/status-nightly-important" alt="nightly" /></td></tr>
+<tr><td><a href="./rpit.html">Return position, free fns</a></td><td>The function body</td><td><img src="https://img.shields.io/badge/status-stable-success" alt="stable" /></td></tr>
+<tr><td><a href="./rpit.html">Return position, inherent impls</a></td><td>The function body</td><td><img src="https://img.shields.io/badge/status-stable-success" alt="stable" /></td></tr>
+<tr><td><a href="./rpit.html">Return position, trait impls</a></td><td>The function body</td><td><img src="https://img.shields.io/badge/status-draft%20rfc-informational" alt="planning rfc" /></td></tr>
+<tr><td><a href="./rpit_trait.html">Return position, traits</a></td><td>The impl</td><td><img src="https://img.shields.io/badge/status-draft%20rfc-informational" alt="planning rfc" /></td></tr>
+<tr><td><a href="./lbit.html">Let binding</a></td><td>The enclosing function or code block</td><td><img src="https://img.shields.io/badge/status-accepted%20rfc-informational" alt="accepted rfc" /></td></tr>
+<tr><td><a href="./lbit.html">Const binding</a></td><td>The const initializer</td><td><img src="https://img.shields.io/badge/status-accepted%20rfc-informational" alt="accepted rfc" /></td></tr>
+<tr><td><a href="./lbit.html">Static binding</a></td><td>The static initializer</td><td><img src="https://img.shields.io/badge/status-accepted%20rfc-informational" alt="accepted rfc" /></td></tr>
 </tbody></table>
 <h2 id="general-rules-for-input-vs-output"><a class="header" href="#general-rules-for-input-vs-output">General rules for &quot;input&quot; vs &quot;output&quot;</a></h2>
 <p>In general, the role of <code>impl Trait</code> and <code>'_</code> both follow the same rules in terms of being &quot;input vs output&quot;.  When in an argument listing, that is an &quot;input&quot; role and they correspond to a fresh parameter in the innermost binder. Otherwise, they are in &quot;output&quot; role and the corresponding to something which is inferred or selected from context (in the case of <code>'_</code> in return position, it is selected based on the rules of lifetime elision; <code>'_</code> within a function body corresponds to inference).</p>

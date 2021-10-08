@@ -138,7 +138,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="naming-impl-trait-in-return-types"><a class="header" href="#naming-impl-trait-in-return-types">Naming impl trait in return types</a></h1>
-<p><strong>Status:</strong> RFC not yet written.</p>
+<p><img src="https://img.shields.io/badge/status-draft%20rfc-informational" alt="planning rfc" /></p>
 <p>Return position impl Trait introduces types that do not have proper names. If you find yourself frequently giving that type a name, your best bet is to introduce a type alias. However, in a pinch, it is possible to access those types by getting the type for the surrounding function and extracting its <code>FnOnce::Output</code> associated type. Given a function like...</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]

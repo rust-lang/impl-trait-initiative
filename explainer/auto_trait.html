@@ -138,7 +138,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="auto-traits-and-impl-trait"><a class="header" href="#auto-traits-and-impl-trait">Auto traits and impl trait</a></h1>
-<p><strong>Status:</strong> Stable.</p>
+<p><img src="https://img.shields.io/badge/status-stable-success" alt="stable" /></p>
 <p>When talking about output impl Traits in the previous section, we said that callers cannot rely on the precise hidden type, but must instead rely only on the declared bounds from the impl Trait. This was actually a simplification: in reality, callers are able to rely on <em>some</em> aspects of the hidden type. Specifically, they are able to deduce whether the hidden type implements the various <a href="https://doc.rust-lang.org/nightly/reference/special-types-and-traits.html#auto-traits">auto traits</a>, like <code>Send</code> and <code>Sync</code>:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]

@@ -138,6 +138,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="referencing-the-type-alias-outside-of-the-module"><a class="header" href="#referencing-the-type-alias-outside-of-the-module">Referencing the type alias outside of the module</a></h1>
+<p><img src="https://img.shields.io/badge/status-nightly-important" alt="nightly" /></p>
 <p>Since it is declared to be public, the type alias <code>OddIntegers</code> can be referenced from outside the module <code>odd</code>. This allows callers to give a name to the return type of <code>odd_integers</code>:</p>
 <pre><pre class="playground"><code class="language-rust">mod odd {
     pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
