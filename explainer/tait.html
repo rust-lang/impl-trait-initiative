@@ -202,7 +202,7 @@
 <p>You can see that impl trait behaves a bit differently depending on where you use it. What all positions have in common is that they stand in for &quot;some type that implements the given trait&quot;. We call that type the <em>hidden type</em>, because you generally don't get to rely on exactly what it is, you only get to rely on the bounds that it satisfies. What distinguishes the various positions where you can use impl Trait is which code determines the hidden type:</p>
 <table><thead><tr><th>Position</th><th>Who determines the hidden type</th></tr></thead><tbody>
 <tr><td><a href="./apit.html">Argument position</a></td><td>The caller</td></tr>
-<tr><td>[Type alias][tait]</td><td>Code within the enclosing module</td></tr>
+<tr><td>Type alias</td><td>Code within the enclosing module</td></tr>
 <tr><td>... (full table in <a href="./where_ok.html">Appendix B</a>)</td><td></td></tr>
 </tbody></table>
 <h2 id="inferring-the-hidden-type"><a class="header" href="#inferring-the-hidden-type">Inferring the hidden type</a></h2>

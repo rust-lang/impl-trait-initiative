@@ -540,7 +540,7 @@ impl Operation for Sum {
 <p>You can see that impl trait behaves a bit differently depending on where you use it. What all positions have in common is that they stand in for &quot;some type that implements the given trait&quot;. We call that type the <em>hidden type</em>, because you generally don't get to rely on exactly what it is, you only get to rely on the bounds that it satisfies. What distinguishes the various positions where you can use impl Trait is which code determines the hidden type:</p>
 <table><thead><tr><th>Position</th><th>Who determines the hidden type</th></tr></thead><tbody>
 <tr><td><a href="explainer/./apit.html">Argument position</a></td><td>The caller</td></tr>
-<tr><td>[Type alias][tait]</td><td>Code within the enclosing module</td></tr>
+<tr><td>Type alias</td><td>Code within the enclosing module</td></tr>
 <tr><td>... (full table in <a href="explainer/./where_ok.html">Appendix B</a>)</td><td></td></tr>
 </tbody></table>
 <h2 id="inferring-the-hidden-type"><a class="header" href="#inferring-the-hidden-type">Inferring the hidden type</a></h2>
@@ -869,9 +869,9 @@ fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers { ... }
 <tr><td><a href="explainer/./rpit.html">Return position, inherent impls</a></td><td>The function body</td><td>stable</td></tr>
 <tr><td><a href="explainer/./rpit.html">Return position, trait impls</a></td><td>The function body</td><td>planning rfc</td></tr>
 <tr><td><a href="explainer/./rpit_trait.html">Return position, traits</a></td><td>The impl</td><td>planning rfc</td></tr>
-<tr><td>[Let binding][lbit]</td><td>The enclosing function or code block</td><td>rfc'd, unimplemented</td></tr>
-<tr><td>[Const binding][lbit]</td><td>The const initializer</td><td>rfc'd, unimplemented</td></tr>
-<tr><td>[Static binding][lbit]</td><td>The static initializer</td><td>rfc'd, unimplemented</td></tr>
+<tr><td><a href="explainer/./lbit.html">Let binding</a></td><td>The enclosing function or code block</td><td>rfc'd, unimplemented</td></tr>
+<tr><td><a href="explainer/./lbit.html">Const binding</a></td><td>The const initializer</td><td>rfc'd, unimplemented</td></tr>
+<tr><td><a href="explainer/./lbit.html">Static binding</a></td><td>The static initializer</td><td>rfc'd, unimplemented</td></tr>
 </tbody></table>
 <h2 id="general-rules-for-input-vs-output"><a class="header" href="#general-rules-for-input-vs-output">General rules for &quot;input&quot; vs &quot;output&quot;</a></h2>
 <p>In general, the role of <code>impl Trait</code> and <code>'_</code> both follow the same rules in terms of being &quot;input vs output&quot;.  When in an argument listing, that is an &quot;input&quot; role and they correspond to a fresh parameter in the innermost binder. Otherwise, they are in &quot;output&quot; role and the corresponding to something which is inferred or selected from context (in the case of <code>'_</code> in return position, it is selected based on the rules of lifetime elision; <code>'_</code> within a function body corresponds to inference).</p>
