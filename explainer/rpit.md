@@ -2,7 +2,9 @@
 
 **Status:** Stable in free functions and inherent methods.
 
-You can also use impl trait in the return type of a function:
+In the section on [type aliases][tait], we gave the example of a function `odd_integers` that returned a type alias `OddIntegers`. If you prefer, you can forego defining the type alias and simply return an `impl Trait` directly:
+
+[tait]: ./tait.md
 
 ```rust
 fn odd_integers(start: u32, stop: u32) -> impl Iterator<Item = u32> {
@@ -10,18 +12,10 @@ fn odd_integers(start: u32, stop: u32) -> impl Iterator<Item = u32> {
 }
 ```
 
-When you use `impl Trait` in an output position like this, the meaning is slightly different. Here, the function is saying "I will give you back some kind of iteratoer over integers". The difference is that the function body is the one that selects the kind of iterator in question, rather than the caller. (In this case, that type is going to be `Filter<Range<u32>, _>`, where `_` represents the anonymous type of the closure) The caller, meanwhile, doesn't know the precise type of `Iterator` they were given, only that they got "some iterator":
+This is *almost* equivalent to the type alias we saw before, but there are two differences:
 
-```rust
-let i = odd_integers();
-
-// OK -- we know that `i` is an `Iterator`
-let v: u32 = i.next();
-
-// ERROR -- This method comes from `DoubleEndedIterator`, and we
-// only know that `i` implements `Iterator` (in fact, the hidden
-// type *does* implement `DoubleEndedIterator`, but we can't
-// rely on that).
-let w: u32 = i.next_back(); 
-```
+* The **defining scope** for the impl trait is just the function `odd_integers`, and not the enclosing module.
+    * This means that other functions within the same module cannot observe or constrain the hidden type.
+* There is no direct way to name the resulting type (because you didn't define a type alias).
+    * But see the section on [naming impl trait in return type](./rpit_naming.md) for indirect techniques.
 
