@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -541,7 +541,7 @@ impl Operation for Sum {
 <table><thead><tr><th>Position</th><th>Who determines the hidden type</th></tr></thead><tbody>
 <tr><td><a href="explainer/./apit.html">Argument position</a></td><td>The caller</td></tr>
 <tr><td>[Type alias][tait]</td><td>Code within the enclosing module</td></tr>
-<tr><td>... (we'll extend this table as we go)</td><td></td></tr>
+<tr><td>... (full table in <a href="explainer/./where_ok.html">Appendix B</a>)</td><td></td></tr>
 </tbody></table>
 <h2 id="inferring-the-hidden-type"><a class="header" href="#inferring-the-hidden-type">Inferring the hidden type</a></h2>
 <p>As the table says, when you use <code>impl Trait</code> in an argument position, the hidden type is determined by the caller of the function (just like other generic parameters). When you use <code>impl Trait</code> in a type alias, the hidden type is inferred based on the code in the enclosing module. We call this enclosing module the <strong>defining scope</strong> for the impl trait. In our example, the defining scope is the module <code>odd</code>:</p>
@@ -709,6 +709,37 @@ fn foo4&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, u32&gt; { /* not ok -- u32 i
 <li>you can capture type parameters</li>
 <li>but not lifetimes, unless they appear in the bounds</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="naming-impl-trait-in-return-types"><a class="header" href="#naming-impl-trait-in-return-types">Naming impl trait in return types</a></h1>
+<p><strong>Status:</strong> RFC not yet written.</p>
+<p>Return position impl Trait introduces types that do not have proper names. If you find yourself frequently giving that type a name, your best bet is to introduce a type alias. However, in a pinch, it is possible to access those types by getting the type for the surrounding function and extracting its <code>FnOnce::Output</code> associated type. Given a function like...</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn make_iter() -&gt; impl Iterator&lt;Item = u32&gt; {
+    0 .. 100
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>...one could use the type <code>make_iter::Output</code> to access the inferred <code>impl Iterator</code> (which will be a <code>Range&lt;u32&gt;</code>, in this case).</p>
+<p>Function types can generally be named via their path:</p>
+<ul>
+<li>For function items, simply the name of the function (<code>fn_name</code>)</li>
+<li>For inherent methods, the fully qualified syntax of <code>Type::fn_name</code></li>
+<li>For trait methods defined in an impl, use the fully qualified syntax <code>&lt;Type as Trait&gt;::fn_name</code> (as if <code>fn_name</code> were an associated type)</li>
+</ul>
+<p>In each case, the type for the function is a zero-sized type that implements the <code>Fn</code>, <code>FnMut</code>, and <code>FnOnce</code> traits. This type is considered to be defined in its surrounding module and it is also possible to use it in other contexts, such as to implement the <code>Default</code> trait:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo() -&gt; u32 { 22 }
+
+impl Default for foo {
+    fn default() -&gt; Self {
+        foo
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="return-types-in-trait-definitions-and-impls"><a class="header" href="#return-types-in-trait-definitions-and-impls">Return types in trait definitions and impls</a></h1>
 <p><strong>Status:</strong> RFC not yet written.</p>
 <p>When you use <code>impl Trait</code> as the return type for a function within a trait definition or trait impl, the semantics are somewhat different than in other cases. Consider the following trait:</p>
@@ -751,37 +782,6 @@ fn foo4&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, u32&gt; { /* not ok -- u32 i
     type IntoIntIter = impl Iterator&lt;Item = u32&gt;
     fn into_int_iter(self) -&gt; Self::IntoIntIter {
         self.into_iter()
-    }
-}
-<span class="boring">}
-</span></code></pre></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="naming-impl-trait-in-return-types"><a class="header" href="#naming-impl-trait-in-return-types">Naming impl trait in return types</a></h1>
-<p><strong>Status:</strong> RFC not yet written.</p>
-<p>Return position impl Trait introduces types that do not have proper names. If you find yourself frequently giving that type a name, your best bet is to introduce a type alias. However, in a pinch, it is possible to access those types by getting the type for the surrounding function and extracting its <code>FnOnce::Output</code> associated type. Given a function like...</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>fn make_iter() -&gt; impl Iterator&lt;Item = u32&gt; {
-    0 .. 100
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>...one could use the type <code>make_iter::Output</code> to access the inferred <code>impl Iterator</code> (which will be a <code>Range&lt;u32&gt;</code>, in this case).</p>
-<p>Function types can generally be named via their path:</p>
-<ul>
-<li>For function items, simply the name of the function (<code>fn_name</code>)</li>
-<li>For inherent methods, the fully qualified syntax of <code>Type::fn_name</code></li>
-<li>For trait methods defined in an impl, use the fully qualified syntax <code>&lt;Type as Trait&gt;::fn_name</code> (as if <code>fn_name</code> were an associated type)</li>
-</ul>
-<p>In each case, the type for the function is a zero-sized type that implements the <code>Fn</code>, <code>FnMut</code>, and <code>FnOnce</code> traits. This type is considered to be defined in its surrounding module and it is also possible to use it in other contexts, such as to implement the <code>Default</code> trait:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>fn foo() -&gt; u32 { 22 }
-
-impl Default for foo {
-    fn default() -&gt; Self {
-        foo
     }
 }
 <span class="boring">}
@@ -860,22 +860,19 @@ fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers { ... }
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-b-where-can-impl-trait-be-used"><a class="header" href="#appendix-b-where-can-impl-trait-be-used">Appendix B: Where can impl trait be used</a></h1>
-<p>What follows is a full set of locations where impl Trait can be used, and what they mean in that position.</p>
-<table><thead><tr><th>Example</th><th>Name</th><th>Stage</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>type Foo = impl Trait</code></td><td>top-level type alias</td><td>nightly</td><td>&quot;output&quot; impl trait, inferred from code within the enclosing item</td></tr>
-<tr><td><code>impl Trait for Type { type Foo = impl Trait }</code></td><td>associated type</td><td>nightly</td><td>&quot;output&quot; impl trait, inferred from code within the impl</td></tr>
-<tr><td><code>fn foo(x: impl Trait) {...}</code></td><td>argument position</td><td>stable</td><td>&quot;input&quot; impl trait: equivalent to a type parameter <code>fn foo&lt;T: Trait&gt;</code></td></tr>
-<tr><td><code>trait Trait { fn foo(x: impl Trait) }</code></td><td>argument position, trait method</td><td>stable</td><td>&quot;input&quot; impl trait: equivalent to a type parameter <code>fn foo&lt;T: Trait&gt;</code></td></tr>
-<tr><td><code>impl Trait for Type  { fn foo() -&gt; impl Trait }</code></td><td>argument position, trait impl</td><td>stable</td><td>&quot;input&quot; impl trait: equivalent to a type parameter <code>fn foo&lt;T: Trait&gt;</code></td></tr>
-<tr><td><code>fn foo() -&gt; impl Trait {...}</code></td><td>return position (free function)</td><td>stable</td><td>&quot;output&quot; impl trait with the fn body as its defining scope</td></tr>
-<tr><td><code>impl Type { fn foo() -&gt; impl Trait }</code></td><td>return position (inherent method)</td><td>stable</td><td>&quot;output&quot; impl trait with the fn body as its defining scope</td></tr>
-<tr><td><code>trait Trait { fn foo() -&gt; impl Trait }</code></td><td>return position, trait method</td><td>evaluation</td><td>&quot;output&quot; impl trait, equivalent to an associated type</td></tr>
-<tr><td><code>impl Trait for Type  { fn foo() -&gt; impl Trait }</code></td><td>return position, trait impl</td><td>evaluation</td><td>&quot;output&quot; impl trait, equivalent to an associated type</td></tr>
-<tr><td><code>let x: impl Trait</code></td><td>let binding</td><td>rfc'd</td><td>&quot;output&quot; impl trait, inferred from enclosing function</td></tr>
-<tr><td><code>const x: impl Trait</code></td><td>type of const</td><td>rfc'd</td><td>&quot;output&quot; impl trait, inferred from enclosing function</td></tr>
-<tr><td><code>static x: impl Trait</code></td><td>type of static</td><td>rfc'd</td><td>&quot;output&quot; impl trait, inferred from enclosing function</td></tr>
+<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
+<p>We can now extend the table of impl trait positions introduced in the <a href="explainer/./tait.html">type alias</a> chapter with an additional entry:</p>
+<table><thead><tr><th>Position</th><th>Who determines the hidden type</th><th>Status</th></tr></thead><tbody>
+<tr><td><a href="explainer/./apit.html">Argument position</a></td><td>Each caller</td><td>stable</td></tr>
+<tr><td><a href="explainer/./tait.html">Type alias</a></td><td>Code within the enclosing module</td><td>nightly</td></tr>
+<tr><td><a href="explainer/./rpit.html">Return position, free fns</a></td><td>The function body</td><td>stable</td></tr>
+<tr><td><a href="explainer/./rpit.html">Return position, inherent impls</a></td><td>The function body</td><td>stable</td></tr>
+<tr><td><a href="explainer/./rpit.html">Return position, trait impls</a></td><td>The function body</td><td>planning rfc</td></tr>
+<tr><td><a href="explainer/./rpit_trait.html">Return position, traits</a></td><td>The impl</td><td>planning rfc</td></tr>
+<tr><td>[Let binding][lbit]</td><td>The enclosing function or code block</td><td>rfc'd, unimplemented</td></tr>
+<tr><td>[Const binding][lbit]</td><td>The const initializer</td><td>rfc'd, unimplemented</td></tr>
+<tr><td>[Static binding][lbit]</td><td>The static initializer</td><td>rfc'd, unimplemented</td></tr>
 </tbody></table>
-<p>More details follow.</p>
 <h2 id="general-rules-for-input-vs-output"><a class="header" href="#general-rules-for-input-vs-output">General rules for &quot;input&quot; vs &quot;output&quot;</a></h2>
 <p>In general, the role of <code>impl Trait</code> and <code>'_</code> both follow the same rules in terms of being &quot;input vs output&quot;.  When in an argument listing, that is an &quot;input&quot; role and they correspond to a fresh parameter in the innermost binder. Otherwise, they are in &quot;output&quot; role and the corresponding to something which is inferred or selected from context (in the case of <code>'_</code> in return position, it is selected based on the rules of lifetime elision; <code>'_</code> within a function body corresponds to inference).</p>
 <h2 id="type-alias-impl-trait"><a class="header" href="#type-alias-impl-trait">Type alias impl trait</a></h2>
