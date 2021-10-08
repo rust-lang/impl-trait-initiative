@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="../index.html">👋 Welcome</a></li><li class="chapter-item "><a href="../CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="../updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="../evaluation.html">🔬 Evaluation</a></li><li class="chapter-item expanded "><a href="../explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="../explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item expanded "><a href="../explainer/rpit.html" class="active">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/rpit_scopes.html">Defining scopes</a></li><li class="chapter-item "><a href="../explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="../explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="../explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="../explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/tait_generics.html">Generic parameters</a></li><li class="chapter-item "><a href="../explainer/tait_scopes.html">Defining scopes</a></li></ol></li><li class="chapter-item "><a href="../explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="../explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="../explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="../explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="../explainer/where_not_ok.html">Appendix B: Where can impl trait NOT be used</a></li></ol></li><li class="chapter-item "><a href="../RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="../design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="../FAQ.html">😕 FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="../index.html">👋 Welcome</a></li><li class="chapter-item "><a href="../CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="../updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="../evaluation.html">🔬 Evaluation</a></li><li class="chapter-item expanded "><a href="../explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="../explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="../explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item expanded "><a href="../explainer/rpit.html" class="active">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="../explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="../explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="../explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="../explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="../explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="../explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="../explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="../explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="../explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item "><a href="../RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="../design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="../FAQ.html">😕 FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -139,7 +139,7 @@
                     <main>
                         <h1 id="impl-trait-in-return-types"><a class="header" href="#impl-trait-in-return-types">Impl trait in return types</a></h1>
 <p><strong>Status:</strong> Stable in free functions and inherent methods.</p>
-<p>You can also use impl trait in the return type of a function:</p>
+<p>In the section on <a href="./tait.html">type aliases</a>, we gave the example of a function <code>odd_integers</code> that returned a type alias <code>OddIntegers</code>. If you prefer, you can forego defining the type alias and simply return an <code>impl Trait</code> directly:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -148,31 +148,28 @@
 }
 <span class="boring">}
 </span></code></pre></pre>
-<p>When you use <code>impl Trait</code> in an output position like this, the meaning is slightly different. Here, the function is saying &quot;I will give you back some kind of iteratoer over integers&quot;. The difference is that the function body is the one that selects the kind of iterator in question, rather than the caller. (In this case, that type is going to be <code>Filter&lt;Range&lt;u32&gt;, _&gt;</code>, where <code>_</code> represents the anonymous type of the closure) The caller, meanwhile, doesn't know the precise type of <code>Iterator</code> they were given, only that they got &quot;some iterator&quot;:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let i = odd_integers();
-
-// OK -- we know that `i` is an `Iterator`
-let v: u32 = i.next();
-
-// ERROR -- This method comes from `DoubleEndedIterator`, and we
-// only know that `i` implements `Iterator` (in fact, the hidden
-// type *does* implement `DoubleEndedIterator`, but we can't
-// rely on that).
-let w: u32 = i.next_back(); 
-<span class="boring">}
-</span></code></pre></pre>
+<p>This is <em>almost</em> equivalent to the type alias we saw before, but there are two differences:</p>
+<ul>
+<li>The <strong>defining scope</strong> for the impl trait is just the function <code>odd_integers</code>, and not the enclosing module.
+<ul>
+<li>This means that other functions within the same module cannot observe or constrain the hidden type.</li>
+</ul>
+</li>
+<li>There is no direct way to name the resulting type (because you didn't define a type alias).
+<ul>
+<li>But see the section on <a href="./rpit_naming.html">naming impl trait in return type</a> for indirect techniques.</li>
+</ul>
+</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../explainer/apit_traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../explainer/tait_generics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../explainer/rpit_scopes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../explainer/rpit_capture.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -181,10 +178,10 @@ let w: u32 = i.next_back();
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../explainer/apit_traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../explainer/tait_generics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../explainer/rpit_scopes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../explainer/rpit_capture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

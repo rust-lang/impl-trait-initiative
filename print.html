@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/rpit_scopes.html">Defining scopes</a></li><li class="chapter-item "><a href="explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/tait_generics.html">Generic parameters</a></li><li class="chapter-item "><a href="explainer/tait_scopes.html">Defining scopes</a></li></ol></li><li class="chapter-item "><a href="explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="explainer/where_not_ok.html">Appendix B: Where can impl trait NOT be used</a></li></ol></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">👋 Welcome</a></li><li class="chapter-item "><a href="CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item "><a href="explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item "><a href="RFC.html">✨ RFCs</a></li><li class="chapter-item "><a href="design-discussions/index.html">💬 Design discussions</a></li><li class="chapter-item "><a href="FAQ.html">😕 FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -475,9 +475,211 @@ impl Operation for Sum {
 }
 <span class="boring">}
 </span></code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="impl-trait-in-type-aliases"><a class="header" href="#impl-trait-in-type-aliases">Impl trait in type aliases</a></h1>
+<p><strong>Status:</strong> Under active development, <code>type_alias_impl_trait</code> feature gate.</p>
+<p>Rust has a concept of <em>type aliases</em>, which let you declare one type name as an alias for another:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Integer = i32;
+<span class="boring">}
+</span></code></pre></pre>
+<p>Type aliases can be useful for giving a short alias for some complex type. For example, imagine we had a module <code>odd</code> that defined an <code>odd_integers</code> function. <code>odd_integers(x, y)</code> returns an iterator over all the odd integers between <code>x</code> and <code>y</code>. Because the full return type is fairly complicated, the module defines a type alias <code>OddIntegers</code> that people can use to refer to it.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod odd {
+    pub type OddIntegers = std::iter::StepBy&lt;std::ops::Range&lt;u32&gt;&gt;;
+
+    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers {
+        if (start % 2) == 0 {
+            start += 1;
+        }
+        (start..stop).step_by(2)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Of course, typing that long type is kind of annoying. Moreover, there are some types in Rust that don't have explicit names. For example, another way to write the &quot;odd integers&quot; iterator would be to call <code>filter</code> with a closure. But if you try to write out the type for that, you'll find that you need to give a name to the type representing the closure itself, which you can't do!</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod odd {
+    pub type OddIntegers = std::iter::Filter&lt;std::ops::Range&lt;u32&gt;, /* what goes here? */&gt;;
+
+    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers {
+        (start..stop).filter(|x| x % 2 != 0)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="enter-impl-traitsup-classfootnote-referencea-hrefparen1asup"><a class="header" href="#enter-impl-traitsup-classfootnote-referencea-hrefparen1asup">Enter impl Trait<sup class="footnote-reference"><a href="#paren">1</a></sup></a></h2>
+<div class="footnote-definition" id="paren"><sup class="footnote-definition-label">1</sup>
+<p>&quot;He says in parentheses&quot;</p>
+</div>
+<p>The truth is that specifying the exact type for <code>OddIntegers</code> is overkill anyway. Chances are that we don't actually <em>care</em> what exact type is used there, we only care that <code>odd_integers</code> returns <em>some kind of iterator</em>. In fact, we might <em>prefer</em> not to specify it: that gives us the freedom to change how <code>odd_integers</code> is implemented in the future without potentially affecting our callers. If this sounds familiar, that's good -- it's exactly the kind of scenario that <code>impl Trait</code> is meant to solve!</p>
+<p>Using <code>impl Trait</code>, we can still have a type alias <code>OddIntegers</code>, but we can avoid specifying exactly what its value is. Instead, we just say that it is &quot;some iterator over u32&quot;:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod odd {
+    pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+    //                 ^^^^^^^^^^^^^^^^^^^^^^^^^ :tada:!
+
+    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers {
+        if (start % 2) == 0 {
+            start += 1;
+        }
+        (start..stop).step_by(2)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now it's the compiler's job to figure out the value of that type alias. In this case, the type for <code>OddIntegers</code> would be inferred to <code>StepBy&lt;Range&lt;u32&gt;&gt;</code>, but we could also change the definition to use <code>filter</code>, in which case the hidden type would be <code>Filter&lt;Range&lt;u32&gt;, C&gt;</code>, where <code>C</code> represents the type of the closure. This shows something important: the value of an <code>impl Trait</code> can include types that don't otherwise have names (in this case, the closure type <code>C</code>).</p>
+<h2 id="hidden-types"><a class="header" href="#hidden-types">Hidden types</a></h2>
+<p>You can see that impl trait behaves a bit differently depending on where you use it. What all positions have in common is that they stand in for &quot;some type that implements the given trait&quot;. We call that type the <em>hidden type</em>, because you generally don't get to rely on exactly what it is, you only get to rely on the bounds that it satisfies. What distinguishes the various positions where you can use impl Trait is which code determines the hidden type:</p>
+<table><thead><tr><th>Position</th><th>Who determines the hidden type</th></tr></thead><tbody>
+<tr><td><a href="explainer/./apit.html">Argument position</a></td><td>The caller</td></tr>
+<tr><td>[Type alias][tait]</td><td>Code within the enclosing module</td></tr>
+<tr><td>... (we'll extend this table as we go)</td><td></td></tr>
+</tbody></table>
+<h2 id="inferring-the-hidden-type"><a class="header" href="#inferring-the-hidden-type">Inferring the hidden type</a></h2>
+<p>As the table says, when you use <code>impl Trait</code> in an argument position, the hidden type is determined by the caller of the function (just like other generic parameters). When you use <code>impl Trait</code> in a type alias, the hidden type is inferred based on the code in the enclosing module. We call this enclosing module the <strong>defining scope</strong> for the impl trait. In our example, the defining scope is the module <code>odd</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod odd {
+    pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers { .. }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>As we type-check the functions within the module <code>odd</code> (or its submodules), we look at the ways that they use the type <code>OddIntegers</code>. From this we can derive a set of constraints on what the hidden type has to be. For example, the compiler computes that <code>odd_integers</code> returns a value <code>StepBy&lt;Range&lt;u32&gt;&gt;</code>, but the function is declared to return <code>OddIntegers</code>: therefore we conclude that <code>odd_integers</code> requires the hidden type to be <code>StepBy&lt;Range&lt;u32&gt;&gt;</code>.</p>
+<h3 id="there-can-be-multiple-functions-that-constrain-the-type"><a class="header" href="#there-can-be-multiple-functions-that-constrain-the-type">There can be multiple functions that constrain the type</a></h3>
+<p>Of course, modules can have more than one function! It's fine to have multiple functions that constrain the type <code>OddIntegers</code>, so long as they all ultimately constrain it to be the same thing. It's also possible to constrain <code>OddIntegers</code> by referencing it in other places. For example, consider the function <code>another_function</code> here:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod odd {
+    pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+
+    // Requires `OddIntegers` to be `StepBy&lt;Range&lt;u32&gt;&gt;`
+    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers {..}
+
+    // Requires `OddIntegers` to be `StepBy&lt;Range&lt;u32&gt;&gt;`
+    fn another_function() {
+        let x: OddIntegers = (3..5).step_by(2);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>another_function</code> references <code>OddIntegers</code> as the type of the variable <code>x</code> -- but the value assigned to <code>x</code> is also of type <code>StepBy&lt;Range&lt;u32&gt;&gt;</code>, so everything works.</p>
+<h3 id="each-function-within-the-defining-scope-must-specify-the-same-type"><a class="header" href="#each-function-within-the-defining-scope-must-specify-the-same-type">Each function within the defining scope must specify the same type</a></h3>
+<p>These two functions each independently require that <code>OddIntegers</code> has the same underlying type. What is <em>not</em> ok is to have two functions that require <em>different</em> types:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^ :tada:!
+
+fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers {
+    if (start % 2) == 0 {
+        start += 1;
+    }
+    // Requires `OddIntegers` to be `StepBy&lt;Range&lt;u32&gt;&gt;`
+    (start..stop).step_by(2)
+}
+
+fn another_function() {
+    // Requires `OddIntegers` to be `Filter&lt;...&gt;`.
+    //
+    // ERROR!
+    let x: OddIntegers = (3..5).filter(|x| x % 2 != 0);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="each-function-within-the-defining-scope-must-specify-the-complete-type"><a class="header" href="#each-function-within-the-defining-scope-must-specify-the-complete-type">Each function within the defining scope must specify the complete type</a></h3>
+<p>Similarly, it is not ok to have functions that only partially constrain and impl Trait. Consider this example:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type SomethingDebug = impl Debug;
+
+fn something_debug() -&gt; SomethingDebug {
+    // Constrains SomethingDebug to `Option&lt;_&gt;`
+    // (where `_` represents &quot;some type yet to be inferred&quot;)
+    None
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Here, the <code>something_debug</code> function constrains <code>SomethingDebug</code> to be some sort of <code>Option</code>, but it doesn't say the full type. We only have <code>Option&lt;_&gt;</code>. That's not good enough. You could change this function to specify what kind of option it is, though, and that would be fine:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type SomethingDebug = impl Debug;
+
+fn something_debug() -&gt; SomethingDebug {
+    // Constrains SomethingDebug to `Option&lt;()&gt;`
+    None::&lt;()&gt;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="referencing-the-type-alias-outside-of-the-module"><a class="header" href="#referencing-the-type-alias-outside-of-the-module">Referencing the type alias outside of the module</a></h2>
+<p>Since it is declared to be public, the type alias <code>OddIntegers</code> can be referenced from outside the module <code>odd</code>. This allows callers to give a name to the return type of <code>odd_integers</code>:</p>
+<pre><pre class="playground"><code class="language-rust">mod odd {
+    pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers { /* as above */ }
+}
+
+fn main() {
+    let odds: odd::OddIntegers = odd::odd_integers(1, 10);
+    for i in odds {
+        println!(&quot;{}&quot;, i);
+    }
+}
+</code></pre></pre>
+<p>Because that code is outside of the defining scope, however, it is not allowed to influence or observe the hidden type. It can only rely on the that were declared<sup class="footnote-reference"><a href="#auto">2</a></sup> (e.g., <code>Iterator&lt;Item = u32&gt;</code>). For example, the following code would not type check:</p>
+<div class="footnote-definition" id="auto"><sup class="footnote-definition-label">2</sup>
+<p>With the exception of <a href="explainer/./auto_trait.html">auto traits</a>.</p>
+</div>
+<pre><pre class="playground"><code class="language-rust">mod odd {
+    pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
+    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers { /* as above */ }
+}
+
+fn main() {
+    // Error!
+    let odds: std::iter::StepBy&lt;std::iter::Range&lt;u32&gt;&gt; =
+        odd::odd_integers(1, 10);
+    for i in odds {
+        println!(&quot;{}&quot;, i);
+    }
+}
+</code></pre></pre>
+<p>This code fails because <code>odds</code> is not known to have that exact type -- <code>main</code> can only see that <code>odds</code> returns &quot;some kind of iterator&quot;. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="generic-parameters-and-type-alias-impl-trait"><a class="header" href="#generic-parameters-and-type-alias-impl-trait">Generic parameters and type alias impl trait</a></h1>
+<p><strong>Status:</strong> Implemented on nightly with <code>type_alias_impl_trait</code> feature gate.</p>
+<p>Type alias impl Traits can also be generic:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type SomeTupleIterator&lt;I, J&gt; = impl Iterator&lt;Item = (I, J)&gt;;
+<span class="boring">}
+</span></code></pre></pre>
+<p>The values that you use for these generic parameters, however, are subject to some restrictions. In particular, type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo1&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, B&gt; { /* ok */ }
+fn foo2&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;B, A&gt; { /* ok */ }
+fn foo3&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, A&gt; { /* not ok -- same parameter used twice */ }
+fn foo4&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, u32&gt; { /* not ok -- u32 is not a type parameter */ }
+<span class="boring">}
+</span></code></pre></pre>
+<p>These rules ensure that inference is tractable. Consider the case of <code>-&gt; SomeTupleIterator&lt;A, u32&gt;</code>. Imagine that <code>foo4</code> returned an iterator over <code>(A, u32)</code> tuples. How do we translate that value to the hidden type for <code>SomeTupleIterator</code>?  There would actually be multiple possibilities. Either it would be an iterator over <code>(I, J)</code> (with <code>I = A</code> and <code>J = u32</code> in this case), or an iterator over <code>(I, u32)</code> (with <code>I = A</code> and <code>J</code> unused).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="impl-trait-in-return-types"><a class="header" href="#impl-trait-in-return-types">Impl trait in return types</a></h1>
 <p><strong>Status:</strong> Stable in free functions and inherent methods.</p>
-<p>You can also use impl trait in the return type of a function:</p>
+<p>In the section on <a href="explainer/./tait.html">type aliases</a>, we gave the example of a function <code>odd_integers</code> that returned a type alias <code>OddIntegers</code>. If you prefer, you can forego defining the type alias and simply return an <code>impl Trait</code> directly:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -486,28 +688,19 @@ impl Operation for Sum {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<p>When you use <code>impl Trait</code> in an output position like this, the meaning is slightly different. Here, the function is saying &quot;I will give you back some kind of iteratoer over integers&quot;. The difference is that the function body is the one that selects the kind of iterator in question, rather than the caller. (In this case, that type is going to be <code>Filter&lt;Range&lt;u32&gt;, _&gt;</code>, where <code>_</code> represents the anonymous type of the closure) The caller, meanwhile, doesn't know the precise type of <code>Iterator</code> they were given, only that they got &quot;some iterator&quot;:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let i = odd_integers();
-
-// OK -- we know that `i` is an `Iterator`
-let v: u32 = i.next();
-
-// ERROR -- This method comes from `DoubleEndedIterator`, and we
-// only know that `i` implements `Iterator` (in fact, the hidden
-// type *does* implement `DoubleEndedIterator`, but we can't
-// rely on that).
-let w: u32 = i.next_back(); 
-<span class="boring">}
-</span></code></pre></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="defining-scopes"><a class="header" href="#defining-scopes">Defining scopes</a></h1>
-<p><strong>Status:</strong> Stable.</p>
-<p>In cases like this, where the <code>impl Trait</code> is mapped to a single type that is determined by the body of a function or some other thing, we say that it is an <strong>output impl Trait</strong>. It occurs when the <code>impl Trait</code> appears in <strong>output position</strong>, such as the return type of a function (we'll see some other output positions later on).</p>
-<p>Every output impl Trait has a <strong>hidden type</strong> and a <strong>defining scope</strong>. The <strong>hidden type</strong> is the actual type that this <code>impl Trait</code> is inferred to represent; in the example of <code>odd_integers</code>, this hidden type was <code>Filter&lt;Range&lt;u32&gt;, _&gt;</code> (you can see that the hidden type often includes anonymous types, like the types of closures, that don't have a user-writable syntax). We call this the &quot;hidden&quot; type because callers don't know what it's value is, they only know that it is <em>some type that impements <code>Iterator</code></em>. </p>
-<p>The <strong>defining scope</strong> of an <code>impl Trait</code> is the region of code that is used to determine the hidden type for the <code>impl Trait</code>. The hidden type is inferred as part of type-checking the functions and other code blocks within that defining scope. The compiler tries to find some hidden type H such that replacing the <code>impl Trait</code> with that hidden type would still make the code type check.</p>
-<p>In the case of <code>odd_integers</code>, the defining scope for the <code>-&gt; impl Iterator</code> is the function <code>odd_integers</code> itself. We'll see examples later on where the defining scope of an output <code>impl Trait</code> can be larger, such as an impl or even a module, and we can dig into the inference of hidden types more then.</p>
+<p>This is <em>almost</em> equivalent to the type alias we saw before, but there are two differences:</p>
+<ul>
+<li>The <strong>defining scope</strong> for the impl trait is just the function <code>odd_integers</code>, and not the enclosing module.
+<ul>
+<li>This means that other functions within the same module cannot observe or constrain the hidden type.</li>
+</ul>
+</li>
+<li>There is no direct way to name the resulting type (because you didn't define a type alias).
+<ul>
+<li>But see the section on <a href="explainer/./rpit_naming.html">naming impl trait in return type</a> for indirect techniques.</li>
+</ul>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="generic-parameter-capture"><a class="header" href="#generic-parameter-capture">Generic parameter capture</a></h1>
 <p><strong>Status:</strong> Stable.</p>
 <p>When you use an impl trait in return position, there are some limitations on the &quot;hidden type&quot; that may be used. </p>
@@ -593,103 +786,6 @@ impl Default for foo {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="impl-trait-in-type-aliases"><a class="header" href="#impl-trait-in-type-aliases">Impl trait in type aliases</a></h1>
-<p><strong>Status:</strong> Under active development, <code>type_alias_impl_trait</code> feature gate.</p>
-<p>One downside of &quot;output impl Trait&quot; is that the returned type is anonymous. If you have a function <code>odd_integers</code>...</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>fn odd_integers(start: u32, stop: u32) -&gt; impl Iterator&lt;Item = u32&gt; {
-    (start..stop).filter(|i| i % 2 == 0)
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>...it can be inconvenient for users to name the returned iterator type explicitly (for example, to define a struct that embeds the returned iterator as a field). Using type alias impl Trait allows you to give a name that others can reference:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>type OddIntegers = impl Iterator&lt;Item = u32&gt;;
-
-fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers {
-    (start..stop).filter(|i| i % 2 == 0)
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>Here, the type alias <code>OddIntegers</code> is defined to alias an output impl Trait. This output impl Trait works exactly like the output impl Traits that we have seen before, except that its <strong>defining scope</strong> is the <strong>enclosing module where it is defined</strong>. Consider the following example:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>mod odd {
-    pub type OddIntegers = impl Iterator&lt;Item = u32&gt;;
-
-    pub fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers {
-        (start..stop).filter(|i| i % 2 == 0)
-    }
-}
-
-struct TempStruct {
-    next_odd: odd::OddIntegers,
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>Here, the <code>OddIntegers</code> type alias is defined inside the module <code>odd</code>. Within <code>odd</code>, functions are able to define and influence the type of <code>OddIntegers</code>. Outside of <code>odd</code>, references to <code>OddIntegers</code> are opaque -- it simply refers to &quot;some type that implements <code>Iterator</code>&quot;. </p>
-<p>Because the defining scope of type alias impl trait is an entire module, it is possible to have multiple functions that can be used to infer the hidden type. The Rust rule is that each of those functions must fully specify the hidden type, and all the functions must specify the <em>same</em> hidden type (for details on how type inference works, see the section below).</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="generic-parameters-and-type-alias-impl-trait"><a class="header" href="#generic-parameters-and-type-alias-impl-trait">Generic parameters and type alias impl trait</a></h1>
-<p><strong>Status:</strong> Implemented on nightly with <code>type_alias_impl_trait</code> feature gate.</p>
-<p>Type alias impl Traits can also be generic:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>type SomeTupleIterator&lt;I, J&gt; = impl Iterator&lt;Item = (I, J)&gt;;
-<span class="boring">}
-</span></code></pre></pre>
-<p>The values that you use for these generic parameters, however, are subject to some restrictions. In particular, type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>fn foo1&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, B&gt; { /* ok */ }
-fn foo2&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;B, A&gt; { /* ok */ }
-fn foo3&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, A&gt; { /* not ok -- same parameter used twice */ }
-fn foo4&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, u32&gt; { /* not ok -- u32 is not a type parameter */ }
-<span class="boring">}
-</span></code></pre></pre>
-<p>These rules ensure that inference is tractable. Consider the case of <code>-&gt; SomeTupleIterator&lt;A, u32&gt;</code>. Imagine that <code>foo4</code> returned an iterator over <code>(A, u32)</code> tuples. How do we translate that value to the hidden type for <code>SomeTupleIterator</code>?  There would actually be multiple possibilities. Either it would be an iterator over <code>(I, J)</code> (with <code>I = A</code> and <code>J = u32</code> in this case), or an iterator over <code>(I, u32)</code> (with <code>I = A</code> and <code>J</code> unused).</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="defining-scopes-1"><a class="header" href="#defining-scopes-1">Defining scopes</a></h1>
-<p>The <a href="explainer/./rpit_scopes.html">defining scope</a> for a type alias is the enclosing module and its submodules:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span>#![feature(type_alias_impl_trait)]
-
-<span class="boring">fn main() {
-</span>mod foo {
-    type Foo = impl Clone;
-
-    mod bar {
-        // defines the value of `Foo`:
-        fn test() -&gt; super::Foo {
-            22_i32
-        }
-    }
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>If the type alias appears in a function body, then the defining scope is the function body and any items declared within that function:</p>
-<pre><pre class="playground"><code class="language-rust">#![feature(type_alias_impl_trait)]
-
-fn foo() {
-    type Foo = impl Clone;
-    
-    // defines the value of `Foo`:
-    fn test() -&gt; Foo {
-        22_i32
-    }
-
-    let x: Foo = test();
-    let y = x.clone();
-}
-
-fn main() { }
-</code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="impl-trait-in-let-bindings"><a class="header" href="#impl-trait-in-let-bindings">Impl trait in let bindings</a></h1>
 <p><strong>Status:</strong> Accepted RFC, not yet implemented</p>
 <p>You can also use <code>impl Trait</code> in the type of a local variable:</p>
@@ -922,6 +1018,12 @@ where T: FnOnce() -&gt; impl Clone
 </span></code></pre></pre>
 <p>It would be plausible to accept this as an &quot;output&quot; position, which also seems correct. The main reason that it is not accepted is that it has not been proposed, and there aren't a strong body of use cases. This is also the role that would be predicted from the &quot;general rule for input vs output&quot;.</p>
 <p>It is not possible to accept this in <em>input</em> position, because that would imply that the type <code>Foo</code> has more generic parameters than are written on the type itself. Unlike with functions, where the values of those generic parameters can be inferred from the arguments, structs can appear in many contexts where inferring the values of those generic types would not be tractable.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-d-glossary"><a class="header" href="#appendix-d-glossary">Appendix D: Glossary</a></h1>
+<p>See the list of terms in the sidebar.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="defining-scope"><a class="header" href="#defining-scope">Defining scope</a></h1>
+<p>The <strong>defining scope</strong> of an impl Trait is the code that is used to infer its <a href="explainer/glossary/./hidden_type.html">hidden type</a>. See the <a href="explainer/glossary/../tait.html">explanation of type alias impl trait</a> for more details.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hidden-type"><a class="header" href="#hidden-type">Hidden type</a></h1>
+<p>The <strong>hidden type</strong> of an impl Trait is the underlying type that the <code>impl Trait</code> represents. The compiler always infers the hidden type for an impl trait from the rest of the code. In some cases, there is just a single hidden type, but in other cases -- notably <a href="explainer/glossary/../apit.html">argument position impl trait</a> -- there can be multiple hidden types (e.g., one per call site).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-rfc"><a class="header" href="#-rfc">✨ RFC</a></h1>
 <blockquote>
 <p>The RFC exists here in draft form. It will be edited and amended over the course of this initiative.
