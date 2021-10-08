@@ -10,6 +10,8 @@
         - [Turbofish](./explainer/apit_turbofish.md)
         - [Traits and impls](./explainer/apit_traits.md)
     - [Impl trait in type aliases](./explainer/tait.md)
+        - [Inferring the hidden type](./explainer/tait_infer.md)
+        - [Referencing from outside the module](./explainer/tait_ref.md)
         - [Generic parameters](./explainer/tait_generics.md)
     - [Impl trait in return types](./explainer/rpit.md)
         - [Generic parameter capture](./explainer/rpit_capture.md)
