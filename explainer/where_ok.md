@@ -1,23 +1,25 @@
 # Appendix B: Where can impl trait be used
 
-What follows is a full set of locations where impl Trait can be used, and what they mean in that position.
+## Overview
 
-| Example                                           | Name                              | Stage      | Description                                                           |
-| ------------------------------------------------- | --------------------------------- | ---------- | --------------------------------------------------------------------- |
-| `type Foo = impl Trait`                           | top-level type alias              | nightly    | "output" impl trait, inferred from code within the enclosing item     |
-| `impl Trait for Type { type Foo = impl Trait }`   | associated type                   | nightly    | "output" impl trait, inferred from code within the impl               |
-| `fn foo(x: impl Trait) {...}`                     | argument position                 | stable     | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
-| `trait Trait { fn foo(x: impl Trait) }`           | argument position, trait method   | stable     | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
-| `impl Trait for Type  { fn foo() -> impl Trait }` | argument position, trait impl     | stable     | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
-| `fn foo() -> impl Trait {...}`                    | return position (free function)   | stable     | "output" impl trait with the fn body as its defining scope            |
-| `impl Type { fn foo() -> impl Trait }`            | return position (inherent method) | stable     | "output" impl trait with the fn body as its defining scope            |
-| `trait Trait { fn foo() -> impl Trait }`          | return position, trait method     | evaluation | "output" impl trait, equivalent to an associated type                 |
-| `impl Trait for Type  { fn foo() -> impl Trait }` | return position, trait impl       | evaluation | "output" impl trait, equivalent to an associated type                 |
-| `let x: impl Trait`                               | let binding                       | rfc'd      | "output" impl trait, inferred from enclosing function                 |                                                                       
-| `const x: impl Trait`                             | type of const                     | rfc'd      | "output" impl trait, inferred from enclosing function                 |                                                                       
-| `static x: impl Trait`                            | type of static                    | rfc'd      | "output" impl trait, inferred from enclosing function                 |                                                                       
+We can now extend the table of impl trait positions introduced in the [type alias][tait] chapter with an additional entry:
 
-More details follow.
+| Position                                | Who determines the hidden type       | Status               |
+| --------------------------------------- | ------------------------------------ | -------------------- |
+| [Argument position][apit]               | Each caller                          | stable               |
+| [Type alias][tait]                      | Code within the enclosing module     | nightly              |
+| [Return position, free fns][rpit]       | The function body                    | stable               |
+| [Return position, inherent impls][rpit] | The function body                    | stable               |
+| [Return position, trait impls][rpit]    | The function body                    | planning rfc         |
+| [Return position, traits][rpit_trait]   | The impl                             | planning rfc         |
+| [Let binding][lbit]                     | The enclosing function or code block | rfc'd, unimplemented |
+| [Const binding][lbit]                   | The const initializer                | rfc'd, unimplemented |
+| [Static binding][lbit]                  | The static initializer               | rfc'd, unimplemented |
+
+[apit]: ./apit.md
+[tait]: ./tait.md
+[rpit]: ./rpit.md
+[rpit_trait]: ./rpit_trait.md
 
 ## General rules for "input" vs "output"
 

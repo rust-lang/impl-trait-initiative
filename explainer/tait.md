@@ -63,13 +63,14 @@ Now it's the compiler's job to figure out the value of that type alias. In this 
 
 You can see that impl trait behaves a bit differently depending on where you use it. What all positions have in common is that they stand in for "some type that implements the given trait". We call that type the *hidden type*, because you generally don't get to rely on exactly what it is, you only get to rely on the bounds that it satisfies. What distinguishes the various positions where you can use impl Trait is which code determines the hidden type:
 
-| Position                               | Who determines the hidden type   |
-| -------------------------------------- | -------------------------------- |
-| [Argument position][apit]              | The caller                       |
-| [Type alias][tait]                     | Code within the enclosing module |
-| ... (we'll extend this table as we go) |                                  |
+| Position                         | Who determines the hidden type   |
+| -------------------------------- | -------------------------------- |
+| [Argument position][apit]        | The caller                       |
+| [Type alias][tait]               | Code within the enclosing module |
+| ... (full table in [Appendix B]) |                                  |
 
 [apit]: ./apit.md
+[Appendix B]: ./where_ok.md
 
 ## Inferring the hidden type
 
