@@ -26,5 +26,7 @@
         - [Defining scope](./explainer/glossary/defining_scope.md)
         - [Hidden type](./explainer/glossary/hidden_type.md)
 - [✨ RFCs](./RFC.md)
-- [💬 Design discussions](./design-discussions/README.md)
+    - [Return position impl Trait in traits](./RFCs/rpit-in-traits.md)
+    - [Impl Trait arguments and turbofish](./RFCs/impl-trait-arguments-and-turbofish.md)
+    - [Named function types](./RFCs/named-function-types.md)
 - [😕 FAQ](./FAQ.md)
