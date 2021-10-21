@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Named function types - Impl trait initiative</title>
+        <title>Function types and impl trait - Impl trait initiative</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="../index.html">👋 Welcome</a></li><li class="chapter-item "><a href="../CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="../updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="../evaluation.html">🔬 Evaluation</a></li><li class="chapter-item "><a href="../explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="../explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="../explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/tait_infer.html">Inferring the hidden type</a></li><li class="chapter-item "><a href="../explainer/tait_ref.html">Referencing from outside the module</a></li><li class="chapter-item "><a href="../explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item "><a href="../explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="../explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="../explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="../explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="../explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="../explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="../explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="../explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="../explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="../explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../RFC.html">✨ RFCs</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../RFCs/rpit-in-traits.html">Return position impl Trait in traits</a></li><li class="chapter-item "><a href="../RFCs/impl-trait-arguments-and-turbofish.html">Impl Trait arguments and turbofish</a></li><li class="chapter-item expanded "><a href="../RFCs/named-function-types.html" class="active">Named function types</a></li></ol></li><li class="chapter-item "><a href="../FAQ.html">😕 FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="../index.html">👋 Welcome</a></li><li class="chapter-item "><a href="../CHARTER.html">📜 Charter</a></li><li class="chapter-item "><a href="../updates.html">✏️ Updates</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../updates/2021-oct.html">2021-Oct</a></li></ol></li><li class="chapter-item "><a href="../evaluation.html">🔬 Evaluation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../evaluation/apit-and-turbofish.html">APIT and Turbofish</a></li></ol></li><li class="chapter-item "><a href="../explainer.html">📚 Explainer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit.html">Impl trait in argument types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/apit_turbofish.html">Turbofish</a></li><li class="chapter-item "><a href="../explainer/apit_traits.html">Traits and impls</a></li></ol></li><li class="chapter-item "><a href="../explainer/tait.html">Impl trait in type aliases</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/tait_infer.html">Inferring the hidden type</a></li><li class="chapter-item "><a href="../explainer/tait_ref.html">Referencing from outside the module</a></li><li class="chapter-item "><a href="../explainer/tait_generics.html">Generic parameters</a></li></ol></li><li class="chapter-item "><a href="../explainer/rpit.html">Impl trait in return types</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/rpit_capture.html">Generic parameter capture</a></li><li class="chapter-item "><a href="../explainer/rpit_names.html">Naming impl trait in return types</a></li></ol></li><li class="chapter-item "><a href="../explainer/rpit_trait.html">Return types in trait definitions</a></li><li class="chapter-item "><a href="../explainer/lbit.html">Impl trait in let bindings</a></li><li class="chapter-item "><a href="../explainer/auto_trait.html">Auto traits and impl trait</a></li><li class="chapter-item "><a href="../explainer/inference.html">Appendix A: Inference details</a></li><li class="chapter-item "><a href="../explainer/where_ok.html">Appendix B: Where can impl trait be used</a></li><li class="chapter-item "><a href="../explainer/where_not_ok.html">Appendix C: Where can impl trait NOT be used</a></li><li class="chapter-item "><a href="../explainer/glossary.html">Appendix D: Glossary</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../explainer/glossary/defining_scope.html">Defining scope</a></li><li class="chapter-item "><a href="../explainer/glossary/hidden_type.html">Hidden type</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../RFC.html">✨ RFCs</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../RFCs/rpit-in-traits.html">Return position impl Trait in traits</a></li><li class="chapter-item expanded "><a href="../RFCs/named-function-types.html" class="active">Function types and impl trait</a></li></ol></li><li class="chapter-item "><a href="../FAQ.html">😕 FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -151,18 +151,33 @@
 </ul>
 <h1 id="summary"><a class="header" href="#summary">Summary</a></h1>
 <ul>
-<li>Introduce a type for every <code>fn foo</code> named <code>foo</code>, after the <code>fn</code> itself.
+<li>Given a function <code>fn foo</code>, introduce a type named <code>fn#foo</code> to represent the zero-sized type of the function (&quot;function def&quot;).
 <ul>
-<li>This type corresponds to the zero-sized type of that function.</li>
+<li>When possible, a type namd <code>foo</code> is also introduced, unless another type with tha tname already exists.</li>
 </ul>
 </li>
-<li>If a type already exists with the same name as the function, no type is created.
+<li>The generic parameters of a &quot;function def&quot; type are defined to include only <em>named</em> parameters. Anonymous parameters that appear in the argument are excluded:
 <ul>
-<li>As a result, no types are generated for tuple structs or enum variants (which already have corresponding types).</li>
+<li>Elided lifetimes in argument position are excluded.</li>
+<li><code>impl Trait</code> in argument position are excluded.</li>
+<li>This implies that turbofish with a &quot;function def&quot; type cannot name the <code>impl Trait</code> arguments.</li>
+<li>As a temporary measure, &quot;function def&quot; types that have named, late-bound lifetimes cannot accept lifetime parameters.
+<ul>
+<li>This rule already exists today.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h1 id="motivation"><a class="header" href="#motivation">Motivation</a></h1>
+<h2 id="problems-we-are-solving"><a class="header" href="#problems-we-are-solving">Problems we are solving</a></h2>
+<p>This RFC proposes two related changes that, together, work to close two remaining major &quot;holes&quot; in the <code>impl Trait</code> story:</p>
+<ul>
+<li>How to name the return type of a function</li>
+<li>How turbofish interacts with <code>impl Trait</code> in argument position (<a href="https://rust-lang.github.io/impl-trait-initiative/explainer/apit.html">explainer</a>)</li>
+</ul>
+<p>These two problems at first seem orthogonal, but they turn out to be related. Let's first introduce the two problems.</p>
+<h3 id="naming-the-return-type-of-a-function"><a class="header" href="#naming-the-return-type-of-a-function">Naming the return type of a function</a></h3>
 <p>&quot;Return position&quot; impl Trait (RPIT) generally refers to an <a href="../explaner/rpit.html">&quot;anonymous&quot; opaque type whose value is inferred by the compiler</a>:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -196,18 +211,379 @@ trait IntoIntIterator { // desugared
 <span class="boring">}
 </span></code></pre></pre>
 <p>In both cases, it would sometimes be nice to be able to name that return type! Of course, people can introduce type aliases or associated types (similar to the desugared form), but that is inconvenient, and it requires that the API author has made sure to do so.</p>
+<h3 id="turbofish-and-impl-trait-in-argument-position"><a class="header" href="#turbofish-and-impl-trait-in-argument-position">Turbofish and impl Trait in argument position</a></h3>
+<p><code>impl Trait</code> in argument position <a href="../explainer/apit.html">introduces a new generic parameter to the function</a>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn collect_to_vec&lt;T&gt;(iter: impl Iterator&lt;Item = T&gt;) -&gt; Vec&lt;T&gt; {
+    iter.collect()
+}
+
+// is roughly equivalent to:
+
+fn collect_to_vec_desugared&lt;T, I&gt;(iter: I) -&gt; Vec&lt;T&gt;
+where
+    I: Iterator&lt;Item = T&gt;,
+{
+    iter.collect()
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>With the desugared version, users can write an expression that manually specifies the values for its type parameters:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let f = collect_to_vec_desugared::&lt;u32, vec::IntoIter&lt;u32&gt;&gt;;
+<span class="boring">}
+</span></code></pre></pre>
+<p>The question addressed here is whether it should be possible to write an equivalent expression for <code>collect_to_vec</code>.</p>
+<h2 id="background-material"><a class="header" href="#background-material">Background material</a></h2>
+<p>This RFC covers some esoteric corners of Rust's type system. This section provides background material that introduces terms that are necessary to understand what follows.</p>
+<h3 id="function-definition-types"><a class="header" href="#function-definition-types">Function definition types</a></h3>
+<p>Currently, when you define a function <code>my_function</code>, this declares a value <code>my_function</code> that can be accessed by the user. The type of that value, however, is a bit complicated. Consider this program:</p>
+<pre><pre class="playground"><code class="language-rust">fn my_function() {
+    println!(&quot;Hello, world&quot;);
+}
+
+fn main() {
+    let f = my_function;
+    println!(&quot;{}&quot;, std::mem::size_of_val(&amp;f));
+
+    let g: fn() = my_function;
+    println!(&quot;{}&quot;, std::mem::size_of_val(&amp;f));
+}
+</code></pre></pre>
+<p>Here we reference <code>my_function</code> twice, once to create a variable named <code>f</code> with an inferred type, and once to declare a variable <code>g</code> with type <code>fn()</code>. You might expect that the type of <code>f</code> would be inferred to <code>fn()</code> and that these two variables are equivalent, but if you run this program you will find that their sizes are different: 0 and 8 respectively (<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=c7904fef1e661bbe82499cfadf7455ae">playground</a>). What is going on?</p>
+<p>The answer is that the type of <code>my_function</code> is actually a special zero-sized type called a <em>function definition type</em> (hereafter: fndef). There is a unique fndef type for every function in your program. These types implement the <code>Fn</code> traits, so they can be called: when you call one, the compiler knows <em>exactly</em> what function was called just from the type, since it is tied to a specific function. In contrast, the <code>fn()</code> type represents a function <em>pointer</em> -- it too can be called, but, without some kind of dataflow analysis, the compiler doesn't know what function is being called. This is analogous to using traits with generic types vs <code>dyn Trait</code>.</p>
+<p>There is currently no syntax for a fndef type, so there is no way to write the type of <code>f</code> above. The closest you can do is an as-yet-unimplemented extension <code>impl Trait</code>, <a href="https://rust-lang.github.io/impl-trait-initiative/explainer/lbit.html">impl trait in let bindings</a>, which would let you write <code>let f: impl Fn() = my_function</code>.</p>
+<h4 id="generic-function-definition-types"><a class="header" href="#generic-function-definition-types">Generic function definition types</a></h4>
+<p>The fndef type for a generic function is itself generic. You can specify the values for those generics using turbofish:</p>
+<pre><pre class="playground"><code class="language-rust">fn generic_fn&lt;T&gt;(t: T) { }
+
+fn main() {
+    let f = generic_fn::&lt;u32&gt;;
+}
+</code></pre></pre>
+<h3 id="early-vs-late-binding"><a class="header" href="#early-vs-late-binding">Early vs late binding</a></h3>
+<p>Rust groups generic parameters on functions into two categories: early vs late bound. <em>Early bound</em> parameters are those whose values must be supplied when the function is referenced (either explicitly via turbofish, or implicitly with inference). <em>Late-bound</em> parameters are parameters that are bound only at the time when the function is called. At present, generic type and const parameters are always early bound; lifetime parameters can be either early or late depending on whether they are referenced outside of the argument listing (the exact rules are not pertinent to this RFC).</p>
+<p>It is perhaps easiest to understand this by considering the impl of the <code>FnOnce</code> trait for a fndef type. Consider this example, of a function <code>create_with_default</code> that will create an instance of <code>C</code>. The input supplied to the creation function is either the string <code>input</code> or -- in some cases -- a default string.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Create {
+    fn create(input: &amp;str);
+}
+
+fn create_with_default&lt;'a, C: Create&gt;(input: &amp;'a str) -&gt; C {
+    if input.is_empty() {
+        C::create(&quot;default&quot;)
+    } else {
+        C::create(input)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We will refer to the fndef type of <code>create_with_default</code> as <code>create_with_default</code><sup class="footnote-reference"><a href="#surprise">1</a></sup>. Conceptually, there is an impl of <code>FnOnce</code> for <code>create_with_default</code> rather like so:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl&lt;'a, C&gt; FnOnce&lt;(&amp;'a str,)&gt; for create_with_default&lt;C&gt; {
+    //             ^^^^^^^^^^                         ^^^
+    //                 |                               |
+    //                 |            Early bound type parameters
+    //                 |            appear in this list.
+    //                 |
+    // Late bound parameters appear only in these
+    // argument types.
+    type Output = C;
+
+    fn call(self, args: (&amp;'a str,)) {
+        (self)(args.0)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Here there are two &quot;input types&quot; supplied to the trait: the argument parameter <code>A</code> to <code>FnOnce&lt;A&gt;</code>, which defines the types of the arguments being supplied, and the self type (<code>create_with_default&lt;C&gt;</code>), which defines the type of the value being called. The set of generic parameters on the impl is the same as the set on the <code>fn</code> declaration. We can classify those parameters in two ways:</p>
+<ul>
+<li><strong>Late-bound</strong> parameters are those that appear <strong>only</strong> in the arguments -- this means that they different values can be supplied for them each time the function is called. In this example, the lifetime <code>'a</code> is late-bound.</li>
+<li><strong>Early-bound</strong> parameters are those that appear in the <code>Self</code> type. This means that they are &quot;baked into&quot; the function that is being called (which always has a single type) and cannot change from call to call. In this example, <code>C</code> is early-bound.</li>
+</ul>
+<p>In general, it is better for parameters to be late-bound, as that allows the user more flexibility. However, because of the rules that every impl must be <a href="https://doc.rust-lang.org/nightly/reference/items/implementations.html?highlight=impl#generic-implementations">constrained</a><sup class="footnote-reference"><a href="#why-constrianed">2</a></sup>, parameters that don't appear in the argument types <em>must</em> appear in the Self type, and hence be early bound. In practice, the compiler today only allows lifetimes to be late-bound; all type parameters are early bound. This desugaring however shows that it is possible to consider type parameters as late-bound as well.</p>
+<div class="footnote-definition" id="why-constrained"><sup class="footnote-definition-label">3</sup>
+<p>...which are there to ensure that the compiler can always figure out what impl to invoke at monomorphization time.</p>
+</div>
+<div class="footnote-definition" id="surprise"><sup class="footnote-definition-label">1</sup>
+<p>Surprise! This is precisely the notation that this RFC is going to propose!</p>
+</div>
 <h1 id="guide-level-explanation"><a class="header" href="#guide-level-explanation">Guide-level explanation</a></h1>
-<p>TODO</p>
+<p>Please refer to the <a href="https://rust-lang.github.io/impl-trait-initiative/explainer.html">impl trait explainer</a>, which has a section on <a href="https://rust-lang.github.io/impl-trait-initiative/explainer.html">names for return position impl trait</a> that aims to be a &quot;end-user manual&quot; for this feature.</p>
 <h1 id="reference-level-explanation"><a class="header" href="#reference-level-explanation">Reference-level explanation</a></h1>
-<h2 id=""><a class="header" href="#"></a></h2>
-<h2 id="-1"><a class="header" href="#-1"></a></h2>
-<h2 id="late-bound-and-elided-lifetimes"><a class="header" href="#late-bound-and-elided-lifetimes">Late-bound and elided lifetimes</a></h2>
+<p>The proposal has a few parts:</p>
+<ul>
+<li><strong>Named fndef types:</strong> 
+<ul>
+<li>For every function <code>my_function</code>, define both a value and a type, except when there is already a type with that name.</li>
+<li>As a disambiguator, also export a type <code>fn#my_function</code> that can be used to unambiguously name the fndef type.</li>
+<li>In traits, for every <code>fn my_function</code> item, introduce a <code>type my_function</code> associated type (except when there is already an associated type with that name).</li>
+</ul>
+</li>
+<li><strong>Late-bound argument position impl Trait:</strong> 
+<ul>
+<li>Change <code>impl Trait</code> in argument position so that it desugars to &quot;late-bound types&quot;</li>
+<li>In so doing, settle the question of whether <code>impl Trait</code> in argument position can be constrained with turbofish (no)</li>
+</ul>
+</li>
+<li><strong>Random bug fixes:</strong>
+<ul>
+<li>Inherent associated types (<code>impl Foo { type Bar = u32; }</code> and you can write <code>Foo::Bar</code>).</li>
+<li>Fix the <code>Foo::Output</code> code in the compiler (not really RFC worthy).</li>
+</ul>
+</li>
+</ul>
+<h2 id="named-fndef-types"><a class="header" href="#named-fndef-types">Named fndef types</a></h2>
+<p>Introduce a set of changes designed to make it so that users can name the fndef type for every function by writing types whose name is the same as the name that refers to the fn by value:</p>
+<ul>
+<li><code>foo</code> to name the type for a top-level fn <code>foo</code>.</li>
+<li><code>Type::foo</code> to name the type for an inherent method <code>foo</code>.</li>
+<li><code>&lt;T as Trait&gt;::foo</code> to name the type for a trait method <code>foo</code> (or <code>Trait::foo</code> and so forth).</li>
+</ul>
+<h3 id="top-level-function-items"><a class="header" href="#top-level-function-items">Top-level function items</a></h3>
+<p>Top-level function declarations like <code>fn my_function</code> will also export a value in the type namespace with the same name (<code>my_function</code>) that corresponds to the fndef type for that function. Therefore, the following works:</p>
+<pre><pre class="playground"><code class="language-rust">fn foo() {}
+
+struct SomeType {
+    f: foo // refers to the fndef type for `foo`
+}
+
+fn main() {
+    let x = Sometype { f: foo };
+}
+</code></pre></pre>
+<h3 id="function-definitions-in-traits"><a class="header" href="#function-definitions-in-traits">Function definitions in traits</a></h3>
+<p>Function declarations in inherent and trait impls introduce an associated type into the surrounding impl with the same name as the function whose value is the fndef type for the function:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Clone {
+    // Introduces the equivalent of:
+    //
+    //     type clone;
+    fn clone(&amp;self);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="function-definitions-in-impls"><a class="header" href="#function-definitions-in-impls">Function definitions in impls</a></h3>
+<p>Function declarations in inherent and trait impls introduce an associated type into the surrounding impl with the same name as the function whose value is the fndef type for the function:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct MyType { }
+
+impl MyType {
+    // Introduces:
+    //
+    //     type new = &lt;fndef for new&gt;;
+    fn new() -&gt; Self {
+
+    }
+}
+
+impl Clone for MyType {
+    // Introduces:
+    //
+    //     type clone = &lt;fndef for clone&gt;;
+    fn clone(&amp;self) -&gt; ... {
+
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="shadowing-rules"><a class="header" href="#shadowing-rules">Shadowing rules</a></h3>
+<p>Although Rust's naming conventions make this unlikely, it is possible today to define a type and a function with the same name. This obviously presents a conflict in attempting to introduce types with the same names as functions. This section discusses the possible shadowing that can arise in each case and how we manage it. The general strategy is to only generate the fn type if there is not already a type defined with the same name.</p>
+<h4 id="edition-rustnext"><a class="header" href="#edition-rustnext">Edition Rust.next</a></h4>
+<p>The plan is that in the edition Rust.next (presumably Rust 2024), all cases of shadowing will become hard errors. In the current edition, however, cases of shadowing yield warnings where needed to maintain backwards compatibility.</p>
+<h4 id="traits-and-trait-impls"><a class="header" href="#traits-and-trait-impls">Traits and trait impls</a></h4>
+<p>If a trait defines an explicit associated type with the same name as one of its functions, then the associated type for that function is suppressed. This also applies to associated types defined in <em>supertraits</em>. Therefore:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo: Bar {
+
+    // A `foo` associated type exists: 
+    //
+    // nothing is generated for the `fn foo`.
+    type foo;
+    fn foo(&amp;self);
+
+    // A `bar` associated type exists in the supertrait:
+    //
+    // nothing is generated for the `fn bar`.
+    fn bar(&amp;self);
+
+    // The `Bar` supertrait defines an associated type `baz`, but implicitly:
+    //
+    // generate an associated type `baz.`
+    fn baz(&amp;self);
+}
+
+trait Bar {
+    type bar;
+
+    fn baz(&amp;self);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>In all of these cases, we issue warnings. In Rust 2024, this will be an error.</p>
+<p><strong>Rationale:</strong> Currently given <code>T: Foo</code>, <code>T::bar</code> would be legal today, so we don't want to generate a type there. But otherwise we do.</p>
+<h4 id="inherent-impls"><a class="header" href="#inherent-impls">Inherent impls</a></h4>
+<p>Inherent impls do not support associated types today, so we don't have to worry about conflicts.</p>
+<p>If an associated type defined on T has the same name as an inherent function on T, then we report an error.</p>
+<h4 id="tuple-struct-and-enum-variants"><a class="header" href="#tuple-struct-and-enum-variants">Tuple struct and enum variants</a></h4>
+<p>Although not a function declaration, tuple structs and enum variants define constructor functions with the same name as the type itself:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Foo(u32); // defines a fn `Foo` of type `u32 -&gt; Foo`
+<span class="boring">}
+</span></code></pre></pre>
+<p>In this case, we simply do not generate a fndef type for the constructor. (This is also true in Rust 2024.)</p>
+<h4 id="top-level-functions"><a class="header" href="#top-level-functions">Top-level functions</a></h4>
+<p>Top-level functions can conflict with named types in a number of ways (examples follow). In all such cases, the intent is to have the function not generate a type alias.</p>
+<p><strong>Conflict with prelude</strong> (<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=6719c374699851268dc8ffc363836ffd">playground</a>)</p>
+<pre><pre class="playground"><code class="language-rust">fn Vec() {
+    
+}
+
+fn main() {
+    let x = Vec();
+}
+</code></pre></pre>
+<p><strong>Conflict with name from use statement</strong> (<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=53fc8cd1cea9bd465cbcc4c5dd49f820">playground</a>)</p>
+<pre><pre class="playground"><code class="language-rust">mod foo {
+    pub type bar = u32;
+}
+
+use foo::bar;
+
+fn bar() { }
+
+fn main() {
+    
+}
+</code></pre></pre>
+<p><strong>Conflict with macro-generated items</strong> (<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=e3e3cc25cf16bb4cb813854b512b5980">playground</a>)</p>
+<pre><pre class="playground"><code class="language-rust">mod foo {
+    macro_rules! make_bar {
+        () =&gt; { pub type bar = u32; }
+    }
+    
+    make_bar!();
+}
+
+use foo::bar;
+
+fn bar() { }
+
+fn main() {
+    let x: bar = 22_u32;
+}
+</code></pre></pre>
+<h2 id="late-bound-argument-position-impl-trait-and-turbofish"><a class="header" href="#late-bound-argument-position-impl-trait-and-turbofish">Late-bound argument position impl Trait and turbofish</a></h2>
+<p>Currently, impl Trait in argument position is desugared to the equivalent of another explicit parameter:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo(x: impl Debug) { }
+
+// becomes roughly equivalent to
+// fn foo&lt;D: Debug&gt;(x: D) { }
+<span class="boring">}
+</span></code></pre></pre>
+<p>This parameter is currently considered &quot;early-bound&quot;. As discussed in the motivation, that means that the fndef type <code>foo&lt;D&gt;</code> is generic over some <code>D: Debug</code>. Conceptually it looks something like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct foo&lt;D: Debug&gt;;
+impl&lt;D: Debug&gt; FnOnce&lt;(D,)&gt; for foo&lt;D&gt; {
+    ...
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This means that if you were to try and name the type of <code>foo</code>, say in a struct, you would need some to way to specify the value of <code>D</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Wrapper {
+    f: foo // What is the value of D here?
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We could allow you to write <code>foo&lt;u32&gt;</code>, but that would be strange, because if you look at the definition of <code>foo</code>, there are no declared type parameters. What's more, if there were multiple <code>impl Trait</code>, we'd have to define an arbitrary ordering for them. Overall, we'd prefer for people to be able to think of <code>impl Trait</code> more intuitively without having to understand the desugaring.</p>
+<p>As noted in that section, however, generic parameters that appear in the argument types can be made late-bound instead of early-bound. In the case of <code>impl Trait</code> arguments, they always (by definition) appear in the argument types. Therefore, we could make them &quot;late-bound&quot;, so that they are only parameters of the impl and not of the type. Conceptually then the fndef type for <code>foo</code> would be like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct foo;
+impl&lt;D: Debug&gt; FnOnce&lt;(D,)&gt; for foo {
+    ...
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>As a result, the type of <code>foo</code> is just written as <code>foo</code>, with no type arguments, and hence this struct is perfectly legal:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Wrapper {
+    f: foo
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>What's more, making <code>impl Trait</code> late bound is actually more flexible. For example, this code does not compile today, but it would under this proposal:</p>
+<pre><pre class="playground"><code class="language-rust">fn foo(d: impl Debug) { /* ... */ }
+
+fn main() {
+    let f = foo;
+    f(22_u32); // call once with `u32`
+    f(22_i32); // call again with `i32`
+}
+</code></pre></pre>
+<h3 id="turbofish-interaction"><a class="header" href="#turbofish-interaction">Turbofish interaction</a></h3>
+<p>This also settles 'en passante' on of the open questions about impl Trait in argument position: should you be allowed to specify their value in turbofish? Clearly, the answer under this proposal is no, as there are no type parameters whose value needs to be specified.</p>
+<h3 id="implication-migration-to-impl-trait-is-not-fully-backwards-compatible"><a class="header" href="#implication-migration-to-impl-trait-is-not-fully-backwards-compatible">Implication: migration to <code>impl Trait</code> is not fully backwards compatible</a></h3>
+<p>Settling the turbofish question in this matter does mean that one cannot migrate from a generic function to <code>impl Trait</code> with perfect fidelity:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo&lt;D: Debug&gt;(d: D) { }
+<span class="boring">}
+</span></code></pre></pre>
+<p>is different than</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn foo(d: impl Debug) { }
+<span class="boring">}
+</span></code></pre></pre>
+<p>because the former permits turbofish and the latter does not.</p>
+<h3 id="implication-backwards-incompatibility-around-inference"><a class="header" href="#implication-backwards-incompatibility-around-inference">Implication: Backwards incompatibility around inference</a></h3>
+<p>Unfortunately, there is a <em>slight</em> (largely theoretical) backwards incompatibility with making <code>impl Trait</code> type parameters late bound. It is possible today to leverage inference <em>across</em> calls to the same function. The following code compiles today but would become an error in the future:</p>
+<pre><pre class="playground"><code class="language-rust">fn foo(d: impl Debug) { /* ... */ }
+
+fn main() {
+    let f = foo;
+    f(None); // call with `Option&lt;_&gt;`, unknown value type
+    f(Some(22_i32)); // call again with `Option&lt;i32&gt;`
+}
+</code></pre></pre>
+<p>Today, we are able to infer that both calls must be using an <code>Option&lt;i32&gt;</code>. This works because all calls to <code>f</code> must use the same value for the impl trait (it is early bound). If it becomes late bound, that is no longer true, so we would require the <code>f(None)</code> call to use an explicit type annotation (e.g., <code>f(None::&lt;i32&gt;)</code>). <strong>This form of breakage is permitted by our semver rules. We judge the likelihood of this impacting many crates to be small, but we will have to test it.</strong></p>
+<h3 id="implication-backwards-incompatibility-around-inference-1"><a class="header" href="#implication-backwards-incompatibility-around-inference-1">Implication: Backwards incompatibility around inference</a></h3>
 <h1 id="drawbacks"><a class="header" href="#drawbacks">Drawbacks</a></h1>
 <h2 id="giving-values-for-uncaptured-parameters"><a class="header" href="#giving-values-for-uncaptured-parameters">Giving values for uncaptured parameters</a></h2>
 <p>Impl trait in return position do not capture all </p>
 <h1 id="rationale-and-alternatives"><a class="header" href="#rationale-and-alternatives">Rationale and alternatives</a></h1>
 <h2 id="why-not-introduce-the-typeof-keyword"><a class="header" href="#why-not-introduce-the-typeof-keyword">Why not introduce the <code>typeof</code> keyword?</a></h2>
-<p>It has been proposed to use the <code>typeof</code> keyword to permit users to take the resulting type from arbitrary expressions. This would mean that one could fo</p>
+<p>It has been proposed to use the <code>typeof</code> keyword to permit users to take the resulting type from arbitrary expressions. This would mean that one could </p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -256,7 +632,7 @@ The section merely provides additional information.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../RFCs/impl-trait-arguments-and-turbofish.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../RFCs/rpit-in-traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                             <a rel="next" href="../FAQ.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
@@ -268,7 +644,7 @@ The section merely provides additional information.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../RFCs/impl-trait-arguments-and-turbofish.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../RFCs/rpit-in-traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                     <a rel="next" href="../FAQ.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
