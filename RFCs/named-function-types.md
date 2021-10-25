@@ -52,7 +52,7 @@ fn odd_integers(start: u32, stop: u32) -> OddIntegers {
 }
 ```
 
-When using [RPIT in traits](./rpit_in_traits.md), this anonymous type is a kind of associated type:
+When using [RPIT in traits](./rpit-in-traits.md), this anonymous type is a kind of associated type:
 
 ```rust
 trait IntoIntIterator {
