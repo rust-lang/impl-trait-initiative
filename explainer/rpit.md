@@ -19,5 +19,5 @@ This is *almost* equivalent to the type alias we saw before, but there are two d
 * The **defining scope** for the impl trait is just the function `odd_integers`, and not the enclosing module.
     * This means that other functions within the same module cannot observe or constrain the hidden type.
 * There is no direct way to name the resulting type (because you didn't define a type alias).
-    * But see the section on [naming impl trait in return type](./rpit_naming.md) for indirect techniques.
+    * But see the section on [naming impl trait in return type](./rpit_names.md) for indirect techniques.
 
