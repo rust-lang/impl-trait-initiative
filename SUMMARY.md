@@ -26,6 +26,8 @@
     - [Appendix D: Glossary](./explainer/glossary.md)
         - [Defining scope](./explainer/glossary/defining_scope.md)
         - [Hidden type](./explainer/glossary/hidden_type.md)
+        - [Input impl trait](./explainer/glossary/input_impl_trait.md)
+        - [Output impl trait](./explainer/glossary/output_impl_trait.md)
 - [✨ RFCs](./RFC.md)
     - [Return position impl Trait in traits](./RFCs/rpit-in-traits.md)
     - [Function types and impl trait](./RFCs/named-function-types.md)
