@@ -949,34 +949,228 @@ fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers { ... }
 <p>The following rules for type-checking opaque types apply to all code, whether or not it is part of the type's defining scope.</p>
 <h4 id="reflexive-equality-for-opaque-types"><a class="header" href="#reflexive-equality-for-opaque-types">Reflexive equality for opaque types</a></h4>
 <p>Like any type, an opaque type <code>O&lt;P0...Pn&gt;</code> can be judged to be equal to itself. This does not require knowing the hidden type.</p>
+<p><strong>Example.</strong> The following program <strong>compiles</strong> because of this rule.</p>
+<pre><pre class="playground"><code class="language-rust">mod foo {
+    type Foo = impl Clone;
+
+    fn make_foo(x: u32) -&gt; Foo {
+        x
+    }
+}
+
+fn main() {
+    let mut x: Foo = make_foo(22);
+
+    // Requires knowing that `Foo = Foo`.
+    x = make_foo(44);
+}
+</code></pre></pre>
+<p><strong>Example.</strong> The following program <strong>does not compile</strong> even though the hidden types are the same.</p>
+<pre><pre class="playground"><code class="language-rust">mod foo {
+    type Foo&lt;T&gt; = impl Clone;
+
+    fn make_foo&lt;A&gt;(x: u32) -&gt; Foo&lt;A&gt; {
+        x
+    }
+}
+
+fn main() {
+    let mut x: Foo&lt;String&gt; = make_foo::&lt;String&gt;(22);
+
+    // `Foo&lt;String&gt;` is not assumed to be equal to `Foo&lt;char&gt;`.
+    x = make_foo::&lt;char&gt;(44);
+}
+</code></pre></pre>
 <h4 id="method-dispatch-and-trait-matching"><a class="header" href="#method-dispatch-and-trait-matching">Method dispatch and trait matching</a></h4>
 <p>Given a method invocation <code>o.m(...)</code> where the method receiver <code>o</code> has opaque type <code>O&lt;P1...Pn&gt;</code>, methods defined in the opaque type's bounds are considered &quot;inherent methods&quot;, similar to a <code>dyn</code> receiver or a generic type.</p>
 <p>Similarly, the compiler can assume that <code>O&lt;P1...Pn&gt;: Bi</code> is true for any of the declared bounds <code>Bi</code>.</p>
+<p><strong>Example.</strong> The following program <strong>compiles</strong> because of this rule.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Clone;
+
+fn clone_foo(f: Foo) -&gt; Foo {
+    // Clone can be called without knowing the hidden type:
+    f.clone()
+}
+
+fn make_foo() -&gt; Foo {
+    // Hidden type constrained to be `u32`
+    22_u32
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><strong>Example.</strong> The following program <strong>does not compile</strong> even though the hidden type for <code>Foo</code> is known within <code>clone_foo</code>; this is because the type of <code>f</code> is <code>impl Clone</code> and we interpret that as a wish to only rely on the fact that <code>Foo: Clone</code> and nothing else (modulo auto trait leakage, see next rule).</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Clone;
+
+fn clone_foo() {
+    let f: Foo = 22_u32;
+
+    // We don't know that `Foo: Debug`.
+    debug!(&quot;{:?}&quot;, f);
+}
+<span class="boring">}
+</span></code></pre></pre>
 <h3 id="rules-that-only-apply-outside-of-the-defining-scope-auto-trait-leakage"><a class="header" href="#rules-that-only-apply-outside-of-the-defining-scope-auto-trait-leakage">Rules that only apply outside of the defining scope: auto trait leakage</a></h3>
 <p>The following type-checking rules can only be used when type-checking an item I that is <strong>not</strong> within the defining scope for the opaque type. When the type-checker for I wishes to employ one of these rules, it needs to &quot;fetch&quot; the hidden type for <code>O</code>. This may create a cycle in the computation graph if determining the hidden type for O requires type-checking the body of I (e.g., to compute the hidden type for another opaque type O1); cyclic cases result in a compilation error.</p>
+<p><strong>Example.</strong> The following program <strong>compiles</strong> because of this rule:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Clone;
+
+fn is_send&lt;T: Send&gt;() {}
+
+fn clone_foo() {
+    let f: Foo = 22_u32;
+
+    // We can leak the hidden type of `u32` defined within this function.
+    is_send::&lt;Foo&gt;();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><strong>Example.</strong> The following program <strong>does not compile</strong> because of a cycle:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn is_send&lt;T: Send&gt;() { }        
+
+mod foo {
+    pub type Foo = impl Clone;
+
+    pub fn make_foo() -&gt; Foo {
+        // Requires knowing hidden type of `Bar`:
+        is_send::&lt;crate::bar::Bar&gt;();
+        22_u32
+    }
+}
+
+mod bar {
+    pub type Bar = impl Clone;
+
+    pub fn make_bar() -&gt; Foo {
+        // Requires knowing hidden type of `Foo`:
+        is_send::&lt;crate::foo::Foo&gt;();
+        22_u32
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
 <h4 id="auto-trait-leakage"><a class="header" href="#auto-trait-leakage">Auto trait leakage</a></h4>
 <p>When proving <code>O&lt;P1...Pn&gt;: AT</code> for some auto trait <code>AT</code>, any item is permitted to use the hidden type <code>H</code> for <code>O&lt;P1...Pn&gt;</code> and show that <code>H: AT</code>.</p>
 <h3 id="rules-that-only-apply-within-the-defining-scope-proposing-an-opaque-type"><a class="header" href="#rules-that-only-apply-within-the-defining-scope-proposing-an-opaque-type">Rules that only apply within the defining scope: proposing an opaque type</a></h3>
-<p>The following type-checking rules can only be used when type-checking an item <code>I</code> that is within the defining scope for the opaque type <code>O</code>. If any of these rules are needed to type-check <code>I</code>, then <code>I</code> must compute a consistent type <code>H</code> to use as the hidden type for <code>O</code>. Any item <code>I</code> that relies on the rules in this section is said to <em>propose the hidden type <code>H</code> for the opaque type <code>O</code></em>.</p>
-<p>Computing the hidden type <code>H</code> for <code>O&lt;P1..Pn&gt;</code> that is required by the item <code>I</code> must be done independently from any other items within the defining scope of <code>O</code>. It can be done by creating an inference variable <code>?V</code> for <code>O&lt;P1..Pn&gt;</code> and unifying <code>?O</code> with all types that must be equal to <code>O&lt;P1...Pn&gt;</code>. This inference variable <code>?V</code> is called the <em>exemplar</em>, as it is an &quot;example&quot; of what the hidden type is when <code>P1..Pn</code> are substituted for the generic arguments of <code>O</code>. Note that a given function may produce multiple exemplars for a single opaque type if it contains multiple references to <code>O</code> with distinct generic arguments. Computing the actual hidden type is done by mapping from the exemplar(s) back to the generic parameters for <code>O</code>, as described <a href="explainer/inference.html#mapping-from-an-examplar">below</a>. </p>
+<p>The following type-checking rules can only be used when type-checking an item <code>I</code> that is within the defining scope for the opaque type <code>O</code>. If any of these rules are needed to type-check <code>I</code>, then <code>I</code> must compute a consistent type <code>H</code> to use as the hidden type for <code>O</code>. Any item <code>I</code> that relies on the rules in this section is said to <em>propose the hidden type <code>H</code> for the opaque type <code>O</code></em>. The process for inferring a hidden type is described below.</p>
+<h4 id="equality-between-an-opaque-type-and-its-hidden-type"><a class="header" href="#equality-between-an-opaque-type-and-its-hidden-type">Equality between an opaque type and its hidden type</a></h4>
+<p>An opaque type <code>O&lt;P0...Pn&gt;</code> can be judged to be equal to its hidden type <code>H</code>.</p>
+<p><strong>Example.</strong> The following program <strong>compiles</strong> because of this rule:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Clone;
+
+fn test() {
+    // Requires that `Foo` be equal to the hidden type, `u32`.
+    let x: Foo = 22_u32;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h4 id="auto-trait-leakage-1"><a class="header" href="#auto-trait-leakage-1">Auto trait leakage</a></h4>
+<p>When proving <code>O&lt;P1...Pn&gt;: AT</code> for some auto trait <code>AT</code>, <code>I</code> can use the hidden type <code>H</code> to show that <code>H: AT</code>.</p>
+<p><strong>Example.</strong> The following program <strong>compiles</strong> because of this rule:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Clone;
+
+fn is_send&lt;T: Send&gt;() {}
+
+fn test() {
+    let x: Foo = 22_u32;
+    is_send::&lt;Foo&gt;();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><strong>Example.</strong> The following program <strong>does not compile</strong>. This is because it requires this rule to compile, but does not actually constrain the hidden type in any other way.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Clone;
+
+fn is_send&lt;T: Send&gt;() {}
+
+fn test() {
+    is_send::&lt;Foo&gt;();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="determining-the-hidden-type"><a class="header" href="#determining-the-hidden-type">Determining the hidden type</a></h2>
+<p>To determine the hidden type for some opaque type <code>O</code>, we examine the set <code>C</code> of items that propose a hidden type <code>O</code>. If that set is an empty set, there is a compilation error. If two items in the set propose distinct hidden types for <code>O</code>, that is also an error. Otherwise, if all items propose the same hidden type <code>H</code> for <code>O</code>, then <code>H</code> becomes the hidden type for <code>O</code>.</p>
+<h3 id="computing-the-hidden-type-proposed-by-an-item-i"><a class="header" href="#computing-the-hidden-type-proposed-by-an-item-i">Computing the hidden type proposed by an item <code>I</code></a></h3>
+<p>Computing the hidden type <code>H</code> for <code>O&lt;P1..Pn&gt;</code> that is required by the item <code>I</code> must be done independently from any other items within the defining scope of <code>O</code>. It can be done by creating an inference variable <code>?V</code> for <code>O&lt;P1..Pn&gt;</code> and unifying <code>?O</code> with all types that must be equal to <code>O&lt;P1...Pn&gt;</code>. This inference variable <code>?V</code> is called the <em>exemplar</em>, as it is an &quot;example&quot; of what the hidden type is when <code>P1..Pn</code> are substituted for the generic arguments of <code>O</code>. Note that a given function may produce multiple exemplars for a single opaque type if it contains multiple references to <code>O</code> with distinct generic arguments. Computing the actual hidden type is done by <a href="explainer/inference.html#higher-order-pattern-unification">higher-order pattern unification</a>. </p>
+<h3 id="limitations-on-exemplars"><a class="header" href="#limitations-on-exemplars">Limitations on exemplars</a></h3>
 <p>Whenever an item <code>I</code> proposes a hidden type, the following conditions must be met:</p>
 <ul>
 <li>All of the exemplars from a given item <code>I</code> must map to the same hidden type <code>H</code>.</li>
-<li>The hidden type <code>H</code> must be completely constrained and must not involve unbound inference variables.
-<ul>
-<li>In other words, each item <code>I</code> must type check independently of its peers.</li>
+<li>Each exemplar type <code>E</code> must be completely constrained and must not involve unbound inference variables.</li>
 </ul>
-</li>
-</ul>
-<h4 id="equality-between-an-opaque-type-and-its-hidden-type"><a class="header" href="#equality-between-an-opaque-type-and-its-hidden-type">Equality between an opaque type and its hidden type</a></h4>
-<p>An opaque type <code>O&lt;P0...Pn&gt;</code> can be judged to be equal to its hidden type <code>H</code>.</p>
-<h4 id="auto-trait-leakage-1"><a class="header" href="#auto-trait-leakage-1">Auto trait leakage</a></h4>
-<p>When proving <code>O&lt;P1...Pn&gt;: AT</code> for some auto trait <code>AT</code>, <code>I</code> can use the hidden type <code>H</code> to show that <code>H: AT</code>.</p>
-<h2 id="determining-the-hidden-type"><a class="header" href="#determining-the-hidden-type">Determining the hidden type</a></h2>
-<p>To determine the hidden type for some opaque type <code>O</code>, we examine the set <code>C</code> of items that propose a hidden type <code>O</code>. If that set is an empty set, there is a compilation error. If two items in the set propose distinct hidden types for <code>O</code>, that is also an error. Otherwise, if all items propose the same hidden type <code>H</code> for <code>O</code>, then <code>H</code> becomes the hidden type for <code>O</code>.</p>
-<h3 id="mapping-from-an-examplar"><a class="header" href="#mapping-from-an-examplar">Mapping from an examplar</a></h3>
+<h4 id="examples"><a class="header" href="#examples">Examples</a></h4>
+<p>The following function has two exemplars but they both map to the same hidden type, so it is legal:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo&lt;T, U&gt; = impl Debug;
+
+fn compatible&lt;A, B&gt;(a: A, b: B) {
+    // Exemplar: (A, B) for Foo&lt;A, B&gt;
+    // Hidden type: (T, U)
+    let _: Foo&lt;A, B&gt; = (a, b);
+
+    // Exemplar: (B, A) for Foo&lt;B, A&gt;
+    // Hidden type: (T, U)
+    let _: Foo&lt;B, A&gt; = (b, a);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The following program is illegal because of the restriction against having incompatible examplars.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo&lt;T, U&gt; = impl Debug;
+
+fn incompatible&lt;A, B&gt;(a: A, b: B) {
+    // Exemplar: (A, B)
+    // Hidden type: (T, U)
+    let _: Foo&lt;A, B&gt; = (a, b);
+
+    // Exemplar: (B, A)
+    // Hidden type: (U, T)
+    let _: Foo&lt;A, B&gt; = (b, a);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The following program is illegal because of the restriction against having incomplete types. This is true even though the two functions, taken in aggregate, have enough information to compute the hidden type for <code>Foo</code>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo = impl Debug;
+
+fn incomplete1() {
+    // Computes an incomplete exemplar of `Result&lt;(), _&gt;`.
+    let x: Foo = Ok(());
+}
+
+fn incomplete2() {
+    // Computes an incomplete exemplar of `Result&lt;_, ()&gt;`.
+    let x: Foo = Err(());
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="higher-order-pattern-unification"><a class="header" href="#higher-order-pattern-unification">Higher-order pattern unification</a></h3>
 <p>When an item <code>I</code> finishes its type check, it will have computed an exemplar type <code>E</code> for the opaque type <code>O&lt;P1..Pn&gt;</code>. This must be mapped back to the hidden type <code>H</code>. Thanks to the <a href="explainer/./tait_generics.html">limitations on type alias generic parameters</a>, this can be done by a process called <em>higher-order pattern unification</em> (a limited, tractable form of <em>higher-order unification</em>). Higher-order pattern unification is best explained by example.</p>
-<h4 id="higher-order-pattern-unification"><a class="header" href="#higher-order-pattern-unification">Higher-order pattern unification</a></h4>
 <p>Consider an opaque type <code>Foo</code>:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
