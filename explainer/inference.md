@@ -39,15 +39,123 @@ The following rules for type-checking opaque types apply to all code, whether or
 
 Like any type, an opaque type `O<P0...Pn>` can be judged to be equal to itself. This does not require knowing the hidden type.
 
+**Example.** The following program **compiles** because of this rule.
+
+```rust
+mod foo {
+    type Foo = impl Clone;
+
+    fn make_foo(x: u32) -> Foo {
+        x
+    }
+}
+
+fn main() {
+    let mut x: Foo = make_foo(22);
+
+    // Requires knowing that `Foo = Foo`.
+    x = make_foo(44);
+}
+```
+
+**Example.** The following program **does not compile** even though the hidden types are the same.
+
+```rust
+mod foo {
+    type Foo<T> = impl Clone;
+
+    fn make_foo<A>(x: u32) -> Foo<A> {
+        x
+    }
+}
+
+fn main() {
+    let mut x: Foo<String> = make_foo::<String>(22);
+
+    // `Foo<String>` is not assumed to be equal to `Foo<char>`.
+    x = make_foo::<char>(44);
+}
+```
+
 #### Method dispatch and trait matching
 
 Given a method invocation `o.m(...)` where the method receiver `o` has opaque type `O<P1...Pn>`, methods defined in the opaque type's bounds are considered "inherent methods", similar to a `dyn` receiver or a generic type.
 
 Similarly, the compiler can assume that `O<P1...Pn>: Bi` is true for any of the declared bounds `Bi`.
 
+**Example.** The following program **compiles** because of this rule.
+
+```rust
+type Foo = impl Clone;
+
+fn clone_foo(f: Foo) -> Foo {
+    // Clone can be called without knowing the hidden type:
+    f.clone()
+}
+
+fn make_foo() -> Foo {
+    // Hidden type constrained to be `u32`
+    22_u32
+}
+```
+
+**Example.** The following program **does not compile** even though the hidden type for `Foo` is known within `clone_foo`; this is because the type of `f` is `impl Clone` and we interpret that as a wish to only rely on the fact that `Foo: Clone` and nothing else (modulo auto trait leakage, see next rule).
+
+```rust
+type Foo = impl Clone;
+
+fn clone_foo() {
+    let f: Foo = 22_u32;
+
+    // We don't know that `Foo: Debug`.
+    debug!("{:?}", f);
+}
+```
+
 ### Rules that only apply outside of the defining scope: auto trait leakage
 
 The following type-checking rules can only be used when type-checking an item I that is **not** within the defining scope for the opaque type. When the type-checker for I wishes to employ one of these rules, it needs to "fetch" the hidden type for `O`. This may create a cycle in the computation graph if determining the hidden type for O requires type-checking the body of I (e.g., to compute the hidden type for another opaque type O1); cyclic cases result in a compilation error.
+
+**Example.** The following program **compiles** because of this rule:
+
+```rust
+type Foo = impl Clone;
+
+fn is_send<T: Send>() {}
+
+fn clone_foo() {
+    let f: Foo = 22_u32;
+
+    // We can leak the hidden type of `u32` defined within this function.
+    is_send::<Foo>();
+}
+```
+
+**Example.** The following program **does not compile** because of a cycle:
+
+```rust
+fn is_send<T: Send>() { }        
+
+mod foo {
+    pub type Foo = impl Clone;
+
+    pub fn make_foo() -> Foo {
+        // Requires knowing hidden type of `Bar`:
+        is_send::<crate::bar::Bar>();
+        22_u32
+    }
+}
+
+mod bar {
+    pub type Bar = impl Clone;
+
+    pub fn make_bar() -> Foo {
+        // Requires knowing hidden type of `Foo`:
+        is_send::<crate::foo::Foo>();
+        22_u32
+    }
+}
+```
 
 #### Auto trait leakage
 
@@ -55,33 +163,120 @@ When proving `O<P1...Pn>: AT` for some auto trait `AT`, any item is permitted to
 
 ### Rules that only apply within the defining scope: proposing an opaque type
 
-The following type-checking rules can only be used when type-checking an item `I` that is within the defining scope for the opaque type `O`. If any of these rules are needed to type-check `I`, then `I` must compute a consistent type `H` to use as the hidden type for `O`. Any item `I` that relies on the rules in this section is said to *propose the hidden type `H` for the opaque type `O`*.
-
-Computing the hidden type `H` for `O<P1..Pn>` that is required by the item `I` must be done independently from any other items within the defining scope of `O`. It can be done by creating an inference variable `?V` for `O<P1..Pn>` and unifying `?O` with all types that must be equal to `O<P1...Pn>`. This inference variable `?V` is called the *exemplar*, as it is an "example" of what the hidden type is when `P1..Pn` are substituted for the generic arguments of `O`. Note that a given function may produce multiple exemplars for a single opaque type if it contains multiple references to `O` with distinct generic arguments. Computing the actual hidden type is done by mapping from the exemplar(s) back to the generic parameters for `O`, as described [below](#mapping-from-an-examplar). 
-
-Whenever an item `I` proposes a hidden type, the following conditions must be met:
-
-* All of the exemplars from a given item `I` must map to the same hidden type `H`.
-* The hidden type `H` must be completely constrained and must not involve unbound inference variables.
-    * In other words, each item `I` must type check independently of its peers.
+The following type-checking rules can only be used when type-checking an item `I` that is within the defining scope for the opaque type `O`. If any of these rules are needed to type-check `I`, then `I` must compute a consistent type `H` to use as the hidden type for `O`. Any item `I` that relies on the rules in this section is said to *propose the hidden type `H` for the opaque type `O`*. The process for inferring a hidden type is described below.
 
 #### Equality between an opaque type and its hidden type
 
 An opaque type `O<P0...Pn>` can be judged to be equal to its hidden type `H`.
 
+**Example.** The following program **compiles** because of this rule:
+
+```rust
+type Foo = impl Clone;
+
+fn test() {
+    // Requires that `Foo` be equal to the hidden type, `u32`.
+    let x: Foo = 22_u32;
+}
+```
+
 #### Auto trait leakage
 
 When proving `O<P1...Pn>: AT` for some auto trait `AT`, `I` can use the hidden type `H` to show that `H: AT`.
+
+**Example.** The following program **compiles** because of this rule:
+
+```rust
+type Foo = impl Clone;
+
+fn is_send<T: Send>() {}
+
+fn test() {
+    let x: Foo = 22_u32;
+    is_send::<Foo>();
+}
+```
+
+**Example.** The following program **does not compile**. This is because it requires this rule to compile, but does not actually constrain the hidden type in any other way.
+
+```rust
+type Foo = impl Clone;
+
+fn is_send<T: Send>() {}
+
+fn test() {
+    is_send::<Foo>();
+}
+```
 
 ## Determining the hidden type
 
 To determine the hidden type for some opaque type `O`, we examine the set `C` of items that propose a hidden type `O`. If that set is an empty set, there is a compilation error. If two items in the set propose distinct hidden types for `O`, that is also an error. Otherwise, if all items propose the same hidden type `H` for `O`, then `H` becomes the hidden type for `O`.
 
-### Mapping from an examplar 
+### Computing the hidden type proposed by an item `I`
+
+Computing the hidden type `H` for `O<P1..Pn>` that is required by the item `I` must be done independently from any other items within the defining scope of `O`. It can be done by creating an inference variable `?V` for `O<P1..Pn>` and unifying `?O` with all types that must be equal to `O<P1...Pn>`. This inference variable `?V` is called the *exemplar*, as it is an "example" of what the hidden type is when `P1..Pn` are substituted for the generic arguments of `O`. Note that a given function may produce multiple exemplars for a single opaque type if it contains multiple references to `O` with distinct generic arguments. Computing the actual hidden type is done by [higher-order pattern unification](#higher-order-pattern-unification). 
+
+### Limitations on exemplars
+
+Whenever an item `I` proposes a hidden type, the following conditions must be met:
+
+* All of the exemplars from a given item `I` must map to the same hidden type `H`.
+* Each exemplar type `E` must be completely constrained and must not involve unbound inference variables.
+
+#### Examples
+
+The following function has two exemplars but they both map to the same hidden type, so it is legal:
+
+```rust
+type Foo<T, U> = impl Debug;
+
+fn compatible<A, B>(a: A, b: B) {
+    // Exemplar: (A, B) for Foo<A, B>
+    // Hidden type: (T, U)
+    let _: Foo<A, B> = (a, b);
+
+    // Exemplar: (B, A) for Foo<B, A>
+    // Hidden type: (T, U)
+    let _: Foo<B, A> = (b, a);
+}
+```
+
+The following program is illegal because of the restriction against having incompatible examplars.
+
+```rust
+type Foo<T, U> = impl Debug;
+
+fn incompatible<A, B>(a: A, b: B) {
+    // Exemplar: (A, B)
+    // Hidden type: (T, U)
+    let _: Foo<A, B> = (a, b);
+
+    // Exemplar: (B, A)
+    // Hidden type: (U, T)
+    let _: Foo<A, B> = (b, a);
+}
+```
+
+The following program is illegal because of the restriction against having incomplete types. This is true even though the two functions, taken in aggregate, have enough information to compute the hidden type for `Foo`.
+
+```rust
+type Foo = impl Debug;
+
+fn incomplete1() {
+    // Computes an incomplete exemplar of `Result<(), _>`.
+    let x: Foo = Ok(());
+}
+
+fn incomplete2() {
+    // Computes an incomplete exemplar of `Result<_, ()>`.
+    let x: Foo = Err(());
+}
+```
+
+### Higher-order pattern unification
 
 When an item `I` finishes its type check, it will have computed an exemplar type `E` for the opaque type `O<P1..Pn>`. This must be mapped back to the hidden type `H`. Thanks to the [limitations on type alias generic parameters](./tait_generics.md), this can be done by a process called *higher-order pattern unification* (a limited, tractable form of *higher-order unification*). Higher-order pattern unification is best explained by example.
-
-#### Higher-order pattern unification
 
 Consider an opaque type `Foo`:
 
