@@ -4,6 +4,8 @@
 
 {{#include ../badges.md}}
 
+## Summary
+
 The process to infer the hidden type for an impl Trait is as follows.
 
 * When type-checking functions or code within the *defining scope* of an impl Trait `X`:
@@ -12,3 +14,118 @@ The process to infer the hidden type for an impl Trait is as follows.
         * Similarly, given `fn foo() -> X`, `let var: i32 = foo()` wold create the subtyping constraint that `X` be a subtype of `i32`.
     * The type `X` is assumed to implement the traits that appear in its bounds
         * Exception: auto traits. Proving an auto trait `X: Send` is done by "revealing" the hidden type and proving the auto trait against the hidden type.
+
+## Terminology: Opaque type
+
+An impl trait in [output position] is called an **opaque type**. We write the opaque type as `O<P0...Pn>`, where `P0...Pn` are the generic types on the opaque type. For a [type alias impl trait](./tait.md), the generic types are the generics from the type alias. For a [return position impl trait](./rpit.md), the generics are defined by the [RPIT capture rules](./rpit_capture.md).
+
+## Terminology: Opaque type bounds
+
+Given an opaque type `O<P1...Pn>`, let `B1..Bn` be the *bounds* on that opaque type, appropriately substituted for `P1..Pn`. For example, if the user wrote `type Foo<T> = impl PartialEq<T> + Debug + 'static` and we have the opaque type `Foo<u32>`, then the bounds would be `PartialEq<u32>`, `Debug`, and `'static`.
+
+## Notation: applying bounds to a type to create a where clause
+
+Given a type `T` and an opaque type bound `B1`, we write `T: B1` to signify the where clause that results from using `T` as the "self type" for the bound `B1`. For example, given the type `i32` and the bound `PartialEq<u32>`, the where clause would be `i32: PartialEq<u32>` Given the type `i32` and the bound `'static`, the where clause would be `i32: 'static`.
+
+## Type checking opaque types
+
+The following section describes how to type check functions or other pieces of code that reference opaque types.
+
+### Rules that always apply
+
+The following rules for type-checking opaque types apply to all code, whether or not it is part of the type's defining scope.
+
+#### Reflexive equality for opaque types
+
+Like any type, an opaque type `O<P0...Pn>` can be judged to be equal to itself. This does not require knowing the hidden type.
+
+#### Method dispatch and trait matching
+
+Given a method invocation `o.m(...)` where the method receiver `o` has opaque type `O<P1...Pn>`, methods defined in the opaque type's bounds are considered "inherent methods", similar to a `dyn` receiver or a generic type.
+
+Similarly, the compiler can assume that `O<P1...Pn>: Bi` is true for any of the declared bounds `Bi`.
+
+### Rules that only apply outside of the defining scope: auto trait leakage
+
+The following type-checking rules can only be used when type-checking an item I that is **not** within the defining scope for the opaque type. When the type-checker for I wishes to employ one of these rules, it needs to "fetch" the hidden type for `O`. This may create a cycle in the computation graph if determining the hidden type for O requires type-checking the body of I (e.g., to compute the hidden type for another opaque type O1); cyclic cases result in a compilation error.
+
+#### Auto trait leakage
+
+When proving `O<P1...Pn>: AT` for some auto trait `AT`, any item is permitted to use the hidden type `H` for `O<P1...Pn>` and show that `H: AT`.
+
+### Rules that only apply within the defining scope: proposing an opaque type
+
+The following type-checking rules can only be used when type-checking an item `I` that is within the defining scope for the opaque type `O`. If any of these rules are needed to type-check `I`, then `I` must compute a consistent type `H` to use as the hidden type for `O`. Any item `I` that relies on the rules in this section is said to *propose the hidden type `H` for the opaque type `O`*.
+
+Computing the hidden type `H` for `O<P1..Pn>` that is required by the item `I` must be done independently from any other items within the defining scope of `O`. It can be done by creating an inference variable `?V` for `O<P1..Pn>` and unifying `?O` with all types that must be equal to `O<P1...Pn>`. This inference variable `?V` is called the *exemplar*, as it is an "example" of what the hidden type is when `P1..Pn` are substituted for the generic arguments of `O`. Note that a given function may produce multiple exemplars for a single opaque type if it contains multiple references to `O` with distinct generic arguments. Computing the actual hidden type is done by mapping from the exemplar(s) back to the generic parameters for `O`, as described [below](#mapping-from-an-examplar). 
+
+Whenever an item `I` proposes a hidden type, the following conditions must be met:
+
+* All of the exemplars from a given item `I` must map to the same hidden type `H`.
+* The hidden type `H` must be completely constrained and must not involve unbound inference variables.
+    * In other words, each item `I` must type check independently of its peers.
+
+#### Equality between an opaque type and its hidden type
+
+An opaque type `O<P0...Pn>` can be judged to be equal to its hidden type `H`.
+
+#### Auto trait leakage
+
+When proving `O<P1...Pn>: AT` for some auto trait `AT`, `I` can use the hidden type `H` to show that `H: AT`.
+
+## Determining the hidden type
+
+To determine the hidden type for some opaque type `O`, we examine the set `C` of items that propose a hidden type `O`. If that set is an empty set, there is a compilation error. If two items in the set propose distinct hidden types for `O`, that is also an error. Otherwise, if all items propose the same hidden type `H` for `O`, then `H` becomes the hidden type for `O`.
+
+### Mapping from an examplar 
+
+When an item `I` finishes its type check, it will have computed an exemplar type `E` for the opaque type `O<P1..Pn>`. This must be mapped back to the hidden type `H`. Thanks to the [limitations on type alias generic parameters](./tait_generics.md), this can be done by a process called *higher-order pattern unification* (a limited, tractable form of *higher-order unification*). Higher-order pattern unification is best explained by example.
+
+#### Higher-order pattern unification
+
+Consider an opaque type `Foo`:
+
+```rust
+type Foo<T, U> = impl Clone;
+```
+
+and an item `make_foo` that contains `Foo`:
+
+```rust
+fn make_foo<X: Clone, Y: Clone>(x: X, y: Y) -> Foo<X, Y> {
+    vec![(x, y)]
+}
+```
+
+Here the opaque type `O<P1, P2>` is `Foo<X, Y>` (i.e., `P1` is `X` and `P2` is `Y`) and the exemplar type `E` is `Vec<(X, Y)>`. We wish to compute the *hidden* type, which will be `Vec<(T, U)>` -- note that the hidden type references the generics from the declaration of `Foo`, whereas the exemplar references the generics from `make_foo`. Computing the hidden type can be done by finding each occurence of a generic argument `Pi` (in this case, `X` and `Y`) and mapping to the corresponding generic parameter `i` from the opaque type declaration (in this case, `T` and `U` respectively).
+
+This process is well-defined because of the [limitations on type alias generic parameters](./tait_generics.md). Thanks to those limitations, we know that:
+
+* each generic argument `Pi` will be some generic type on `make_foo`;
+* each generic argument `Pi` to the opaque type will be distinct from each other argument `Pj`.
+
+In particular, these limitations mean that whenever we see an instance of some parameter `Pi` in the exemplar, the only way that `Pi` could appear in the final hidden type is if it was introduced by substitution for one of the generic arguments.
+
+To see the ambiguity that is introduced without these limitations, consider what would mappen if you had a function like `bad_make_foo1`:
+
+```rust
+fn bad_make_foo1() -> Foo<u32, i32> {
+    vec![(22_u32, 22_i32)]
+}
+```
+
+Here the exemplar type is `Vec<(u32, i32)>`, but the hidden type is ambiguous. It could be `Vec<(T, U)>`, as before, but it could also just be `Vec<(u32, i32)>`. The problem is that this example violates the first restriction: the parameters `u32` and `i32` are not generics on `bad_make_foo1`. This means that they are types which can be named from both the definition of `type Foo` *and* from within the scope of `bad_make_foo1`, introducing ambiguity. 
+
+A similar problem happens when type parameters are repeated, as illustrated by `bad_make_foo2`:
+
+```rust
+fn bad_make_foo2<X: Clone>(x: X) -> Foo<X, X> {
+    vec![(x.clone(), x.clone())]
+}
+```
+
+The exemplar type here is `Vec<(X, X)>`. The hidden type, however, could either be `Vec<(T, T)>` or `Vec<(T, U)>` or `Vec<(U, U)>`. All of them would be the same after substitution.
+
+
+[output position]: ../glossary/output_impl_trait.md
+[defining scope]: ../glossary/defining_scope.md
