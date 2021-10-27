@@ -62,7 +62,7 @@ fn main() {
 
 ```rust
 mod foo {
-    type Foo<T> = impl Clone;
+    type Foo<T: Clone> = impl Clone;
 
     fn make_foo<A>(x: u32) -> Foo<A> {
         x
@@ -217,6 +217,20 @@ To determine the hidden type for some opaque type `O`, we examine the set `C` of
 
 Computing the hidden type `H` for `O<P1..Pn>` that is required by the item `I` must be done independently from any other items within the defining scope of `O`. It can be done by creating an inference variable `?V` for `O<P1..Pn>` and unifying `?O` with all types that must be equal to `O<P1...Pn>`. This inference variable `?V` is called the *exemplar*, as it is an "example" of what the hidden type is when `P1..Pn` are substituted for the generic arguments of `O`. Note that a given function may produce multiple exemplars for a single opaque type if it contains multiple references to `O` with distinct generic arguments. Computing the actual hidden type is done by [higher-order pattern unification](#higher-order-pattern-unification). 
 
+### Checking the hidden type proposed by an item `I`
+
+Once the hidden type for an item `I` is determined, we also have to check that the hidden type is well-formed in the context of the type alias and that its bounds are satisfied. Since the where clauses that were in scope when the exemplar was computed can be different from those declared on the opaque type, this is not a given.
+
+**Example.** The following program **does not compile** because of this check. Here, the exemplar is `T` and the hidden type is `X`. However, the type alias does not declare that `X: Clone`, so the `impl Clone` bounds are not known to be satisfied.
+
+```rust
+type Foo<X> = impl Clone;
+
+fn make_foo<T: Clone>(t: T) {
+    t
+}
+```
+
 ### Limitations on exemplars
 
 Whenever an item `I` proposes a hidden type, the following conditions must be met:
@@ -281,7 +295,7 @@ When an item `I` finishes its type check, it will have computed an exemplar type
 Consider an opaque type `Foo`:
 
 ```rust
-type Foo<T, U> = impl Clone;
+type Foo<T: Clone, U: Clone> = impl Clone;
 ```
 
 and an item `make_foo` that contains `Foo`:
