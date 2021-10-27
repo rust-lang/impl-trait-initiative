@@ -967,7 +967,7 @@ fn main() {
 </code></pre></pre>
 <p><strong>Example.</strong> The following program <strong>does not compile</strong> even though the hidden types are the same.</p>
 <pre><pre class="playground"><code class="language-rust">mod foo {
-    type Foo&lt;T&gt; = impl Clone;
+    type Foo&lt;T: Clone&gt; = impl Clone;
 
     fn make_foo&lt;A&gt;(x: u32) -&gt; Foo&lt;A&gt; {
         x
@@ -1111,6 +1111,19 @@ fn test() {
 <p>To determine the hidden type for some opaque type <code>O</code>, we examine the set <code>C</code> of items that propose a hidden type <code>O</code>. If that set is an empty set, there is a compilation error. If two items in the set propose distinct hidden types for <code>O</code>, that is also an error. Otherwise, if all items propose the same hidden type <code>H</code> for <code>O</code>, then <code>H</code> becomes the hidden type for <code>O</code>.</p>
 <h3 id="computing-the-hidden-type-proposed-by-an-item-i"><a class="header" href="#computing-the-hidden-type-proposed-by-an-item-i">Computing the hidden type proposed by an item <code>I</code></a></h3>
 <p>Computing the hidden type <code>H</code> for <code>O&lt;P1..Pn&gt;</code> that is required by the item <code>I</code> must be done independently from any other items within the defining scope of <code>O</code>. It can be done by creating an inference variable <code>?V</code> for <code>O&lt;P1..Pn&gt;</code> and unifying <code>?O</code> with all types that must be equal to <code>O&lt;P1...Pn&gt;</code>. This inference variable <code>?V</code> is called the <em>exemplar</em>, as it is an &quot;example&quot; of what the hidden type is when <code>P1..Pn</code> are substituted for the generic arguments of <code>O</code>. Note that a given function may produce multiple exemplars for a single opaque type if it contains multiple references to <code>O</code> with distinct generic arguments. Computing the actual hidden type is done by <a href="explainer/inference.html#higher-order-pattern-unification">higher-order pattern unification</a>. </p>
+<h3 id="checking-the-hidden-type-proposed-by-an-item-i"><a class="header" href="#checking-the-hidden-type-proposed-by-an-item-i">Checking the hidden type proposed by an item <code>I</code></a></h3>
+<p>Once the hidden type for an item <code>I</code> is determined, we also have to check that the hidden type is well-formed in the context of the type alias and that its bounds are satisfied. Since the where clauses that were in scope when the exemplar was computed can be different from those declared on the opaque type, this is not a given.</p>
+<p><strong>Example.</strong> The following program <strong>does not compile</strong> because of this check. Here, the exemplar is <code>T</code> and the hidden type is <code>X</code>. However, the type alias does not declare that <code>X: Clone</code>, so the <code>impl Clone</code> bounds are not known to be satisfied.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Foo&lt;X&gt; = impl Clone;
+
+fn make_foo&lt;T: Clone&gt;(t: T) {
+    t
+}
+<span class="boring">}
+</span></code></pre></pre>
 <h3 id="limitations-on-exemplars"><a class="header" href="#limitations-on-exemplars">Limitations on exemplars</a></h3>
 <p>Whenever an item <code>I</code> proposes a hidden type, the following conditions must be met:</p>
 <ul>
@@ -1175,7 +1188,7 @@ fn incomplete2() {
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>type Foo&lt;T, U&gt; = impl Clone;
+</span>type Foo&lt;T: Clone, U: Clone&gt; = impl Clone;
 <span class="boring">}
 </span></code></pre></pre>
 <p>and an item <code>make_foo</code> that contains <code>Foo</code>:</p>
