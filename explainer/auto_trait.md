@@ -10,7 +10,7 @@ When talking about output impl Traits in the previous section, we said that call
 
 ```rust
 fn odd_integers(start: u32, stop: u32) -> impl Iterator<Item = u32> {
-    (start..stop).filter(|i| i % 2 == 0)
+    (start..stop).filter(|i| i % 2 != 0)
 }
 
 fn other_function() {
