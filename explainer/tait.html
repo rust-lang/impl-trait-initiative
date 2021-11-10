@@ -169,8 +169,8 @@
 </span>mod odd {
     pub type OddIntegers = std::iter::Filter&lt;std::ops::Range&lt;u32&gt;, /* what goes here? */&gt;;
 
-    pub fn odd_integers(mut start: u32, stop: u32) -&gt; OddIntegers {
-        (start..stop).filter(|x| x % 2 != 0)
+    pub fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers {
+        (start..stop).filter(|i| i % 2 != 0)
     }
 }
 <span class="boring">}

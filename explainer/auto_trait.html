@@ -144,7 +144,7 @@
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn odd_integers(start: u32, stop: u32) -&gt; impl Iterator&lt;Item = u32&gt; {
-    (start..stop).filter(|i| i % 2 == 0)
+    (start..stop).filter(|i| i % 2 != 0)
 }
 
 fn other_function() {

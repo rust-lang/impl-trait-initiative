@@ -147,7 +147,7 @@
     fn compute(x: impl Iterator&lt;Item = u32&gt;) -&gt; u32;
 }
 
-Struct Sum;
+struct Sum;
 impl Operation for Sum {
     fn compute(x: impl Iterator&lt;Item = u32&gt;) -&gt; u32 {
         x.sum()
@@ -160,7 +160,7 @@ impl Operation for Sum {
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct Max;
-impl Operation for Sum {
+impl Operation for Max {
     fn compute&lt;I: Iterator&lt;Item = u32&gt;&gt;(x: I) -&gt; u32 {
         x.max()
     }
