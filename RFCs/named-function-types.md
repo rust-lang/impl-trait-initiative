@@ -15,7 +15,7 @@
 [summary]: #summary
 
 * Given a function `fn foo`, introduce a type named `fn#foo` to represent the zero-sized type of the function ("function def").
-    * When possible, a type namd `foo` is also introduced, unless another type with tha tname already exists.
+    * When possible, a type named `foo` is also introduced, unless another type with that name already exists.
 * The generic parameters of a "function def" type are defined to include only *named* parameters. Anonymous parameters that appear in the argument are excluded:
     * Elided lifetimes in argument position are excluded.
     * `impl Trait` in argument position are excluded.
@@ -52,7 +52,7 @@ fn odd_integers(start: u32, stop: u32) -> OddIntegers {
 }
 ```
 
-When using [RPIT in traits](./rpit_in_traits.md), this anonymous type is a kind of associated type:
+When using [RPIT in traits](./rpit-in-traits.md), this anonymous type is a kind of associated type:
 
 ```rust
 trait IntoIntIterator {
