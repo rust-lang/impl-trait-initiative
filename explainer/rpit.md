@@ -10,7 +10,7 @@ In the section on [type aliases][tait], we gave the example of a function `odd_i
 
 ```rust
 fn odd_integers(start: u32, stop: u32) -> impl Iterator<Item = u32> {
-    (start..stop).filter(|i| i % 2 == 0)
+    (start..stop).filter(|i| i % 2 != 0)
 }
 ```
 
