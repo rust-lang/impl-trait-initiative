@@ -111,7 +111,7 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/rust-lang/impl-trait" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/rust-lang/impl-trait-initiative" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                     </div>
@@ -448,7 +448,7 @@ Until the feature enters &quot;feature complete&quot; form, the explainer should
 </span><span class="boring">fn main() {
 </span>fn sum_integers&lt;I&gt;(integers: I) -&gt; u32
 where
-    I: Integers&lt;Item = u32&gt;
+    I: Iterator&lt;Item = u32&gt;
 {
     let mut sum = 0;
     for integer in integers {
@@ -482,7 +482,7 @@ So this function:</p>
 </span><span class="boring">fn main() {
 </span>fn sum_integers&lt;I&gt;(integers: I) -&gt; u32
 where
-    I: Integers&lt;Item = u32&gt;
+    I: Iterator&lt;Item = u32&gt;
 {
     let mut sum = 0;
     for integer in integers {
@@ -763,7 +763,7 @@ fn foo4&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, u32&gt; { /* not ok -- u32 i
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn odd_integers(start: u32, stop: u32) -&gt; impl Iterator&lt;Item = u32&gt; {
-    (start..stop).filter(|i| i % 2 == 0)
+    (start..stop).filter(|i| i % 2 != 0)
 }
 <span class="boring">}
 </span></code></pre></pre>
