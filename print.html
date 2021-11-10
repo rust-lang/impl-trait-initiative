@@ -1567,7 +1567,7 @@ impl NewIntoIterator for Vec&lt;u32&gt; {
 <span class="boring">}
 </span></code></pre></pre>
 <h2 id="impl-trait-must-be-used-in-both-trait-and-trait-impls"><a class="header" href="#impl-trait-must-be-used-in-both-trait-and-trait-impls">Impl trait must be used in both trait and trait impls</a></h2>
-<p>Using <code>-&gt; impl Trait</code> notation in a trait requires that all trait impls also use <code>-&gt; impl Trait</code> notation in their retrn types. Similarly, using <code>-&gt; impl Trait</code> notation in an impl is only legal if the trait also uses that notation:</p>
+<p>Using <code>-&gt; impl Trait</code> notation in a trait requires that all trait impls also use <code>-&gt; impl Trait</code> notation in their return types. Similarly, using <code>-&gt; impl Trait</code> notation in an impl is only legal if the trait also uses that notation:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
