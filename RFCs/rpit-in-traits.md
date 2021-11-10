@@ -177,7 +177,7 @@ As with `-> impl Trait` in other kinds of functions, the hidden type for `-> imp
 
 When desugaring, captured parameters from the method are reflected as generic parameters on the `$` associated type. Furthermore, the `$` associated type has the required brings whatever where clauses are declared on the method into scope (excepting those which reference other parameters that are not captured). This transformation is precisely the same as the one which is applied to other forms of `-> impl Trait`, except that it applies to an associated type and not a top-level type alias.
 
-Exaample:
+Example:
 
 ```rust
 trait RefIterator for Vec<u32> {
