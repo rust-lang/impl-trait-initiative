@@ -1,8 +1,12 @@
 # Return types in trait definitions and impls
 
-**Status:** RFC not yet written.
+![planning rfc][]
 
-When you use `impl Trait` as the return type for a function within a trait definition or trait impl, the semantics are somewhat different than in other cases. Consider the following trait:
+{{#include ../badges.md}}
+
+When you use `impl Trait` as the return type for a function within a trait definition or trait impl, the intent is the same: impls that implement this trait return "some type that implements `Trait`", and users of the trait can only rely on that. However, the desugaring to achieve that effect looks somewhat different than other cases of impl trait in return position. This is because we cannot desugar to a type alias in the surrounding module; we need to desugar to an associated type (effectively, a type alias in the trait).
+
+Consider the following trait:
 
 ```rust
 trait IntoIntIterator {

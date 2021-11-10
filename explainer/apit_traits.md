@@ -1,5 +1,9 @@
 # Traits and impls
 
+![stable][]
+
+{{#include ../badges.md}}
+
 You can use `impl Trait` in argument position in traits and impls, but you must use it consistently in both. For example, the following is legal:
 
 ```rust
