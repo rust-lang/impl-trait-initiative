@@ -776,7 +776,7 @@ fn foo4&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, u32&gt; { /* not ok -- u32 i
 </li>
 <li>There is no direct way to name the resulting type (because you didn't define a type alias).
 <ul>
-<li>But see the section on <a href="explainer/./rpit_naming.html">naming impl trait in return type</a> for indirect techniques.</li>
+<li>But see the section on <a href="explainer/./rpit_names.html">naming impl trait in return type</a> for indirect techniques.</li>
 </ul>
 </li>
 </ul>
@@ -1704,7 +1704,7 @@ impl Foo for u32 {
 <ul>
 <li>Given a function <code>fn foo</code>, introduce a type named <code>fn#foo</code> to represent the zero-sized type of the function (&quot;function def&quot;).
 <ul>
-<li>When possible, a type namd <code>foo</code> is also introduced, unless another type with tha tname already exists.</li>
+<li>When possible, a type named <code>foo</code> is also introduced, unless another type with that name already exists.</li>
 </ul>
 </li>
 <li>The generic parameters of a &quot;function def&quot; type are defined to include only <em>named</em> parameters. Anonymous parameters that appear in the argument are excluded:
@@ -1745,7 +1745,7 @@ fn odd_integers(start: u32, stop: u32) -&gt; OddIntegers {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<p>When using <a href="RFCs/./rpit_in_traits.html">RPIT in traits</a>, this anonymous type is a kind of associated type:</p>
+<p>When using <a href="RFCs/./rpit-in-traits.html">RPIT in traits</a>, this anonymous type is a kind of associated type:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
