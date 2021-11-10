@@ -139,7 +139,8 @@
                     <main>
                         <h1 id="return-types-in-trait-definitions-and-impls"><a class="header" href="#return-types-in-trait-definitions-and-impls">Return types in trait definitions and impls</a></h1>
 <p><img src="https://img.shields.io/badge/status-draft%20rfc-informational" alt="planning rfc" /></p>
-<p>When you use <code>impl Trait</code> as the return type for a function within a trait definition or trait impl, the semantics are somewhat different than in other cases. Consider the following trait:</p>
+<p>When you use <code>impl Trait</code> as the return type for a function within a trait definition or trait impl, the intent is the same: impls that implement this trait return &quot;some type that implements <code>Trait</code>&quot;, and users of the trait can only rely on that. However, the desugaring to achieve that effect looks somewhat different than other cases of impl trait in return position. This is because we cannot desugar to a type alias in the surrounding module; we need to desugar to an associated type (effectively, a type alias in the trait).</p>
+<p>Consider the following trait:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {

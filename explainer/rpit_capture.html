@@ -139,7 +139,26 @@
                     <main>
                         <h1 id="generic-parameter-capture"><a class="header" href="#generic-parameter-capture">Generic parameter capture</a></h1>
 <p><img src="https://img.shields.io/badge/status-stable-success" alt="stable" /></p>
-<p>When you use an impl trait in return position, there are some limitations on the &quot;hidden type&quot; that may be used. </p>
+<p>When you use an impl trait in return position, the hidden type may make use of any of the type parameters, and hence the following function is legal:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Hidden type: Option&lt;T&gt;, which references T
+fn foo&lt;T: Clone&gt;(t: T) -&gt; impl Clone {
+    Some(t)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>However, it may not reference lifetime parameters <em>unless</em> those lifetime parameters appear in the impl trait bounds. The following</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Error: hidden type `Option&lt;&amp;'a u32&gt;` references `'a`
+fn foo&lt;'a&gt;(t: &amp;'a u32) -&gt; impl Clone {
+    Some(t)
+}
+<span class="boring">}
+</span></code></pre></pre>
 <p>XXX document:</p>
 <ul>
 <li>you can capture type parameters</li>

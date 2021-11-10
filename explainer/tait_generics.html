@@ -152,7 +152,9 @@
 </span>type SomeTupleIterator&lt;I, J&gt; = impl Iterator&lt;Item = (I, J)&gt;;
 <span class="boring">}
 </span></code></pre></pre>
-<p>The values that you use for these generic parameters, however, are subject to some restrictions. In particular, type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:</p>
+<p>The hidden type inferred for an impl trait that appears in a type alias may always reference any of the generic parameters from that type alias.</p>
+<h2 id="limits-on-the-generic-arguments-to-a-type-alias-impl-trait"><a class="header" href="#limits-on-the-generic-arguments-to-a-type-alias-impl-trait">Limits on the generic arguments to a type alias impl trait</a></h2>
+<p>References to a type aliases that contain an impl trait, however, are subject to some restrictions. In particular, those type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {

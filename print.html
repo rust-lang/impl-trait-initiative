@@ -743,7 +743,9 @@ fn main() {
 </span>type SomeTupleIterator&lt;I, J&gt; = impl Iterator&lt;Item = (I, J)&gt;;
 <span class="boring">}
 </span></code></pre></pre>
-<p>The values that you use for these generic parameters, however, are subject to some restrictions. In particular, type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:</p>
+<p>The hidden type inferred for an impl trait that appears in a type alias may always reference any of the generic parameters from that type alias.</p>
+<h2 id="limits-on-the-generic-arguments-to-a-type-alias-impl-trait"><a class="header" href="#limits-on-the-generic-arguments-to-a-type-alias-impl-trait">Limits on the generic arguments to a type alias impl trait</a></h2>
+<p>References to a type aliases that contain an impl trait, however, are subject to some restrictions. In particular, those type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -780,7 +782,26 @@ fn foo4&lt;A, B&gt;() -&gt; SomeTupleIterator&lt;A, u32&gt; { /* not ok -- u32 i
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="generic-parameter-capture"><a class="header" href="#generic-parameter-capture">Generic parameter capture</a></h1>
 <p><img src="https://img.shields.io/badge/status-stable-success" alt="stable" /></p>
-<p>When you use an impl trait in return position, there are some limitations on the &quot;hidden type&quot; that may be used. </p>
+<p>When you use an impl trait in return position, the hidden type may make use of any of the type parameters, and hence the following function is legal:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Hidden type: Option&lt;T&gt;, which references T
+fn foo&lt;T: Clone&gt;(t: T) -&gt; impl Clone {
+    Some(t)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>However, it may not reference lifetime parameters <em>unless</em> those lifetime parameters appear in the impl trait bounds. The following</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Error: hidden type `Option&lt;&amp;'a u32&gt;` references `'a`
+fn foo&lt;'a&gt;(t: &amp;'a u32) -&gt; impl Clone {
+    Some(t)
+}
+<span class="boring">}
+</span></code></pre></pre>
 <p>XXX document:</p>
 <ul>
 <li>you can capture type parameters</li>
@@ -819,7 +840,8 @@ impl Default for foo {
 </span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="return-types-in-trait-definitions-and-impls"><a class="header" href="#return-types-in-trait-definitions-and-impls">Return types in trait definitions and impls</a></h1>
 <p><img src="https://img.shields.io/badge/status-draft%20rfc-informational" alt="planning rfc" /></p>
-<p>When you use <code>impl Trait</code> as the return type for a function within a trait definition or trait impl, the semantics are somewhat different than in other cases. Consider the following trait:</p>
+<p>When you use <code>impl Trait</code> as the return type for a function within a trait definition or trait impl, the intent is the same: impls that implement this trait return &quot;some type that implements <code>Trait</code>&quot;, and users of the trait can only rely on that. However, the desugaring to achieve that effect looks somewhat different than other cases of impl trait in return position. This is because we cannot desugar to a type alias in the surrounding module; we need to desugar to an associated type (effectively, a type alias in the trait).</p>
+<p>Consider the following trait:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -1422,11 +1444,13 @@ where T: FnOnce() -&gt; impl Clone
 <p>Feedback welcome!</p>
 </blockquote>
 <hr />
+<h1 id="return-position-impl-trait-in-traits-1"><a class="header" href="#return-position-impl-trait-in-traits-1">Return position impl Trait in traits</a></h1>
 <ul>
 <li>Feature Name: (fill me in with a unique ident, <code>my_awesome_feature</code>)</li>
 <li>Start Date: (fill me in with today's date, YYYY-MM-DD)</li>
 <li>RFC PR: <a href="https://github.com/rust-lang/rfcs/pull/0000">rust-lang/rfcs#0000</a></li>
 <li>Rust Issue: <a href="https://github.com/rust-lang/rust/issues/0000">rust-lang/rust#0000</a></li>
+<li>Developed as part of the <a href="https://github.com/rust-lang/impl-trait-initiative">impl traits lang team initiative</a></li>
 </ul>
 <h1 id="summary-3"><a class="header" href="#summary-3">Summary</a></h1>
 <ul>
@@ -1447,7 +1471,52 @@ where T: FnOnce() -&gt; impl Clone
 <span class="boring">}
 </span></code></pre></pre>
 <h1 id="guide-level-explanation"><a class="header" href="#guide-level-explanation">Guide-level explanation</a></h1>
-<p>Please refer to the <a href="https://rust-lang.github.io/impl-trait-initiative/explainer/rpit.html">&quot;return position&quot; section of the explainer</a>.</p>
+<p><em>This section assumes familiarity with the <a href="https://rust-lang.github.io/impl-trait-initiative/explainer/rpit.html">basic semantics of impl trait in return position</a>.</em></p>
+<p>When you use <code>impl Trait</code> as the return type for a function within a trait definition or trait impl, the intent is the same: impls that implement this trait return &quot;some type that implements <code>Trait</code>&quot;, and users of the trait can only rely on that. However, the desugaring to achieve that effect looks somewhat different than other cases of impl trait in return position. This is because we cannot desugar to a type alias in the surrounding module; we need to desugar to an associated type (effectively, a type alias in the trait).</p>
+<p>Consider the following trait:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait IntoIntIterator {
+    fn into_int_iter(self) -&gt; impl Iterator&lt;Item = u32&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The semantics of this are analogous to introducing a new associated type within the surrounding trait;</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait IntoIntIterator { // desugared
+    type IntoIntIter: Iterator&lt;Item = u32&gt;;
+    fn into_int_iter(self) -&gt; Self::IntoIntIter;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>(In general, this associated type may be generic; it would contain whatever generic parameters are captured per the generic capture rules given previously.)</p>
+<p>This associated type is introduced by the compiler and cannot be named by users.</p>
+<p>The impl for a trait like <code>IntoIntIterator</code> must also use <code>impl Trait</code> in return position:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl IntoIntIterator for Vec&lt;u32&gt; {
+    fn into_int_iter(self) -&gt; impl Iterator&lt;Item = u32&gt; {
+        self.into_iter()
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This is equivalent to specify the value of the associated type as an <code>impl Trait</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl IntoIntIterator for Vec&lt;u32&gt; {
+    type IntoIntIter = impl Iterator&lt;Item = u32&gt;
+    fn into_int_iter(self) -&gt; Self::IntoIntIter {
+        self.into_iter()
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
 <h1 id="reference-level-explanation"><a class="header" href="#reference-level-explanation">Reference-level explanation</a></h1>
 <h2 id="equivalent-desugaring-for-traits"><a class="header" href="#equivalent-desugaring-for-traits">Equivalent desugaring for traits</a></h2>
 <p>Each <code>-&gt; impl Trait</code> notation appearing in a trait fn return type is desugared to an anonymous associated type; the name of this type is a fresh name that cannot be typed by Rust programmers. In this RFC, we will use the name <code>$</code> when illustrating desugarings and the like.</p>
@@ -1574,6 +1643,41 @@ trait RefIterator for Vec&lt;u32&gt; {
 </ul>
 <p>There is a need to introduce a mechanism for naming the return type for functions that use <code>-&gt; impl Trait</code>; we plan to introduce a second RFC addressing this need uniformly across all kinds of functions.</p>
 <p>As a backwards compatibility note, named associated types could likely be introduced later, although there is always the possibility of users having introduced associated types with the same name.</p>
+<h2 id="does-auto-trait-leakage-still-occur-for---impl-trait-in-traits"><a class="header" href="#does-auto-trait-leakage-still-occur-for---impl-trait-in-traits">Does auto trait leakage still occur for <code>-&gt; impl Trait</code> in traits?</a></h2>
+<p>Yes, so long as the compiler has enough type information to figure out which impl you are using. In other words, given a trait function <code>SomeTrait::foo</code>, if you invoke a function <code>&lt;T as SomeTrait&gt;::foo()</code> where the self type is some generic parameter <code>T</code>, then the compiler doesn't really know what impl is being used, so no auto trait leakage can occur. But if you were to invoke <code>&lt;u32 as SomeTrait&gt;::foo()</code>, then the compiler could resolve to a specific impl, and hence a specific <a href="https://rust-lang.github.io/impl-trait-initiative/explainer/tait.html">impl trait type alias</a>, and auto trait leakage would occur as normal.</p>
+<h2 id="would-introducing-a-named-associated-type-be-a-breaking-change-for-a-trait"><a class="header" href="#would-introducing-a-named-associated-type-be-a-breaking-change-for-a-trait">Would introducing a named associated type be a breaking change for a trait?</a></h2>
+<p>Converting from returning impl trait to an explicit associated type is a breaking change for impls of the trait. Given this code:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    fn bar() -&gt; impl Display;
+}
+
+impl Foo for u32 {
+    fn bar() -&gt; impl Display {
+        self
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>transforming it to the following:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    type Bar: Display;
+    fn bar() -&gt; Self::Bar;
+}
+
+impl Foo for u32 {
+    fn bar() -&gt; impl Display {
+        self
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Results in an impl in the <code>impl Foo for u32</code>. The <a href="RFCs/rpit-in-traits.html#future-possibilities">Future possibilities section</a> discusses some possible ways we could mitigate this in the future by other language extensions.</p>
 <h1 id="prior-art"><a class="header" href="#prior-art">Prior art</a></h1>
 <p>There are a number of crates that do desugaring like this manually or with procedural macros. One notable example is <a href="https://crates.io/crates/real-async-trait">real-async-trait</a>.</p>
 <h1 id="unresolved-questions"><a class="header" href="#unresolved-questions">Unresolved questions</a></h1>
@@ -1581,8 +1685,9 @@ trait RefIterator for Vec&lt;u32&gt; {
 <li>None.</li>
 </ul>
 <h1 id="future-possibilities"><a class="header" href="#future-possibilities">Future possibilities</a></h1>
-<p>We expect to introduce a mechanism for naming the result of <code>-&gt; impl Trait</code> return types in a follow-up RFC.</p>
-<p>Similarly, we expect to be introducing language extensions to address the inability to use <code>-&gt; impl Trait</code> types with dynamic dispatch. These mechanisms are needed for async fn.</p>
+<p>We expect to introduce a mechanism for naming the result of <code>-&gt; impl Trait</code> return types in a follow-up RFC (see the draft <a href="https://rust-lang.github.io/impl-trait-initiative/RFCs/named-function-types.html">named function types</a> rfc for the current thinking).</p>
+<p>Similarly, we expect to be introducing language extensions to address the inability to use <code>-&gt; impl Trait</code> types with dynamic dispatch. These mechanisms are needed for async fn as well. A good writeup of the challenges can be found on the &quot;challenges&quot; page of the <a href="https://rust-lang.github.io/async-fundamentals-initiative/evaluation/challenges/dyn_traits.html">async fundamentals initiative</a>.</p>
+<p>Finally, it would be possible to introduce a mechanism that allows users to give a name to the associated type that is returned by impl trait. One proposed mechanim is to support an inference mechanism, so that one if you have a function <code>fn foo() -&gt; Self::Foo</code> that returns an associated type, the impl only needs to implement the function, and the compiler infers the value of <code>Foo</code> from the return type. Another options would be to extend the impl trait syntax generally to let uses give a name to the type alias or parameter that is introduced.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="draft-rfc-named-function-types"><a class="header" href="#draft-rfc-named-function-types">Draft RFC: Named function types</a></h1>
 <blockquote>
 <p>This is a <strong>draft RFC</strong> that will be submitted to the rust-lang/rfcs repository when it is ready.</p>
