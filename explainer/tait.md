@@ -31,8 +31,8 @@ Of course, typing that long type is kind of annoying. Moreover, there are some t
 mod odd {
     pub type OddIntegers = std::iter::Filter<std::ops::Range<u32>, /* what goes here? */>;
 
-    pub fn odd_integers(mut start: u32, stop: u32) -> OddIntegers {
-        (start..stop).filter(|x| x % 2 != 0)
+    pub fn odd_integers(start: u32, stop: u32) -> OddIntegers {
+        (start..stop).filter(|i| i % 2 != 0)
     }
 }
 ```
