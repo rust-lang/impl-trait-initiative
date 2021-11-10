@@ -296,7 +296,7 @@ impl NewIntoIterator for Vec&lt;u32&gt; {
 <h2 id="generic-parameter-capture-and-gats"><a class="header" href="#generic-parameter-capture-and-gats">Generic parameter capture and GATs</a></h2>
 <p>As with <code>-&gt; impl Trait</code> in other kinds of functions, the hidden type for <code>-&gt; impl Trait</code> in a trait may reference any of the type or const parameters declared on the impl or the method; it may also reference any lifetime parameters that explicitly appear in the trait bounds (<a href="https://rust-lang.github.io/impl-trait-initiative/explainer/rpit_capture.html">details</a>). We say that a generic parameter is <em>captured</em> if it may appear in the hidden type.</p>
 <p>When desugaring, captured parameters from the method are reflected as generic parameters on the <code>$</code> associated type. Furthermore, the <code>$</code> associated type has the required brings whatever where clauses are declared on the method into scope (excepting those which reference other parameters that are not captured). This transformation is precisely the same as the one which is applied to other forms of <code>-&gt; impl Trait</code>, except that it applies to an associated type and not a top-level type alias.</p>
-<p>Exaample:</p>
+<p>Example:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
