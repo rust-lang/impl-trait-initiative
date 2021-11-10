@@ -9,7 +9,11 @@ Type alias impl Traits can also be generic:
 type SomeTupleIterator<I, J> = impl Iterator<Item = (I, J)>;
 ```
 
-The values that you use for these generic parameters, however, are subject to some restrictions. In particular, type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:
+The hidden type inferred for an impl trait that appears in a type alias may always reference any of the generic parameters from that type alias.
+
+## Limits on the generic arguments to a type alias impl trait
+
+References to a type aliases that contain an impl trait, however, are subject to some restrictions. In particular, those type aliases can only be used with other generic types that are in scope, and each parameter must be distinct. Example:
 
 ```rust
 fn foo1<A, B>() -> SomeTupleIterator<A, B> { /* ok */ }

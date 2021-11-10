@@ -11,7 +11,7 @@ trait Operation {
     fn compute(x: impl Iterator<Item = u32>) -> u32;
 }
 
-Struct Sum;
+struct Sum;
 impl Operation for Sum {
     fn compute(x: impl Iterator<Item = u32>) -> u32 {
         x.sum()
@@ -23,7 +23,7 @@ But the following would be illegal:
 
 ```rust
 struct Max;
-impl Operation for Sum {
+impl Operation for Max {
     fn compute<I: Iterator<Item = u32>>(x: I) -> u32 {
         x.max()
     }
