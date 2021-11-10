@@ -144,7 +144,7 @@ impl NewIntoIterator for Vec<u32> {
 
 ## Impl trait must be used in both trait and trait impls
 
-Using `-> impl Trait` notation in a trait requires that all trait impls also use `-> impl Trait` notation in their retrn types. Similarly, using `-> impl Trait` notation in an impl is only legal if the trait also uses that notation:
+Using `-> impl Trait` notation in a trait requires that all trait impls also use `-> impl Trait` notation in their return types. Similarly, using `-> impl Trait` notation in an impl is only legal if the trait also uses that notation:
 
 ```rust
 trait NewIntoIterator {
