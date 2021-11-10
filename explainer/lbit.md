@@ -1,6 +1,8 @@
 # Impl trait in let bindings
 
-**Status:** Accepted RFC, not yet implemented
+![accepted rfc][]
+
+{{#include ../badges.md}}
 
 You can also use `impl Trait` in the type of a local variable:
 

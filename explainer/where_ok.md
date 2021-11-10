@@ -1,25 +1,50 @@
 # Appendix B: Where can impl trait be used
 
-What follows is a full set of locations where impl Trait can be used, and what they mean in that position.
+{{#include ../badges.md}}
 
-| Example                                           | Name                              | Stage      | Description                                                           |
-| ------------------------------------------------- | --------------------------------- | ---------- | --------------------------------------------------------------------- |
-| `type Foo = impl Trait`                           | top-level type alias              | nightly    | "output" impl trait, inferred from code within the enclosing item     |
-| `impl Trait for Type { type Foo = impl Trait }`   | associated type                   | nightly    | "output" impl trait, inferred from code within the impl               |
-| `fn foo(x: impl Trait) {...}`                     | argument position                 | stable     | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
-| `trait Trait { fn foo(x: impl Trait) }`           | argument position, trait method   | stable     | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
-| `impl Trait for Type  { fn foo() -> impl Trait }` | argument position, trait impl     | stable     | "input" impl trait: equivalent to a type parameter `fn foo<T: Trait>` |
-| `fn foo() -> impl Trait {...}`                    | return position (free function)   | stable     | "output" impl trait with the fn body as its defining scope            |
-| `impl Type { fn foo() -> impl Trait }`            | return position (inherent method) | stable     | "output" impl trait with the fn body as its defining scope            |
-| `trait Trait { fn foo() -> impl Trait }`          | return position, trait method     | evaluation | "output" impl trait, equivalent to an associated type                 |
-| `impl Trait for Type  { fn foo() -> impl Trait }` | return position, trait impl       | evaluation | "output" impl trait, equivalent to an associated type                 |
-| `let x: impl Trait`                               | let binding                       | rfc'd      | "output" impl trait, inferred from enclosing function                 |                                                                       
-| `const x: impl Trait`                             | type of const                     | rfc'd      | "output" impl trait, inferred from enclosing function                 |                                                                       
-| `static x: impl Trait`                            | type of static                    | rfc'd      | "output" impl trait, inferred from enclosing function                 |                                                                       
+## Overview
 
-More details follow.
+Impl trait is accepted in the following locations:
 
-## General rules for "input" vs "output"
+| Position                                | Who determines the hidden type       | Role     | Status                                       |
+| --------------------------------------- | ------------------------------------ | -------- | -------------------------------------------- |
+| [Argument position][apit]               | Each caller                          | [Input]  | ![stable][]                                  |
+| [Type alias][tait]                      | Code within the enclosing module     | [Output] | ![nightly][]                                 |
+| [Return position, free fns][rpit]       | The function body                    | [Output] | ![stable][]                                  |
+| [Return position, inherent impls][rpit] | The function body                    | [Output] | ![stable][]                                  |
+| [Return position, trait impls][rpit]    | The function body                    | [Output] | [![planning rfc][]](../RFCs/rpit-in-traits.md) |
+| [Return position, traits][rpit_trait]   | The impl                             | [Input]  | [![planning rfc][]](../RFCs/rpit-in-traits.md) |
+| [Let binding][lbit]                     | The enclosing function or code block | [Output] | ![accepted rfc][]                            |
+| [Const binding][lbit]                   | The const initializer                | [Output] | ![accepted rfc][]                            |
+| [Static binding][lbit]                  | The static initializer               | [Output] | ![accepted rfc][]                            |
+
+[apit]: ./apit.md
+[tait]: ./tait.md
+[rpit]: ./rpit.md
+[rpit_trait]: ./rpit_trait.md
+[lbit]: ./lbit.md
+[input]: #input-impl-trait
+[output]: #output-impl-trait
+
+Impl trait is not accepted in other locations; [Appendix C](./where_not_ok.md) covers some of the locations where `impl Trait` is not presently accepted and why.
+
+<a name="role">
+
+## Role: Input vs output
+
+</a>
+
+Impl traits in general play one of two roles.
+
+### Input impl trait
+
+An *input* impl trait corresponds loosely to a generic parameter. The code that references the impl Trait may be instantiated multiple times with different values. For example, a function using impl Trait in [argument position](./apit.md) can be called with many different types for the impl Trait.
+
+### Output impl trait
+
+An *output* impl trait plays a role similar to a type that is given by the user. In this case, the impl trait represents a single type (although that type may be relative to generic types are in scope) which is inferred from the code around the definition. For example, a free function with an impl Trait in [return position](./rpit.md) will have the true return type inferred from the function body. The type represented by an output impl trait is called the *hidden type*. The code that is used to infer the value for an output impl trait is called its *defining scope*.
+
+### General rules for "input" vs "output"
 
 In general, the role of `impl Trait` and `'_` both follow the same rules in terms of being "input vs output".  When in an argument listing, that is an "input" role and they correspond to a fresh parameter in the innermost binder. Otherwise, they are in "output" role and the corresponding to something which is inferred or selected from context (in the case of `'_` in return position, it is selected based on the rules of lifetime elision; `'_` within a function body corresponds to inference).
 

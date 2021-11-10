@@ -1,6 +1,8 @@
 # Auto traits and impl trait
 
-**Status:** Stable.
+![stable][]
+
+{{#include ../badges.md}}
 
 When talking about output impl Traits in the previous section, we said that callers cannot rely on the precise hidden type, but must instead rely only on the declared bounds from the impl Trait. This was actually a simplification: in reality, callers are able to rely on *some* aspects of the hidden type. Specifically, they are able to deduce whether the hidden type implements the various [auto traits], like `Send` and `Sync`:
 
@@ -8,7 +10,7 @@ When talking about output impl Traits in the previous section, we said that call
 
 ```rust
 fn odd_integers(start: u32, stop: u32) -> impl Iterator<Item = u32> {
-    (start..stop).filter(|i| i % 2 == 0)
+    (start..stop).filter(|i| i % 2 != 0)
 }
 
 fn other_function() {
