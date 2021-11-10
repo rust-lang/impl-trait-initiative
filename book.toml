@@ -6,8 +6,8 @@ src = "."
 title = "Impl trait initiative"
 
 [output.html]
-no-section-label=true
-git-repository-url="https://github.com/rust-lang/impl-trait-initiative"
+no-section-label = true
+git-repository-url = "https://github.com/rust-lang/impl-trait-initiative"
 
 [output.html.fold]
 enable = true
