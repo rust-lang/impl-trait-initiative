@@ -1,6 +1,7 @@
 # Generic parameters and type alias impl trait
 
 ![nightly][]
+
 {{#include ../badges.md}}
 
 Type alias impl Traits can also be generic:
